@@ -1,0 +1,4 @@
+<adapter name="Geomessage" label="Geomessage Outbound Adapter" domain="com.esri.ges.adapter.outbound" type="outbound">
+	<description>This adapter is capable of generating Esri Geomessages compatible with ArcGIS Runtime applications such as the Vehicle Commander or Squad Leader.</description>
+	<propertyDefinitions/>
+</adapter>

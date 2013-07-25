@@ -1,0 +1,8 @@
+com\esri\ges\adapter\defense\MessageParser.class
+com\esri\ges\adapter\defense\DefenseInboundAdapterService.class
+com\esri\ges\adapter\defense\DefenseOutboundAdapter$1.class
+com\esri\ges\adapter\defense\DefenseInboundAdapter.class
+com\esri\ges\adapter\defense\DefenseOutboundAdapterService.class
+com\esri\ges\adapter\defense\DefenseInboundAdapter$1.class
+com\esri\ges\adapter\defense\MessageParser$MessageLevel.class
+com\esri\ges\adapter\defense\DefenseOutboundAdapter.class
