@@ -1,15 +1,13 @@
 Manifest-Version: 1.0
 AGES-Domain: com.esri.ges.processor
-Bnd-LastModified: 1380057275710
+Bnd-LastModified: 1380662881874
 Build-Jdk: 1.7.0_25
 Built-By: patr5136
 Bundle-ContactAddress: geoeventprocessor@esri.com
-Bundle-Description: defense-geometry-processor OSGi blueprint bundle pro
- ject.
+Bundle-Description: geometry processors for geoevent server
 Bundle-ManifestVersion: 2
-Bundle-Name: defense-geometry-processor Blueprint Bundle
-Bundle-SymbolicName: com.esri.ges.framework.processor.defense-geometry-p
- rocessor
+Bundle-Name: Esri :: GeoEvent :: Geometry
+Bundle-SymbolicName: com.esri.geoevent.parent.defense-geometry-processor
 Bundle-Version: 10.2.0
 Created-By: Apache Maven Bundle Plugin
 Export-Service: com.esri.ges.processor.GeoEventProcessorService

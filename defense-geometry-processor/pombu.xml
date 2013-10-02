@@ -20,27 +20,19 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.esri.geoevent.parent</groupId>
+    <groupId>com.esri.ges.framework.processor</groupId>
     <artifactId>defense-geometry-processor</artifactId>
     <version>10.2.0</version>
     <packaging>bundle</packaging>
 
-    <name>Esri :: GeoEvent :: Geometry</name>
-    <url>http://www.esri.com</url>
-    <description>geometry processors for geoevent server</description>
-	
-	<properties>
-		<contact.address>geoevent@esri.com</contact.address>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.bundle.plugin.version>2.3.6</maven.bundle.plugin.version>
-		<junit.version>4.8.1</junit.version>
-		<jackson.version>1.9.5</jackson.version>
-	</properties>
+    <name>defense-geometry-processor Blueprint Bundle</name>
+    <description>defense-geometry-processor OSGi blueprint bundle project.</description>
 
-	
-	
     <repositories>
-		
+		<repository>
+			<id>ages-sdk-repo</id>
+			<url>file:///geoevent-sdk-10.2/repository</url>
+		</repository>
 		<repository>
       		<id>GEP</id>
       		<name>GeoEvent Processor embedded repository</name>
@@ -48,20 +40,11 @@
       		<url>file:///Program Files/ArcGIS/Server/GeoEventProcessor/System</url>
     	</repository>	
 	</repositories>
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>commons-logging</groupId>
-				<artifactId>commons-logging</artifactId>
-				<version>1.1.1</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 	<dependencies>
 		<dependency>
-			<groupId>com.esri.geoevent.sdk</groupId>
-			<artifactId>geoevent-sdk</artifactId>
-			<version>10.2.0</version>
+			<groupId>com.esri.ges.sdk</groupId>
+			<artifactId>ges-lib</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.esri.ges.manager</groupId>
@@ -79,21 +62,30 @@
        		<artifactId>datastore-api</artifactId>
 		</dependency>
 		<dependency>
-        	<groupId>org.codehaus.jackson</groupId>
-        	<artifactId>jackson-mapper-asl</artifactId>
-        	<version>1.9.5</version>
-        	<scope>provided</scope>
-        </dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.1</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.osgi.core</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+        	<groupId>org.codehaus.jackson</groupId>
+        	<artifactId>jackson-mapper-asl</artifactId>
+        	<version>1.9.5</version>
+        </dependency>
+		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 			<version>4.2</version>
-			<scope>provided</scope>
 		</dependency>
         <dependency>
         	<groupId>com.esri.arcgis.runtime</groupId>
@@ -101,12 +93,7 @@
             <version>10.1.1</version>
             <scope>provided</scope>
         </dependency>
-    	<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
-		</dependency>
+    
 	</dependencies>
     <build>
     	<pluginManagement>

@@ -24,6 +24,12 @@
 		<property name="spatial" ref="spatialService"/>
     </bean>
     
+    <bean id="polygonProcessorServiceBean" class="com.esri.ges.processor.defense.PolygonProcessorService" init-method="start">
+    	<property name="bundleContext" ref="blueprintBundleContext" />
+		<property name="spatial" ref="spatialService"/>
+		<property name="manager" ref="geoDefManagerService"/>
+    </bean>
+    
     <bean id="visibilityProcessorServiceBean" class="com.esri.ges.processor.defense.VisibilityProcessorService" init-method="start">
     	<property name="bundleContext" ref="blueprintBundleContext" />
 		<property name="spatial" ref="spatialService"/>
@@ -31,7 +37,7 @@
 		
     </bean>
     
-    <bean id="queryProcessorServiceBean" class="com.esri.ges.processor.defense.QueryProcessorService" init-method="start">
+    <bean id="queryReportProcessorServiceBean" class="com.esri.ges.processor.defense.QueryReportProcessorService" init-method="start">
     	<property name="bundleContext" ref="blueprintBundleContext" />
 		<property name="spatial" ref="spatialService"/>
 		<property name="manager" ref="geoDefManagerService"/>
@@ -43,5 +49,6 @@
 	<service id="ellipseProcessorService" ref="ellipseProcessorServiceBean" interface="com.esri.ges.processor.GeoEventProcessorService"/>
 	<service id="bufferProcessorService" ref="bufferProcessorServiceBean" interface="com.esri.ges.processor.GeoEventProcessorService"/>
 	<service id="visibilityProcessorService" ref="visibilityProcessorServiceBean" interface="com.esri.ges.processor.GeoEventProcessorService"/>
-	<service id="queryProcessorService" ref="queryProcessorServiceBean" interface="com.esri.ges.processor.GeoEventProcessorService"/>
+	<service id="queryReportProcessorService" ref="queryReportProcessorServiceBean" interface="com.esri.ges.processor.GeoEventProcessorService"/>
+	<service id="polygonProcessorService" ref="polygonProcessorServiceBean" interface="com.esri.ges.processor.GeoEventProcessorService"/>
 </blueprint>

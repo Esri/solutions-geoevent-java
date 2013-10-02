@@ -132,14 +132,38 @@ public class VisibilityProcessor extends GeoEventProcessorBase {
 		Geometry tmpmask = mapgeo.getGeometry();
 		Geometry mask = GeometryEngine.project(tmpmask, srIn, srBuffer);
 		Envelope extent = new Envelope();
-		mask.queryEnvelope(extent);
-		Double x = extent.getCenterX();
-		Double y = extent.getCenterY();
-		
-		String cx = ((Double)x).toString();
-		String cy = ((Double)y).toString();
-		String obs = cx + " " + cy;
-		
+		String obs = "";
+		if(properties.get("observerSource").getValueAsString().equals("Geoevent"))
+		{
+			mask.queryEnvelope(extent);
+			Double x = extent.getCenterX();
+			Double y = extent.getCenterY();
+
+			String cx = ((Double) x).toString();
+			String cy = ((Double) y).toString();
+			obs = cx + " " + cy;
+		}
+		else if(properties.get("observerSource").getValueAsString().equals("Event Field"))
+		{
+			
+			String xeventfld = properties.get("observerXEvent").getValue().toString();
+			String[] arr = xeventfld.split(":");
+			Double x = (Double)ge.getField(arr[1]);
+			String yeventfld = properties.get("observerYEvent").getValue().toString();
+			arr = yeventfld.split(":");
+			Double y = (Double)ge.getField(arr[1]);
+			Point p = new Point(x,y);
+			p = (Point)GeometryEngine.project(p, srIn, srBuffer);
+			obs = ((Double)p.getX()).toString() + " " + ((Double)p.getY()).toString();
+		}
+		else
+		{
+			Double x = (Double)properties.get("observerX").getValue();
+			Double y = (Double)properties.get("observerY").getValue();
+			Point p = new Point(x,y);
+			p = (Point)GeometryEngine.project(p, srIn, srBuffer);
+			obs = ((Double)p.getX()).toString() + " " + ((Double)p.getY()).toString();
+		}
 		String contentType = "application/json";
 		HttpClient httpclient = new DefaultHttpClient();
 		String observers = URLEncoder.encode(obs, "UTF-8");
