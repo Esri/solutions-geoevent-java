@@ -15,7 +15,6 @@ import com.esri.ges.core.component.ComponentException;
 import com.esri.ges.core.geoevent.GeoEvent;
 import com.esri.ges.processor.GeoEventProcessorBase;
 import com.esri.ges.processor.GeoEventProcessorDefinition;
-import com.esri.ges.spatial.Geometry;
 import com.esri.ges.spatial.GeometryException;
 import com.esri.ges.spatial.Spatial;
 

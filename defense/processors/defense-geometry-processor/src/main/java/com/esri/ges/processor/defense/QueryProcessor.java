@@ -12,7 +12,6 @@ import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.sql.Date;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -101,7 +100,6 @@ public class QueryProcessor extends GeoEventProcessorBase {
 		com.esri.ges.spatial.Point eventGeo = (com.esri.ges.spatial.Point) ge.getGeometry();
 		double x = eventGeo.getX();
 		double y = eventGeo.getY();
-		Geometry geo = ge.getGeometry();
 		com.esri.ges.spatial.Geometry buffer = constructBuffer(x,y,radius,units);
 		String jsonGeo =  buffer.toJson();
 		String geotype = GeometryUtility.parseGeometryType(buffer.getType());

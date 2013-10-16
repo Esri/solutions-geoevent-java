@@ -8,8 +8,6 @@ import com.esri.ges.manager.datastore.agsconnection.ArcGISServerConnectionManage
 import com.esri.ges.manager.geoeventdefinition.GeoEventDefinitionManager;
 import com.esri.ges.messaging.Messaging;
 import com.esri.ges.processor.GeoEventProcessor;
-import com.esri.ges.processor.GeoEventProcessorEvent;
-import com.esri.ges.processor.GeoEventProcessorEventAction;
 import com.esri.ges.processor.GeoEventProcessorServiceBase;
 import com.esri.ges.spatial.Spatial;
 
@@ -49,7 +47,7 @@ public class QueryReportProcessorService extends GeoEventProcessorServiceBase {
 	public void start() throws PropertyException{
 		
 		QueryReportProcessorDefinition qDef = (QueryReportProcessorDefinition)definition;
-		HashMap<String, String> fieldMap = new HashMap<String, String>();	qDef.setManager(manager);
+		qDef.setManager(manager);
 		qDef.setConnectionManager(connectionManager);
 	}
 

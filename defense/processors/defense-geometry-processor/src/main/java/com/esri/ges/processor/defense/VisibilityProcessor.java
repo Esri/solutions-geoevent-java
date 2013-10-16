@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
@@ -29,24 +28,13 @@ import com.esri.core.geometry.Point;
 import com.esri.core.geometry.SpatialReference;
 import com.esri.core.map.FeatureSet;
 import com.esri.core.map.Graphic;
-import com.esri.core.tasks.ags.geoprocessing.GPDouble;
-import com.esri.core.tasks.ags.geoprocessing.GPFeatureRecordSetLayer;
-import com.esri.core.tasks.ags.geoprocessing.GPLong;
-import com.esri.core.tasks.ags.geoprocessing.GPParameter;
-import com.esri.core.tasks.ags.geoprocessing.GPString;
-import com.esri.core.tasks.ags.geoprocessing.Geoprocessor;
 import com.esri.ges.core.ConfigurationException;
 import com.esri.ges.core.component.ComponentException;
-import com.esri.ges.core.geoevent.DefaultFieldDefinition;
-import com.esri.ges.core.geoevent.FieldDefinition;
 import com.esri.ges.core.geoevent.FieldException;
-import com.esri.ges.core.geoevent.FieldType;
 import com.esri.ges.core.geoevent.GeoEvent;
-import com.esri.ges.core.geoevent.GeoEventDefinition;
 import com.esri.ges.manager.geoeventdefinition.GeoEventDefinitionManager;
 import com.esri.ges.processor.GeoEventProcessorBase;
 import com.esri.ges.processor.GeoEventProcessorDefinition;
-import com.esri.ges.spatial.GeometryException;
 import com.esri.ges.spatial.Spatial;
 
 public class VisibilityProcessor extends GeoEventProcessorBase {
@@ -200,10 +188,14 @@ public class VisibilityProcessor extends GeoEventProcessorBase {
 					jf = new JsonFactory();
 					jp = jf.createJsonParser(output);
 					ObjectMapper mapper = new ObjectMapper();
-					Map<String, Object> map = mapper.readValue(jp, Map.class);
+					@SuppressWarnings("unchecked")
+					Map<String, Object> map = (Map<String, Object>)mapper.readValue(jp, Map.class);
+					@SuppressWarnings("unchecked")
 					ArrayList<Object> resString = (ArrayList<Object>)map.get("results");
 					
+					@SuppressWarnings("unchecked")
 					Map<String, Object> r = (Map<String, Object>)resString.get(0);
+					@SuppressWarnings("unchecked")
 					Map<String,Object> val = (Map<String,Object>)r.get("value");
 					String fsetJson = mapper.writeValueAsString(val);
 					//String visRes = res.getResults().get(2);
@@ -278,136 +270,7 @@ public class VisibilityProcessor extends GeoEventProcessorBase {
 		ge.setField("gcnvis", new Integer(0));
 	}
 	
-	private void constructVisibility(GeoEvent ge, String observer, String gpservice, String imageservice, double range, String unit,  double elevation, String units_elev, Geometry mask, int wkid) throws FieldException,  ConfigurationException, GeometryException
-	{
-		try {
-			UnitConverter uc = new UnitConverter();
-			range = uc.Convert(range, unit, srBuffer);
-			String procUnitName = srBuffer.getUnit().getName();
-			// normalize horizontal and vertical units to z-factor = 1
-			//double inElev = elevation;
-			if (procUnitName.equals("Meter")) {
-				if (units_elev.equals("Feet")) {
-					elevation = elevation * 0.3048;
-				}
-			} else {
-				if (units_elev.equals("Meters")) {
-					elevation = elevation * 3.28084;
-				}
-			}
-
-			Geoprocessor gp = new Geoprocessor(gpservice);
-			List<GPParameter> parameters = new ArrayList<GPParameter>();
-			com.esri.ges.spatial.Point eventGeo = (com.esri.ges.spatial.Point) ge
-					.getGeometry();
-
-			// Set params
-			Double x = (Double) eventGeo.getX();
-			Double y = (Double) eventGeo.getY();
-			Point center = new Point();
-			center.setX(x);
-			center.setY(y);
-			Point centerProj = (Point) GeometryEngine.project(center, srIn,
-					srBuffer);
-			String cx = ((Double)centerProj.getX()).toString();
-			String cy = ((Double)centerProj.getY()).toString();
-			String obs = cx + " " + cy;
-			GPString paramObserver = new GPString();
-			paramObserver.setParamName("observers");
-			paramObserver.setValue(obs);
-			parameters.add(paramObserver);
-
-			GPString paramIS = new GPString();
-			paramIS.setParamName("image_service_url");
-			paramIS.setValue(imageservice);
-			parameters.add(paramIS);
-
-			GPDouble paramRadius = new GPDouble();
-			paramRadius.setParamName("radius");
-			paramRadius.setValue(range);
-			parameters.add(paramRadius);
-
-			GPDouble paramHeight = new GPDouble();
-			paramHeight.setParamName("height");
-			paramHeight.setValue(elevation);
-			parameters.add(paramHeight);
-
-			String json = GeometryEngine.geometryToJson(srBuffer, mask);
-			GPString paramMask = new GPString();
-			paramMask.setParamName("json_mask");
-			paramMask.setValue(json);
-			parameters.add(paramMask);
-
-			GPLong paramWkid = new GPLong();
-			paramWkid.setParamName("wkid");
-			paramWkid.setValue(wkid);
-			parameters.add(paramWkid);
-			com.esri.ges.spatial.Geometry visible = null;
-			com.esri.ges.spatial.Geometry nonvisible = null;
-			GPParameter[] result = null;
-			try
-			{
-				result = gp.execute(parameters);
-			}
-			catch(Exception ex)
-			{
-				LOG.error(ex.getMessage());
-				LOG.error(ex.getStackTrace());
-				gp.cancelJob();
-				
-			}
-			if (result != null) {
-				for (GPParameter outputParameter : result) {
-					if (outputParameter instanceof GPFeatureRecordSetLayer) {
-						GPFeatureRecordSetLayer gpResults = (GPFeatureRecordSetLayer) outputParameter;
-						for (Graphic graphic : gpResults.getGraphics()) {
-
-							int code = (Integer) graphic.getAttributes().get(
-									"gridcode");
-							// com.esri.ges.spatial.Geometry tmpgesVis = null;
-							// com.esri.ges.spatial.Geometry tmpgesNonVis =
-							// null;
-							if (code == 0) {
-								Geometry tmpvis = graphic.getGeometry();
-								Geometry vis = GeometryEngine.project(tmpvis,
-										srBuffer, srOut);
-								json = GeometryEngine
-										.geometryToJson(srOut, vis);
-
-								visible = spatial.fromJson(json);
-
-							} else {
-								Geometry tmpnonvis = graphic.getGeometry();
-								Geometry nonvis = GeometryEngine.project(
-										tmpnonvis, srBuffer, srOut);
-								json = GeometryEngine.geometryToJson(srOut,
-										nonvis);
-
-								nonvisible = spatial.fromJson(json);
-
-							}
-
-						}
-					}
-				}
-			}
-			else
-			{
-				NullPointerException e = new NullPointerException();
-				throw e;
-			}
-			ge.setField("visible", visible);
-			ge.setField("nonvisible", nonvisible);
-			//ge.setField("elevation", inElev);
-			//ge.setField("elevUnits", units_elev);
-
-			
-		} catch (Exception e) {
-			
-		}
-
-		
-	}
+	
 		
 	private String ConstructJsonMaskFromGeoEvent(GeoEvent ge) throws IOException
 	{

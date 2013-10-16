@@ -3,7 +3,6 @@ package com.esri.ges.processor.defense;
 import com.esri.ges.core.component.ComponentException;
 import com.esri.ges.core.property.PropertyException;
 import com.esri.ges.manager.geoeventdefinition.GeoEventDefinitionManager;
-import com.esri.ges.manager.tag.TagManager;
 import com.esri.ges.processor.GeoEventProcessor;
 import com.esri.ges.processor.GeoEventProcessorServiceBase;
 import com.esri.ges.spatial.Spatial;

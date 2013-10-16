@@ -14,14 +14,10 @@ import com.esri.core.geometry.SpatialReference;
 
 import com.esri.ges.core.ConfigurationException;
 import com.esri.ges.core.component.ComponentException;
-import com.esri.ges.core.geoevent.DefaultFieldDefinition;
-import com.esri.ges.core.geoevent.FieldDefinition;
 import com.esri.ges.core.geoevent.FieldException;
-import com.esri.ges.core.geoevent.FieldType;
 import com.esri.ges.core.geoevent.GeoEvent;
 
 import com.esri.ges.manager.geoeventdefinition.GeoEventDefinitionManager;
-import com.esri.ges.manager.tag.TagManager;
 import com.esri.ges.processor.GeoEventProcessorBase;
 import com.esri.ges.processor.GeoEventProcessorDefinition;
 import com.esri.ges.spatial.GeometryException;
@@ -304,13 +300,5 @@ public class RangeFanProcessor extends GeoEventProcessorBase {
 		}
 		fan.closeAllPaths();
 		return fan;
-	}
-	
-	private void addToAugmentList(ArrayList<FieldDefinition> augmentList, String name, FieldType type, String tag) throws ConfigurationException
-	{
-		
-		FieldDefinition fd = new DefaultFieldDefinition(name, type, tag);
-		augmentList.add(fd);
-		
 	}
 }

@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 AGES-Domain: com.esri.ges.adapter.inbound
-Bnd-LastModified: 1380921844281
+Bnd-LastModified: 1381350266076
 Build-Jdk: 1.7.0_25
 Built-By: patr5136
 Bundle-ContactAddress: geoeventprocessor@esri.com

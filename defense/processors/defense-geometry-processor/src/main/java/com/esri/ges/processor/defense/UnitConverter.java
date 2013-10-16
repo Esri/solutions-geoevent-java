@@ -1,5 +1,6 @@
 package com.esri.ges.processor.defense;
 
+import java.io.IOError;
 import java.util.HashMap;
 
 import com.esri.core.geometry.LinearUnit;
@@ -23,16 +24,21 @@ public class UnitConverter {
 		cannonicalNameLookup.put("Nautical Miles", "Nautical_Mile");
 		
 	}
-	public int findWkid(String unit)
-	{
+
+	public int findWkid(String unit) {
+		if (!wkidLookup.containsKey(unit)) {
+			throw new IllegalArgumentException();
+		}
 		return wkidLookup.get(unit);
 	}
 	
-	public String findConnonicalName(String unit)
-	{
+	public String findConnonicalName(String unit) {
+		if (!cannonicalNameLookup.containsKey(unit)) {
+			throw new IllegalArgumentException();
+		}
 		return cannonicalNameLookup.get(unit);
 	}
-	
+
 	public double Convert( double value, int wkidin, int wkidout)
 	{
 		Unit uin = new LinearUnit(wkidin);

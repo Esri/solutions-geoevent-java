@@ -56,8 +56,10 @@ public class GeometryUtility {
 		double y = inPt.getY();
 		double cx = center.getX();
 		double cy = center.getY();
-		double rx = cx + Math.cos(ra) * (x - cx) - Math.sin(ra) * (y-cy);
-		double ry = cy + Math.sin(ra) * (x - cx) + Math.cos(ra) * (y-cy);
+		double cosra = Math.cos(ra);
+		double sinra = Math.sin(ra);
+		double rx = cx + cosra * (x - cx) - sinra * (y - cy);
+		double ry = cy + sinra * (x - cx) + cosra * (y-cy);
 		Point rPt = new Point(rx,ry);
 		return rPt;
 	}

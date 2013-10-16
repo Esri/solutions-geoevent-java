@@ -11,18 +11,62 @@
   <url>http://maven.apache.org</url>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+</properties>
 	<modules>
 		<module>adapters/defense-adapter</module>
 		<module>processors/defense-geometry-processor</module>
 	</modules>
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+	<repositories>
+		<repository>
+			<id>GEP</id>
+			<name>GeoEvent Processor embedded repository</name>
+			<layout>default</layout>
+			<url>file:///Program Files/ArcGIS/Server/GeoEventProcessor/System</url>
+		</repository>
+	</repositories>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.esri.geoevent.sdk</groupId>
+				<artifactId>geoevent-sdk</artifactId>
+				<version>10.2.0</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+				<version>1.1.1</version>
+			</dependency>
+			<dependency>
+        	<groupId>org.codehaus.jackson</groupId>
+        	<artifactId>jackson-mapper-asl</artifactId>
+        	<version>1.9.5</version>
+        	<scope>provided</scope>
+        </dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.osgi.core</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.2</version>
+			<scope>provided</scope>
+		</dependency>
+        <dependency>
+        	<groupId>com.esri.arcgis.runtime</groupId>
+            <artifactId>runtime</artifactId>
+            <version>10.1.1</version>
+            <scope>provided</scope>
+        </dependency>
+    	<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
 </project>

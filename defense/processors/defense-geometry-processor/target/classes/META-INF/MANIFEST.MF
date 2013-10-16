@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 AGES-Domain: com.esri.ges.processor
-Bnd-LastModified: 1380921846112
+Bnd-LastModified: 1381350270549
 Build-Jdk: 1.7.0_25
 Built-By: patr5136
 Bundle-ContactAddress: geoeventprocessor@esri.com
