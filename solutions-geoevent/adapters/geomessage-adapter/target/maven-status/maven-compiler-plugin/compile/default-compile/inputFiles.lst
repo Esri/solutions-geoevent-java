@@ -1,5 +1,5 @@
-C:\Dev\github\solutions-geoevent-java\solutions-geoevent\adapters\geomessage-adapter\src\main\java\com\esri\ges\solutions\adapter\DefenseOutboundAdapterService.java
-C:\Dev\github\solutions-geoevent-java\solutions-geoevent\adapters\geomessage-adapter\src\main\java\com\esri\ges\solutions\adapter\DefenseInboundAdapter.java
-C:\Dev\github\solutions-geoevent-java\solutions-geoevent\adapters\geomessage-adapter\src\main\java\com\esri\ges\solutions\adapter\DefenseOutboundAdapter.java
-C:\Dev\github\solutions-geoevent-java\solutions-geoevent\adapters\geomessage-adapter\src\main\java\com\esri\ges\solutions\adapter\MessageParser.java
-C:\Dev\github\solutions-geoevent-java\solutions-geoevent\adapters\geomessage-adapter\src\main\java\com\esri\ges\solutions\adapter\DefenseInboundAdapterService.java
+C:\Dev\github\solutions-geoevent-java\solutions-geoevent\adapters\geomessage-adapter\src\main\java\com\esri\ges\solutions\adapter\geomessage\DefenseInboundAdapterService.java
+C:\Dev\github\solutions-geoevent-java\solutions-geoevent\adapters\geomessage-adapter\src\main\java\com\esri\ges\solutions\adapter\geomessage\DefenseInboundAdapter.java
+C:\Dev\github\solutions-geoevent-java\solutions-geoevent\adapters\geomessage-adapter\src\main\java\com\esri\ges\solutions\adapter\geomessage\MessageParser.java
+C:\Dev\github\solutions-geoevent-java\solutions-geoevent\adapters\geomessage-adapter\src\main\java\com\esri\ges\solutions\adapter\geomessage\DefenseOutboundAdapterService.java
+C:\Dev\github\solutions-geoevent-java\solutions-geoevent\adapters\geomessage-adapter\src\main\java\com\esri\ges\solutions\adapter\geomessage\DefenseOutboundAdapter.java
