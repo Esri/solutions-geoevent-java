@@ -1,0 +1,73 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.esri.ges</groupId>
+  <artifactId>defense</artifactId>
+  <version>10.2.0</version>
+  <packaging>pom</packaging>
+
+  <name>Esri :: AGES :: Solutions</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+</properties>
+	<modules>
+		<module>adapters/geomessage-adapter</module>
+		<module>adapters/CAP-adapter</module>
+		<module>processors/geometry-processor</module>
+	</modules>
+	<repositories>
+		<repository>
+			<id>GEP</id>
+			<name>GeoEvent Processor embedded repository</name>
+			<layout>default</layout>
+			<url>file:///Program Files/ArcGIS/Server/GeoEventProcessor/System</url>
+		</repository>
+	</repositories>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.esri.geoevent.sdk</groupId>
+				<artifactId>geoevent-sdk</artifactId>
+				<version>10.2.0</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+				<version>1.1.1</version>
+			</dependency>
+			<dependency>
+        	<groupId>org.codehaus.jackson</groupId>
+        	<artifactId>jackson-mapper-asl</artifactId>
+        	<version>1.9.5</version>
+        	<scope>provided</scope>
+        </dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.osgi.core</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.2</version>
+			<scope>provided</scope>
+		</dependency>
+        <dependency>
+        	<groupId>com.esri.arcgis.runtime</groupId>
+            <artifactId>runtime</artifactId>
+            <version>10.1.1</version>
+            <scope>provided</scope>
+        </dependency>
+    	<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
+</project>

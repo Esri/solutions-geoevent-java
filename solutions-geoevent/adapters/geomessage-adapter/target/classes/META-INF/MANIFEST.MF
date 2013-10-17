@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+AGES-Domain: com.esri.ges.adapter.inbound
+Bnd-LastModified: 1382038356533
+Build-Jdk: 1.7.0_25
+Built-By: patr5136
+Bundle-ContactAddress: geoeventprocessor@esri.com
+Bundle-ManifestVersion: 2
+Bundle-Name: Esri :: AGES :: Solutions :: Adapter :: GeoMessage
+Bundle-SymbolicName: com.esri.ges.solutions.adapter.geomessage-adapter
+Bundle-Version: 10.2.0
+Created-By: Apache Maven Bundle Plugin
+Export-Service: com.esri.ges.adapter.AdapterService
+Import-Package: com.esri.ges.adapter,com.esri.ges.adapter.defense,org.os
+ gi.service.blueprint;version="[1.0.0,2.0.0)"
+Tool: Bnd-1.50.0

@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+AGES-Domain: com.esri.ges.adapter.inbound
+Bnd-LastModified: 1382038357473
+Build-Jdk: 1.7.0_25
+Built-By: patr5136
+Bundle-ContactAddress: geoeventprocessor@esri.com
+Bundle-ManifestVersion: 2
+Bundle-Name: Esri :: AGES :: Solutions :: Adapter ::CAP Adapter
+Bundle-SymbolicName: com.esri.ges.solutions.adapter.cap-adapter
+Bundle-Version: 10.2.0
+Created-By: Apache Maven Bundle Plugin
+Export-Service: com.esri.ges.adapter.AdapterService
+Import-Package: com.esri.core.geometry,com.esri.ges.adapter,com.esri.ges
+ .adapter.util,com.esri.ges.core,com.esri.ges.core.component,com.esri.ge
+ s.core.geoevent,com.esri.ges.messaging,com.esri.ges.spatial,javax.xml.p
+ arsers,org.apache.commons.logging,org.osgi.service.blueprint;version="[
+ 1.0.0,2.0.0)",org.w3c.dom,org.xml.sax
+Tool: Bnd-1.50.0
