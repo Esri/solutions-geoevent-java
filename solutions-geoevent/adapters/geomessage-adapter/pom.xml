@@ -51,9 +51,9 @@
 						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
 						<Bundle-ContactAddress>geoeventprocessor@esri.com</Bundle-ContactAddress>
 						<Bundle-Version>${project.version}</Bundle-Version>
-						<AGES-Domain>com.esri.ges.adapter.inbound</AGES-Domain>
+						<AGES-Domain>com.esri.ges.solutions.adapter</AGES-Domain>
 						<Export-Package/>
-						<Private-Package>com.esri.ges.adapter.defense</Private-Package>
+						<Private-Package>com.esri.ges.solutions.adapter.geomessage</Private-Package>
 					</instructions>
 				</configuration>
 			</plugin>
