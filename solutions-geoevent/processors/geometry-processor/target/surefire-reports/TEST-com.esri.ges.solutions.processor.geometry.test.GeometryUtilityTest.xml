@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.esri.ges.solutions.processor.geometry.test.GeometryUtilityTest" time="0.011" tests="15" errors="0" skipped="0" failures="0">
+<testsuite name="com.esri.ges.solutions.processor.geometry.test.GeometryUtilityTest" time="0.015" tests="15" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.7.0_25\jre\bin"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value="Service Pack 1"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="C:\Dev\github\solutions-geoevent-java\solutions-geoevent"/>
+    <property name="user.dir" value="C:\Dev\github\solutions-geoevent-java\solutions-geoevent\processors\geometry-processor"/>
     <property name="java.runtime.version" value="1.7.0_25-b17"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.7.0_25\jre\lib\endorsed"/>
@@ -60,19 +60,19 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase name="testGeo2Arithmetic90Geo" classname="com.esri.ges.solutions.processor.geometry.test.GeometryUtilityTest" time="0"/>
-  <testcase name="testGeo2Arithmetic180Geo" classname="com.esri.ges.solutions.processor.geometry.test.GeometryUtilityTest" time="0"/>
+  <testcase name="testGeo2Arithmetic180Geo" classname="com.esri.ges.solutions.processor.geometry.test.GeometryUtilityTest" time="0.001"/>
   <testcase name="testGeo2Arithmetic270Geo" classname="com.esri.ges.solutions.processor.geometry.test.GeometryUtilityTest" time="0"/>
   <testcase name="testRotateCenter1" classname="com.esri.ges.solutions.processor.geometry.test.GeometryUtilityTest" time="0.004"/>
-  <testcase name="testRotateCenter2" classname="com.esri.ges.solutions.processor.geometry.test.GeometryUtilityTest" time="0.001"/>
-  <testcase name="testGeo2ArithmeticZeroGeo" classname="com.esri.ges.solutions.processor.geometry.test.GeometryUtilityTest" time="0"/>
+  <testcase name="testRotateCenter2" classname="com.esri.ges.solutions.processor.geometry.test.GeometryUtilityTest" time="0"/>
   <testcase name="testRotateCenter3" classname="com.esri.ges.solutions.processor.geometry.test.GeometryUtilityTest" time="0.001"/>
-  <testcase name="testRotateCenter4" classname="com.esri.ges.solutions.processor.geometry.test.GeometryUtilityTest" time="0"/>
-  <testcase name="testRotateCenter5" classname="com.esri.ges.solutions.processor.geometry.test.GeometryUtilityTest" time="0.001"/>
-  <testcase name="testRotateCenter6" classname="com.esri.ges.solutions.processor.geometry.test.GeometryUtilityTest" time="0.001"/>
-  <testcase name="testParseGeometryType1" classname="com.esri.ges.solutions.processor.geometry.test.GeometryUtilityTest" time="0.001"/>
-  <testcase name="testParseGeometryType2" classname="com.esri.ges.solutions.processor.geometry.test.GeometryUtilityTest" time="0.001"/>
-  <testcase name="testParseGeometryType3" classname="com.esri.ges.solutions.processor.geometry.test.GeometryUtilityTest" time="0.001"/>
+  <testcase name="testRotateCenter4" classname="com.esri.ges.solutions.processor.geometry.test.GeometryUtilityTest" time="0.001"/>
+  <testcase name="testRotateCenter5" classname="com.esri.ges.solutions.processor.geometry.test.GeometryUtilityTest" time="0.002"/>
+  <testcase name="testGeo2Arithmetic90Geo" classname="com.esri.ges.solutions.processor.geometry.test.GeometryUtilityTest" time="0"/>
+  <testcase name="testGeo2ArithmeticZeroGeo" classname="com.esri.ges.solutions.processor.geometry.test.GeometryUtilityTest" time="0.006"/>
+  <testcase name="testRotateCenter6" classname="com.esri.ges.solutions.processor.geometry.test.GeometryUtilityTest" time="0"/>
+  <testcase name="testParseGeometryType1" classname="com.esri.ges.solutions.processor.geometry.test.GeometryUtilityTest" time="0"/>
+  <testcase name="testParseGeometryType2" classname="com.esri.ges.solutions.processor.geometry.test.GeometryUtilityTest" time="0"/>
+  <testcase name="testParseGeometryType3" classname="com.esri.ges.solutions.processor.geometry.test.GeometryUtilityTest" time="0"/>
   <testcase name="testParseGeometryType4" classname="com.esri.ges.solutions.processor.geometry.test.GeometryUtilityTest" time="0"/>
   <testcase name="testGenerateEllipse" classname="com.esri.ges.solutions.processor.geometry.test.GeometryUtilityTest" time="0"/>
 </testsuite>

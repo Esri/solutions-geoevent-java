@@ -1,9 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.esri.ges</groupId>
-  <artifactId>defense</artifactId>
+  <groupId>com.esri.geoevent.solution</groupId>
+  <artifactId>solution</artifactId>
   <version>10.2.0</version>
   <packaging>pom</packaging>
 
@@ -17,7 +17,8 @@
 		<module>adapters/geomessage-adapter</module>
 		<module>adapters/CAP-adapter</module>
 		<module>processors/geometry-processor</module>
-	</modules>
+    <module>true</module>
+  </modules>
 	<repositories>
 		<repository>
 			<id>GEP</id>
@@ -32,11 +33,13 @@
 				<groupId>com.esri.geoevent.sdk</groupId>
 				<artifactId>geoevent-sdk</artifactId>
 				<version>10.2.0</version>
+				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>commons-logging</groupId>
 				<artifactId>commons-logging</artifactId>
 				<version>1.1.1</version>
+				<scope>provided</scope>
 			</dependency>
 			<dependency>
         	<groupId>org.codehaus.jackson</groupId>
@@ -48,6 +51,7 @@
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.osgi.core</artifactId>
 			<version>1.0.0</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>

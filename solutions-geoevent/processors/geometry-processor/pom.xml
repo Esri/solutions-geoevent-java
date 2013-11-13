@@ -14,8 +14,8 @@
 		the specific language governing permissions and limitations under the License. -->
 
 	<modelVersion>4.0.0</modelVersion>
-
-	<groupId>com.esri.ges.solutions.processor</groupId>
+	
+	<groupId>com.esri.geoevent.solutions.processor</groupId>
 	<artifactId>geometry-processor</artifactId>
 	<version>10.2.0</version>
 	<packaging>bundle</packaging>
@@ -39,9 +39,6 @@
 			<url>file:///Program Files/ArcGIS/Server/GeoEventProcessor/System</url>
 		</repository>
 	</repositories>
-
-
-
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -56,16 +53,19 @@
 			<groupId>com.esri.geoevent.sdk</groupId>
 			<artifactId>geoevent-sdk</artifactId>
 			<version>10.2.0</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.esri.ges.manager</groupId>
 			<version>10.2.0</version>
 			<artifactId>agsconnectionmanager-api</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.esri.ges.framework.datastore</groupId>
 			<version>10.2.0</version>
 			<artifactId>agsconnection-datastore</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.esri.ges.framework.datastore</groupId>
@@ -75,7 +75,7 @@
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
-			<version>1.1.1</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
@@ -87,6 +87,7 @@
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.osgi.core</artifactId>
 			<version>1.0.0</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>

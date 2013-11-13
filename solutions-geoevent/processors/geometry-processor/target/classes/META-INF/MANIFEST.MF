@@ -1,13 +1,14 @@
 Manifest-Version: 1.0
 AGES-Domain: com.esri.ges.solutions.processor
-Bnd-LastModified: 1382134448453
+Bnd-LastModified: 1384367046028
 Build-Jdk: 1.7.0_25
 Built-By: patr5136
 Bundle-ContactAddress: geoeventprocessor@esri.com
 Bundle-Description: geometry processors for geoevent server
 Bundle-ManifestVersion: 2
 Bundle-Name: Esri :: AGES :: Solutions :: Processor :: Geometry
-Bundle-SymbolicName: com.esri.ges.solutions.processor.geometry-processor
+Bundle-SymbolicName: com.esri.geoevent.solutions.processor.geometry-proc
+ essor
 Bundle-Version: 10.2.0
 Created-By: Apache Maven Bundle Plugin
 Export-Service: com.esri.ges.processor.GeoEventProcessorService

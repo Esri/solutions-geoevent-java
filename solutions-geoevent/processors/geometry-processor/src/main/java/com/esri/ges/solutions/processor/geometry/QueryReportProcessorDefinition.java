@@ -20,7 +20,7 @@ import com.esri.ges.processor.GeoEventProcessorDefinitionBase;
 public class QueryReportProcessorDefinition extends GeoEventProcessorDefinitionBase {
 	public GeoEventDefinitionManager manager;
 	public ArcGISServerConnectionManager connectionManager;
-
+	private Tokenizer tokenizer = new Tokenizer();
 	public QueryReportProcessorDefinition() {
 
 	}
@@ -282,9 +282,9 @@ public class QueryReportProcessorDefinition extends GeoEventProcessorDefinitionB
 						procDistUnits.addAllowedValue("Nautical Miles");
 						procDistUnits.setDependsOn(lyrName + "_calcDistance=true");
 						propertyDefinitions.put(procDistUnits.getPropertyName(), procDistUnits);
-						
+						String tk = tokenizer.tokenize(lyrName, "dist");
 						PropertyDefinition pdDistanceToken = new PropertyDefinition(
-								lyrName + "_dist_token", PropertyType.String, "${"+lyrName + "_dist}",
+								lyrName + "_dist_token", PropertyType.String, tk,
 								"-->" + "Distance token",
 								"Replace in item configuration to add distanc from event to feature",
 								false, true);
@@ -306,9 +306,10 @@ public class QueryReportProcessorDefinition extends GeoEventProcessorDefinitionB
 									pdFld);
 
 							String fldToken = fldPropName + "_token";
+							tk = lyrName + '@' + fld;
+							tk = tokenizer.tokenize(tk, null);
 							PropertyDefinition fldTokenPd = new PropertyDefinition(
-									fldToken, PropertyType.String, lyrName
-											+ '@' + fld, "------>" + lyrName + '@'
+									fldToken, PropertyType.String, tk, "------>" + lyrName + '@'
 											+ fld + " token",
 									"String token representation of variable",
 									true, true);

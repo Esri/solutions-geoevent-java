@@ -141,6 +141,10 @@ public class QueryReportProcessor extends GeoEventProcessorBase {
 	    
 		ParseResponses(timestamp, file);
 		String host = properties.get("host").getValueAsString();
+		if(host.contains("http://"))
+		{
+			host.replace("http://", "");
+		}
 		String url = "http://" + host + ":6180/geoevent/assets/reports/" + file;
 		GeoEventDefinition geoDef = ge.getGeoEventDefinition();	
 		List<FieldDefinition>fds = Arrays.asList(((FieldDefinition)new DefaultFieldDefinition("url", FieldType.String)));
@@ -335,97 +339,7 @@ public class QueryReportProcessor extends GeoEventProcessorBase {
 		}
 		
 	}
-	/*private void ExecuteQueries(String jsonGeometry, String geoType) throws Exception
-	{
-		JsonFactory jf = new JsonFactory();
-		JsonParser jp=null;
-		try {
-			jp = jf.createJsonParser(jsonGeometry);
-		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		MapGeometry mgeo = GeometryEngine.jsonToGeometry(jp);
-		com.esri.core.geometry.Geometry geo = mgeo.getGeometry();
-		for (int i = 0; i < queries.size(); ++i) {
-			@SuppressWarnings("unchecked")
-			HashMap<String, Object> query = (HashMap<String, Object>) queries
-					.get(i);
-			String path = (String) query.get("path");
-			
-			Query q = new Query();
-			String wc = (String)query.get("whereclause");
-			String fields = (String)query.get("fields");
-			//String[] outfields = fields.split(",");
-			//String[] outfields=new String[]{"*"};
-			q.setOutFields(new String[]{"*"});
-			if(wc.length()>0)
-			{
-				q.setWhere(wc);
-			}
-			else
-			{
-				q.setWhere("objectid>0");
-			}
-			//q.setGeometry(geo);
-			//q.setReturnZ(true);
-			//q.setReturnGeometry(true);
-			//q.setSpatialRelationship(SpatialRelationship.INTERSECTS);
-			try {
-				QueryTask qt = new QueryTask(path);
-				FeatureSet fset = qt.execute(q);
-				HashMap<String, Object> tuple = new HashMap<String, Object>();
-				@SuppressWarnings("unchecked")
-				HashMap<String, String> tokenMap = (HashMap<String, String>) query
-						.get("tokenMap");
-				String lyr = (String)query.get("layer");
-				String itemConfig = (String) query.get("itemconfig");
-				String id = (String) query.get("id");
-				tuple.put("fset",  fset);
-				tuple.put("tokenmap", tokenMap);
-				tuple.put("config", itemConfig);
-				tuple.put("layer", lyr);
-				responseMap.put(id.toString(), tuple);
-			} catch (Exception e) {
-				e.printStackTrace();
-				LOG.error(e);
-				throw e;
-			}
-			
-			qt.executeAsync(q, new CallbackListener<FeatureSet>()
-			{
-
-				@Override
-				public void onCallback(FeatureSet fset) {
-					HashMap<String, Object> tuple = new HashMap<String, Object>();
-					@SuppressWarnings("unchecked")
-					HashMap<String, String> tokenMap = (HashMap<String, String>) query
-							.get("tokenMap");
-					String lyr = (String)query.get("layer");
-					String itemConfig = (String) query.get("itemconfig");
-					String id = (String) query.get("id");
-					tuple.put("fset",  fset);
-					tuple.put("tokenmap", tokenMap);
-					tuple.put("config", itemConfig);
-					tuple.put("layer", lyr);
-					responseMap.put(id.toString(), tuple);
-					
-				}
-
-				@Override
-				public void onError(Throwable e) {
-					e.printStackTrace();
-					LOG.error(e);
-				}
-				
-			}
-			);
-			
-		}
-	}*/
+	
 	
 	
 	private void ExecuteRestQueries(String jsonGeometry, String geoType)
