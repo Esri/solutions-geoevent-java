@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
-	<bean id="t2gTweetStatusAdapterServiceBean" class="com.esri.geoevent.solution.adapter.t2g.T2GTweetStatusAdapterService" activation="eager">
-		<property name="bundleContext" ref="blueprintBundleContext"/>
-	</bean>
-	<service id="t2gTweetStatusAdapterService" ref="t2gTweetStatusAdapterServiceBean" interface="com.esri.ges.adapter.AdapterService"/>
-</blueprint>

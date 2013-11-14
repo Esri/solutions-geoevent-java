@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
-	<bean id="sampleInboundAdapterServiceBean" class="com.esri.ges.solutions.adapter.cap.CAPInboundAdapterService" activation="eager">
-		<property name="bundleContext" ref="blueprintBundleContext"/>
-	</bean>
-	<service id="sampleInboundAdapterService" ref="sampleInboundAdapterServiceBean" interface="com.esri.ges.adapter.AdapterService"/>
-</blueprint>
