@@ -1,18 +1,3 @@
-/*
- | Copyright 2013 Esri
- |
- | Licensed under the Apache License, Version 2.0 (the "License");
- | you may not use this file except in compliance with the License.
- | You may obtain a copy of the License at
- |
- |    http://www.apache.org/licenses/LICENSE-2.0
- |
- | Unless required by applicable law or agreed to in writing, software
- | distributed under the License is distributed on an "AS IS" BASIS,
- | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- | See the License for the specific language governing permissions and
- | limitations under the License.
- */
 package com.esri.ges.solutions.adapter.cap;
 
 import java.util.ArrayList;
@@ -51,30 +36,30 @@ public class CAPInboundAdapterDefinition extends AdapterDefinitionBase
 	@Override
 	public String getName()
 	{
-		return "CAP";
+		return "Sample";
 	}
 	
 	@Override
-    public String getLabel()
-    {
-      return "CAP Inbound Adapter";
-    }
+  public String getLabel()
+  {
+    return "Sample Inbound Adapter";
+  }
 	
 	@Override
 	public String getDomain()
 	{
-		return "com.esri.ges.solutions.adapter.cap";
+		return "com.esri.geoevent.solutions.adapter.cap.inbound";
 	}
 
 	@Override
 	public String getDescription()
 	{
-		return "Common Alerting Protocol(CAP) adapter.";
+		return "This is a sample adapter.";
 	}
 
 	@Override
 	public String getContactInfo()
 	{
-		return "geoeventprocessor@esri.com";
+		return "yourname@yourcompany.com";
 	}
 }
