@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	default-activation="lazy">
+	<reference id="geoDefManagerService" interface="com.esri.ges.manager.geoeventdefinition.GeoEventDefinitionManager" />
+	<reference id="messagingService" interface="com.esri.ges.messaging.Messaging" />
+	<reference id="tagManagerService" interface="com.esri.ges.manager.tag.TagManager"/>
+	<bean id="unitConversionProcessorServiceBean"
+		class="com.esri.geoevent.solutions.processor.unitconversion.UnitConversionProcessorService"
+		init-method="start">
+		<property name="bundleContext" ref="blueprintBundleContext" />
+		<property name="manager" ref="geoDefManagerService" />
+		<property name="messaging" ref="messagingService" />
+		<property name="tagManager" ref="tagManagerService"/>
+	</bean>
+	<service id="unitConversionProcessorService" ref="unitConversionProcessorServiceBean"
+		interface="com.esri.ges.processor.GeoEventProcessorService" />
+</blueprint>

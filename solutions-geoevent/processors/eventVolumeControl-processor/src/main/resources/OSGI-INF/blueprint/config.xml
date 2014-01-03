@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" default-activation="lazy">
+	
+
+	<bean id="evcProcessorServiceBean" class="com.esri.geoevent.solutions.processor.evc.EVCProcessorService">
+		<property name="bundleContext" ref="blueprintBundleContext" />
+ 	</bean>
+
+	<service id="evcProcessorService" ref="evcProcessorServiceBean" interface="com.esri.ges.processor.GeoEventProcessorService" />
+
+</blueprint>
