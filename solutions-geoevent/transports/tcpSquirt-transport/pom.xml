@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<packaging>bundle</packaging>
+	<groupId>com.esri.geoevent.solutions.transport.tcpsquirt</groupId>
+	<artifactId>tcpsquirt-transport</artifactId>
+	<version>10.2.0</version>
+	<name>Esri :: AGES :: Transport :: TCPSQUIRT</name>
+	<repositories>
+		<repository>
+			<id>GEP</id>
+			<name>GeoEvent Processor embedded repository</name>
+			<layout>default</layout>
+			<url>file:///Program Files/ArcGIS/Server/GeoEventProcessor/System</url>
+		</repository>
+	</repositories>
+	<dependencies>
+		<dependency>
+			<groupId>com.esri.geoevent.sdk</groupId>
+			<artifactId>geoevent-sdk</artifactId>
+			<version>10.2.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.osgi.core</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.16</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+						<Bundle-ContactAddress>ages@esri.com</Bundle-ContactAddress>
+						<Bundle-Version>${project.version}</Bundle-Version>
+						<AGES-Domain>com.esri.geoevent.solutions.transport</AGES-Domain>
+						<Export-Package />
+						<Private-Package>com.esri.geoevent.solutions.transport.tcpsquirt</Private-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
