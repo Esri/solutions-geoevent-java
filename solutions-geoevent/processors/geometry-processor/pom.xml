@@ -15,7 +15,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.esri.geoevent.solutions.processor</groupId>
+	<groupId>com.esri.ges.solutions.processor</groupId>
 	<artifactId>geometry-processor</artifactId>
 	<version>10.2.0</version>
 	<packaging>bundle</packaging>
@@ -32,7 +32,11 @@
 		<jackson.version>1.9.5</jackson.version>
 	</properties>
 	<repositories>
-			
+		<repository>
+			<id>ages-sdk-repo</id>
+			<name>GeoEvent Processor SDK repository</name>			
+			<url>file:///Program Files/ArcGIS/Server/GeoEventProcessor/sdk/repository</url>
+		</repository>	
 		<repository>
 			<id>GEP</id>
 			<name>GeoEvent Processor embedded repository</name>
@@ -55,23 +59,16 @@
 			<groupId>com.esri.geoevent.sdk</groupId>
 			<artifactId>geoevent-sdk</artifactId>
 			<version>10.2.0</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.esri.ges.manager</groupId>
 			<artifactId>agsconnectionmanager-api</artifactId>
-			<scope>provided</scope>
 			<version>${project.version}</version>			
-
 		</dependency>
 		<dependency>
 			<groupId>com.esri.ges.framework.datastore</groupId>
 			<artifactId>agsconnection-datastore</artifactId>
-
-			<scope>provided</scope>
-
 			<version>${project.version}</version>			
-
 		</dependency>
 		<dependency>
 			<groupId>com.esri.ges.framework.datastore</groupId>
@@ -81,7 +78,7 @@
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
-			<scope>provided</scope>
+			<version>1.1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
@@ -93,7 +90,6 @@
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.osgi.core</artifactId>
 			<version>1.0.0</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
@@ -145,9 +141,9 @@
 						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
 						<Bundle-ContactAddress>geoeventprocessor@esri.com</Bundle-ContactAddress>
 						<Bundle-Version>${project.version}</Bundle-Version>
-						<AGES-Domain>com.esri.geoevent.solutions.processor</AGES-Domain>
+						<AGES-Domain>com.esri.ges.solutions.processor</AGES-Domain>
 						<Export-Package />
-						<Private-Package>com.esri.geoevent.solutions.processor.geometry</Private-Package>
+						<Private-Package>com.esri.ges.solutions.processor.geometry</Private-Package>
 					</instructions>
 				</configuration>
 			</plugin>

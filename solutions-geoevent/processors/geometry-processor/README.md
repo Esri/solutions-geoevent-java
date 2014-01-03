@@ -1,73 +1,99 @@
-# Geometry Processor
+# geometry-processor
 
-![Image of geomessage-adapter](Buffer.PNG "solutions-geoevent-java")
+The geometry processor demonstrates how to extend GEP Server to build processors that perform custom actions and processing on geometries of a geoevent service.  
 
-The geometry processor demonstrates how to extend geoevent server to build processors that manipulate the geometry of a geoevent service.
-Multiple processors are included in the geometry-processor jar.  
+![Image of geomessage-adapter](Buffer.PNG)
 
-* Buffer Processor: convert the geoevent geometry to a buffer around the incoming event
-* Ellipse Processor: convert the geoevent geometry to an ellipse centered on the incoming event geometry
-* Rangefan Processor: convert the geoevent geometry to a rangefan with an origin at the incoming event geometry
-* Visibility Processor: Generate a viewshed with an observer located at the incoming geoevent geometry.  The visibility processor also allows the user to clip the viewshed to a polygon.
-* Query Report Processor: Executes a spatial query on feature services registered in the geoevent server's datastore.  The author of the service then configures a report based on returned features.
+## Features 
 
+Multiple processors are included in the geometry-processor:
 
+* Buffer Processor: converts the geoevent geometry to a buffer around the incoming event
+* Ellipse Processor: converts the geoevent geometry to an ellipse centered on the incoming event geometry
+* Range Fan Processor: converts the geoevent geometry to a rangefan with an origin at the incoming event geometry
+* Visibility Processor: generate a viewshed with an observer located at the incoming geoevent geometry.  The visibility processor also allows the user to clip the viewshed to a polygon.
+* Query Report Processor: executes a spatial query on feature services registered in the geoevent server's datastore.  The author of the service then configures a report based on returned features.
 
-# Prerequisites
-1. Install ArcGIS geoevent server
-2. download and install geoevent server sdk (sdk included with geoevent server instalation)
-3. follow sdk documentation to set up maven repository
-4. Install the ArcGIS Java Runtime 10.1.1 sdk
+## Sections
 
-## Instructions
+* [Requirements](#requirements)
+* [Building](#building)
+* [Installation](#installation)
+* [Testing](#testing)
+* [Licensing](#licensing)
 
-### General Help
+## Requirements
 
-* [New to Github? Get started here.](http://htmlpreview.github.com/?https://github.com/Esri/esri.github.com/blob/master/help/esri-getting-to-know-github.html)
+* See common [solutions-geoevent-java requirements](../../../README.md#requirements)
+* The ArcGIS Runtime for Java SDK is required in order to run the standalone Maven Tests included with this project
 
-## Getting Started
-1. The path to the repository in the module's pom.xml may need to be modified to point at Systems folder in the geoevent server install location.  In the example below the repo points to the default location of the systems folder.
+## Building 
+
+* See the [solutions-geoevent-java instructions](../../../README.md#instructions) for general instructions on 
+    * verifying your Maven installation
+    * setting the location of the GEP Server and GEP SDK repositories
+    * and any other common required steps
+ * Open a command prompt and navigate to `solutions-geoevent-java/solutions-geoevent/processors/geometry-processor`
+ * * Enter `mvn install` at the prompt
+
+## Installation
+
+* Install the processors
+    * Browse to `solutions-geoevent-java/solutions-processors/geometry-processor/target` (this directory is created when you execute mvn install).
+    * Copy the jar file and paste it into the deploy directory on your GeoEvent server (<GEP install location>\deploy\ -- default location is C:\Program Files\ArcGIS\Server\GeoEventProcessor\deploy)
+* Check the existing geoevent definitions
+    *  Open the GeoEvent Processor Manager web application.
+    *  Navigate to ‘Site’ > ‘GeoEvent Processor’ > ‘GeoEvent Definitions’ 
+    *  Confirm that there exists a GEP geoevent definitions for the processor you want to run
+        *  e.g. if you are going to run the buffer processor, confirm that a definition is available as shown
+
+![Image of geoeventdefinition](doc/geoeventdefinition.png)
+
+* If the required definitions are not available, do the following to install these definitions
+    *  Navigate to ‘Site’ > ‘GeoEvent Processor’ > ‘Configuration Store’ and click ‘Import Configuration’
+    *  Browse to `solutions-geoevent-java\data\configurations` and locate the `GeoEventDefinitions-GeometryProcessors.xml` configuration file. This file is located [here](../../../data/configurations/GeoEventDefinitions-GeometryProcessors.xml).
+    *  On the GeoEvent Processor’s Import Configuration panel, click Import.
+
+## Testing
+
+### Validating the Installation
  
- ```
-<repository> 
-  <id>GEP</id>
-  <name>GeoEvent Processor embedded repository</name>
-  <layout>default</layout>
-  <url>file:///Program Files/ArcGIS/Server/GeoEventProcessor/System</url> 
-</repository>
-```
+* See the [solutions-geoevent-java validation instructions](../../../README.md#validating-install).
+    * Ensure that the Buffer, Ellipse, Rangefan, Visibility, Query-Report, etc. processors are present
 
-### Building just the CAP-Adapter 
-see the [solutions/geoevent README.md](https://github.com/ArcGIS/solutions-geoevent-java/edit/master/README.md) for instructions on building all processors, adapters and transports
- 
-1. navigate to the ./solutions-geoevent-java/solutions-geoevent/processors/geometry-processor directory on the command prompt
-2. type mvn install at the prompt and hit return
-3. Browse to ./solutions-geoevent-java/solutions-geoevent/processors/geometry-processor/target (this directory is created when you execute mvn install).
-4. Copy the as one of the available input adaptersgeometry-processor-10.2.0.jar file and paste it into the deploy directory on your GeoEvent server (<GeoEventServer install location>\deploy\ -- default location is C:\Program Files\ArcGIS\Server\GeoEventProcessor\deploy)
- 
-### Validating Install
- 
-1. Browse to the 'Site' tab in GeoEvent Service manager
-2. Click on the 'Processors' tab and you should see the Buffer, Ellipse, Rangefan, Visibility and Query-Report processors listed.
+### Testing with Simulated Test Data
 
-## Resources
+* In the following steps you will configure GEP to receive and process simulated  data
+* The following example configures the Ran Fan Processor, the other processors are configured in a similar manner
 
-* Learn more about Esri's [ArcGIS for the Military](http://solutions.arcgis.com/military/).
-* Learn more about Esri's[ArcGIS GeoEvent Processor for Server Resource Center](http://pro.arcgis.com/share/geoevent-processor/)
-* Learn more about Esri's[ArcGIS Blog](http://blogs.esri.com/esri/arcgis/)
-* Learn more about [twitter@esri](http://twitter.com/esri)
+* Open the GEP Manager web application
+* Create a Input to receive simulated data over TCP 
+    * Navigate to ‘Site’ > ‘Services’ > 'Inputs'
+    * Select Add Input and configure a TCP Input as shown
 
-## Issues
+![Image of create connector](doc/geometry-range-fan-input.png)
 
-Find a bug or want to request a new feature?  Please let us know by submitting an issue.
+* Next Create an Output to observe received data
+    * Navigate to ‘Site’ > ‘Services’ > 'Outputs'
+    * Select Add Input and configure an output to `Write to a .csv file`
+* Use the GEP Service Designer to
+    * Create a simple service to direct the Input data to the Output using the selected processor
+    * The simple service and the processor configuration are shown below
 
-## Contributing
+![Image of service](doc/geometry-simple-service.png)
+![Image of processor](doc/geometry-range-fan-service-design.png)
 
-Esri welcomes contributions from anyone and everyone. Please see our [guidelines for contributing](https://github.com/esri/contributing).
+* Navigate to ‘Services’ > ‘Monitor’ and observe that you have a configuration similar to the following (note: your names/outputs may differ)
+
+![Image of monitor](doc/monitor.png)
+
+* Run the GEP Simulator and load the simulation file at solutions-geoevent-java\data\simulation_files\Geometry-RangeFans.csv
+* Observe that the values increase on the GEP monitor and the selected outputs are updated. 
+* You may now test the processors with additional outputs such as published feature services
 
 ## Licensing
 
-Copyright 2012-2013 Esri
+Copyright 2013 Esri
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -82,4 +108,4 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 A copy of the license is available in the repository's
-[license.txt](license.txt) file.
+[license.txt](../../../license.txt) file.
