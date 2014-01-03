@@ -13,23 +13,30 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-package com.esri.ges.solutions.adapter.geomessage;
+package com.esri.geoevent.solutions.adapter.geomessage;
 
 import com.esri.ges.adapter.Adapter;
 import com.esri.ges.adapter.AdapterServiceBase;
 import com.esri.ges.adapter.util.XmlAdapterDefinition;
 import com.esri.ges.core.component.ComponentException;
 
-public class DefenseOutboundAdapterService extends AdapterServiceBase
+public class DefenseInboundAdapterService extends AdapterServiceBase
 {
-	public DefenseOutboundAdapterService()
+	public DefenseInboundAdapterService()
 	{
-		definition = new XmlAdapterDefinition(getResourceAsStream("outbound-adapter-definition.xml"));
+		definition = new XmlAdapterDefinition(getResourceAsStream("inbound-adapter-definition.xml"));
 	}
 
 	@Override
 	public Adapter createAdapter() throws ComponentException
 	{
-		return new DefenseOutboundAdapter(definition);
+		try
+		{
+			return new DefenseInboundAdapter(definition);
+		}
+		catch (Exception e)
+		{
+			throw new ComponentException("DefenseInboundAdapter instantiation failed: " + e.getMessage());
+		}
 	}
 }

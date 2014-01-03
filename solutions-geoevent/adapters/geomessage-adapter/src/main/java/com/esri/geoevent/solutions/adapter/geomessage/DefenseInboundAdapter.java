@@ -13,7 +13,7 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-package com.esri.ges.solutions.adapter.geomessage;
+package com.esri.geoevent.solutions.adapter.geomessage;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

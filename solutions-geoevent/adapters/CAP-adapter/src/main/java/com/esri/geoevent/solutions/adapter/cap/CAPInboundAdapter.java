@@ -13,7 +13,7 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-package com.esri.ges.solutions.adapter.cap;
+package com.esri.geoevent.solutions.adapter.cap;
 
 import java.io.*;
 import java.nio.ByteBuffer;
