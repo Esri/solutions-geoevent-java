@@ -1,19 +1,29 @@
-/*
- | Copyright 2013 Esri
- |
- | Licensed under the Apache License, Version 2.0 (the "License");
- | you may not use this file except in compliance with the License.
- | You may obtain a copy of the License at
- |
- |    http://www.apache.org/licenses/LICENSE-2.0
- |
- | Unless required by applicable law or agreed to in writing, software
- | distributed under the License is distributed on an "AS IS" BASIS,
- | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- | See the License for the specific language governing permissions and
- | limitations under the License.
- */
+
+
 package com.esri.geoevent.solutions.processor.geometry;
+
+/*
+ * #%L
+ * Esri :: AGES :: Solutions :: Processor :: Geometry
+ * $Id:$
+ * $HeadURL:$
+ * %%
+ * Copyright (C) 2013 - 2014 Esri
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 
 import com.esri.core.geometry.Geometry;
 import com.esri.core.geometry.GeometryEngine;
@@ -40,7 +50,20 @@ public class BufferProcessor extends GeoEventProcessorBase {
 
 	@Override
 	public GeoEvent process(GeoEvent ge) throws Exception {
-		double radius = (Double)properties.get("radius").getValue();
+		String radiusSource = properties.get("radiusSource").getValue().toString();
+		double radius;
+		if(radiusSource.equals("Constant"))
+		{
+			radius = (Double)properties.get("radius").getValue();
+		}
+		else
+		{
+			String eventfld = properties.get("radiusEvent").getValue().toString();
+			String[] arr = eventfld.split(":");
+			radius = (Double)ge.getField(arr[1]);
+		}
+		
+		
 		String units = properties.get("units").getValue().toString();
 		int inwkid = (Integer) properties.get("wkidin").getValue();
 		int outwkid = (Integer) properties.get("wkidout").getValue();

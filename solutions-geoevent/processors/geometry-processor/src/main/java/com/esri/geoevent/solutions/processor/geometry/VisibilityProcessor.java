@@ -1,19 +1,27 @@
-/*
- | Copyright 2013 Esri
- |
- | Licensed under the Apache License, Version 2.0 (the "License");
- | you may not use this file except in compliance with the License.
- | You may obtain a copy of the License at
- |
- |    http://www.apache.org/licenses/LICENSE-2.0
- |
- | Unless required by applicable law or agreed to in writing, software
- | distributed under the License is distributed on an "AS IS" BASIS,
- | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- | See the License for the specific language governing permissions and
- | limitations under the License.
- */
 package com.esri.geoevent.solutions.processor.geometry;
+
+/*
+ * #%L
+ * Esri :: AGES :: Solutions :: Processor :: Geometry
+ * $Id:$
+ * $HeadURL:$
+ * %%
+ * Copyright (C) 2013 - 2014 Esri
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -53,7 +61,7 @@ import com.esri.ges.processor.GeoEventProcessorDefinition;
 import com.esri.ges.spatial.Spatial;
 
 public class VisibilityProcessor extends GeoEventProcessorBase {
-	private static final Log LOG = LogFactory.getLog(VisibilityProcessor.class);
+	private static final Log LOG = LogFactory.getLog(RangeFanProcessor.class);
 	public Spatial spatial;
 	public GeoEventDefinitionManager manager;
 	private SpatialReference srIn;
@@ -64,9 +72,8 @@ public class VisibilityProcessor extends GeoEventProcessorBase {
 		super(definition);
 		spatial = s;
 		manager = m;
+		//tagMgr=tm;
 		geoEventMutator= true;
-		
-		LOG.debug("Starting VisibilityProcessor");
 	}
 
 	@Override

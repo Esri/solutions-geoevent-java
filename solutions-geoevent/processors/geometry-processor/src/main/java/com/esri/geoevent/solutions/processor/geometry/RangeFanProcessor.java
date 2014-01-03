@@ -1,19 +1,27 @@
-/*
- | Copyright 2013 Esri
- |
- | Licensed under the Apache License, Version 2.0 (the "License");
- | you may not use this file except in compliance with the License.
- | You may obtain a copy of the License at
- |
- |    http://www.apache.org/licenses/LICENSE-2.0
- |
- | Unless required by applicable law or agreed to in writing, software
- | distributed under the License is distributed on an "AS IS" BASIS,
- | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- | See the License for the specific language governing permissions and
- | limitations under the License.
- */
 package com.esri.geoevent.solutions.processor.geometry;
+
+/*
+ * #%L
+ * Esri :: AGES :: Solutions :: Processor :: Geometry
+ * $Id:$
+ * $HeadURL:$
+ * %%
+ * Copyright (C) 2013 - 2014 Esri
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,15 +30,16 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 
-
 import com.esri.core.geometry.GeometryEngine;
 import com.esri.core.geometry.Point;
 import com.esri.core.geometry.Polygon;
 import com.esri.core.geometry.SpatialReference;
+
 import com.esri.ges.core.ConfigurationException;
 import com.esri.ges.core.component.ComponentException;
 import com.esri.ges.core.geoevent.FieldException;
 import com.esri.ges.core.geoevent.GeoEvent;
+
 import com.esri.ges.manager.geoeventdefinition.GeoEventDefinitionManager;
 import com.esri.ges.processor.GeoEventProcessorBase;
 import com.esri.ges.processor.GeoEventProcessorDefinition;
@@ -49,7 +58,7 @@ public class RangeFanProcessor extends GeoEventProcessorBase {
 	private static final Log LOG = LogFactory.getLog(RangeFanProcessor.class);
 	public Spatial spatial;
 	public GeoEventDefinitionManager manager;
-
+	//public TagManager tagMgr;
 	private SpatialReference srIn;
 	private SpatialReference srBuffer;
 	private SpatialReference srOut;
@@ -59,15 +68,12 @@ public class RangeFanProcessor extends GeoEventProcessorBase {
 		super(definition);
 		spatial = s;
 		manager = m;
-
+		//tagMgr=tm;
 		geoEventMutator= true;
 	}
 	
 	@Override
 	public GeoEvent process(GeoEvent ge) throws Exception {
-		
-    try 
-    {
 		double range;
 		String rangeSource = properties.get("rangeSource").getValue().toString();
 		if(rangeSource.equals("Constant"))
@@ -75,10 +81,10 @@ public class RangeFanProcessor extends GeoEventProcessorBase {
 			range = (Double) properties.get("range").getValue();
 		}
 		else
-		{			
+		{
 			String eventfld = properties.get("rangeEvent").getValue().toString();
 			String[] arr = eventfld.split(":");
-			range = (Double)ge.getField(arr[1]);				
+			range = (Double)ge.getField(arr[1]);
 		}
 		String unit = properties.get("units").getValue().toString();
 		
@@ -133,13 +139,6 @@ public class RangeFanProcessor extends GeoEventProcessorBase {
 		String json = GeometryEngine.geometryToJson(srOut, fanout);
 		com.esri.ges.spatial.Geometry outfan = spatial.fromJson(json);
 		ge.setGeometry(outfan);
-		
-	}
-	catch (Exception e) 
-	{
-	  LOG.warn("Parse exception in process:" + e.getMessage());
-	  LOG.debug(e.getMessage(), e);
-	}		
 		return ge;
 	}
 	private void constructVisibility(GeoEvent ge, String gpservice, String imageservice, double range, String unit,  double elevation, String units_elev, Geometry mask, int wkid) throws FieldException, ConfigurationException, GeometryException
