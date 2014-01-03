@@ -1,54 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" default-activation="lazy">
-	<reference id="spatialService" interface="com.esri.ges.spatial.Spatial"/>
-	<reference id="geoDefManagerService" interface="com.esri.ges.manager.geoeventdefinition.GeoEventDefinitionManager"/>
-    <reference id="agsConnectionsManagerService" interface="com.esri.ges.manager.datastore.agsconnection.ArcGISServerConnectionManager"/>
-    <reference id="messagingService" interface="com.esri.ges.messaging.Messaging"/>
-    
-    <bean id="rangeFanProcessorServiceBean" class="com.esri.ges.solutions.processor.geometry.RangeFanProcessorService" init-method="start">
-    	<property name="bundleContext" ref="blueprintBundleContext" />
-		<property name="spatial" ref="spatialService"/>
-		<property name="manager" ref="geoDefManagerService"/>
-		
-    </bean>
-    
-    <bean id="ellipseProcessorServiceBean" class="com.esri.ges.solutions.processor.geometry.EllipseProcessorService" init-method="start">
-    	<property name="bundleContext" ref="blueprintBundleContext" />
-		<property name="spatial" ref="spatialService"/>
-		<property name="manager" ref="geoDefManagerService"/>
-    </bean>
-    
-    <bean id="bufferProcessorServiceBean" class="com.esri.ges.solutions.processor.geometry.BufferProcessorService">
-    	<property name="bundleContext" ref="blueprintBundleContext" />
-		<property name="spatial" ref="spatialService"/>
-    </bean>
-    
-    <bean id="polygonProcessorServiceBean" class="com.esri.ges.solutions.processor.geometry.PolygonProcessorService" init-method="start">
-    	<property name="bundleContext" ref="blueprintBundleContext" />
-		<property name="spatial" ref="spatialService"/>
-		<property name="manager" ref="geoDefManagerService"/>
-    </bean>
-    
-    <bean id="visibilityProcessorServiceBean" class="com.esri.ges.solutions.processor.geometry.VisibilityProcessorService" init-method="start">
-    	<property name="bundleContext" ref="blueprintBundleContext" />
-		<property name="spatial" ref="spatialService"/>
-		<property name="manager" ref="geoDefManagerService"/>
-		
-    </bean>
-    
-    <bean id="queryReportProcessorServiceBean" class="com.esri.ges.solutions.processor.geometry.QueryReportProcessorService" init-method="start">
-    	<property name="bundleContext" ref="blueprintBundleContext" />
-		<property name="spatial" ref="spatialService"/>
-		<property name="manager" ref="geoDefManagerService"/>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	default-activation="lazy">
+	<reference id="spatialService" interface="com.esri.ges.spatial.Spatial" />
+	<reference id="geoDefManagerService"
+		interface="com.esri.ges.manager.geoeventdefinition.GeoEventDefinitionManager" />
+	<reference id="agsConnectionsManagerService"
+		interface="com.esri.ges.manager.datastore.agsconnection.ArcGISServerConnectionManager" />
+	<reference id="messagingService" interface="com.esri.ges.messaging.Messaging" />
+
+	<bean id="rangeFanProcessorServiceBean"
+		class="com.esri.geoevent.solutions.processor.geometry.RangeFanProcessorService"
+		init-method="start">
+		<property name="bundleContext" ref="blueprintBundleContext" />
+		<property name="spatial" ref="spatialService" />
+		<property name="manager" ref="geoDefManagerService" />
+
+	</bean>
+
+	<bean id="ellipseProcessorServiceBean"
+		class="com.esri.geoevent.solutions.processor.geometry.EllipseProcessorService"
+		init-method="start">
+		<property name="bundleContext" ref="blueprintBundleContext" />
+		<property name="spatial" ref="spatialService" />
+		<property name="manager" ref="geoDefManagerService" />
+	</bean>
+
+	<bean id="bufferProcessorServiceBean"
+		class="com.esri.geoevent.solutions.processor.geometry.BufferProcessorService"
+		init-method="start">
+		<property name="bundleContext" ref="blueprintBundleContext" />
+		<property name="spatial" ref="spatialService" />
+		<property name="manager" ref="geoDefManagerService" />
+	</bean>
+
+	<bean id="polygonProcessorServiceBean"
+		class="com.esri.geoevent.solutions.processor.geometry.PolygonProcessorService"
+		init-method="start">
+		<property name="bundleContext" ref="blueprintBundleContext" />
+		<property name="spatial" ref="spatialService" />
+		<property name="manager" ref="geoDefManagerService" />
+	</bean>
+
+	<bean id="visibilityProcessorServiceBean"
+		class="com.esri.geoevent.solutions.processor.geometry.VisibilityProcessorService"
+		init-method="start">
+		<property name="bundleContext" ref="blueprintBundleContext" />
+		<property name="spatial" ref="spatialService" />
+		<property name="manager" ref="geoDefManagerService" />
+
+	</bean>
+
+	<bean id="queryReportProcessorServiceBean" 
+	    class="com.esri.geoevent.solutions.processor.geometry.QueryReportProcessorService"
+		init-method="start">
+		<property name="bundleContext" ref="blueprintBundleContext" />
+		<property name="spatial" ref="spatialService" />
+		<property name="manager" ref="geoDefManagerService" />
 		<property name="connectionManager" ref="agsConnectionsManagerService" />
-		<property name="messaging" ref="messagingService"/>
-    </bean>
-    
-    <service id="rangeFanProcessorService" ref="rangeFanProcessorServiceBean" interface="com.esri.ges.processor.GeoEventProcessorService"/>
-	<service id="ellipseProcessorService" ref="ellipseProcessorServiceBean" interface="com.esri.ges.processor.GeoEventProcessorService"/>
-	<service id="bufferProcessorService" ref="bufferProcessorServiceBean" interface="com.esri.ges.processor.GeoEventProcessorService"/>
-	<service id="visibilityProcessorService" ref="visibilityProcessorServiceBean" interface="com.esri.ges.processor.GeoEventProcessorService"/>
-	<service id="queryReportProcessorService" ref="queryReportProcessorServiceBean" interface="com.esri.ges.processor.GeoEventProcessorService"/>
-	<service id="polygonProcessorService" ref="polygonProcessorServiceBean" interface="com.esri.ges.processor.GeoEventProcessorService"/>
+		<property name="messaging" ref="messagingService" />
+	</bean>
+
+	<service id="rangeFanProcessorService" ref="rangeFanProcessorServiceBean"
+		interface="com.esri.ges.processor.GeoEventProcessorService" />
+	<service id="ellipseProcessorService" ref="ellipseProcessorServiceBean"
+		interface="com.esri.ges.processor.GeoEventProcessorService" />
+	<service id="bufferProcessorService" ref="bufferProcessorServiceBean"
+		interface="com.esri.ges.processor.GeoEventProcessorService" />
+	<service id="visibilityProcessorService" ref="visibilityProcessorServiceBean"
+		interface="com.esri.ges.processor.GeoEventProcessorService" />
+	<service id="queryReportProcessorService" ref="queryReportProcessorServiceBean"
+		interface="com.esri.ges.processor.GeoEventProcessorService" />
+	<service id="polygonProcessorService" ref="polygonProcessorServiceBean"
+		interface="com.esri.ges.processor.GeoEventProcessorService" />
 </blueprint>
