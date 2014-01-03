@@ -1,9 +1,21 @@
+/*
+ | Copyright 2013 Esri
+ |
+ | Licensed under the Apache License, Version 2.0 (the "License");
+ | you may not use this file except in compliance with the License.
+ | You may obtain a copy of the License at
+ |
+ |    http://www.apache.org/licenses/LICENSE-2.0
+ |
+ | Unless required by applicable law or agreed to in writing, software
+ | distributed under the License is distributed on an "AS IS" BASIS,
+ | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ | See the License for the specific language governing permissions and
+ | limitations under the License.
+ */
 package com.esri.ges.solutions.adapter.cap;
 
-//import java.awt.List;
-//import java.awt.Polygon;
 import java.io.*;
-//import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -12,39 +24,23 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.xml.parsers.*;
-//import javax.xml.transform.*;
-//import javax.xml.transform.dom.*;
-//import javax.xml.transform.stream.*;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-//import org.joda.time.DateTime;
-//import org.joda.time.LocalDateTime;
-//import org.joda.time.format.DateTimeFormat;
-//import org.joda.time.format.DateTimeFormatter;
-//import org.joda.time.format.ISODateTimeFormat;
 import org.w3c.dom.*;
 import org.xml.sax.*;
 
 import com.esri.core.geometry.GeometryEngine;
-//import com.esri.core.geometry.*;
 import com.esri.ges.adapter.AdapterDefinition;
 import com.esri.ges.adapter.InboundAdapterBase;
 import com.esri.ges.core.component.ComponentException;
-//import com.esri.ges.core.geoevent.FieldException;
 import com.esri.ges.core.geoevent.GeoEvent;
 import com.esri.ges.messaging.GeoEventListener;
 import com.esri.ges.messaging.MessagingException;
-//import com.esri.ges.spatial.Geometry;
-//import com.esri.ges.spatial.Point;
-//import com.esri.ges.spatial.SpatialReference;
 import com.esri.ges.spatial.*;
-
-
 
 public class CAPInboundAdapter extends InboundAdapterBase
 {
-
 	GeoEventListener listener;
 	private static final Log LOG = LogFactory.getLog(CAPInboundAdapter.class);
 	private static final int MAX_ENTRIES = 20000;
@@ -52,16 +48,13 @@ public class CAPInboundAdapter extends InboundAdapterBase
 	com.esri.core.geometry.SpatialReference arcgisWGS;
 	com.esri.ges.spatial.SpatialReference gepWGS;
 	com.esri.core.geometry.Unit arcgisKmUnit; 
-	
-	
+		
 	public CAPInboundAdapter(AdapterDefinition definition) throws ComponentException
 	{
 		super(definition);
 		 MAP = new LinkedHashMap(MAX_ENTRIES + 1, 1.1f, false){protected boolean removeEldestEntry(Map.Entry eldest){return size() > MAX_ENTRIES;}};
 		 arcgisWGS = com.esri.core.geometry.SpatialReference.create(4326);
 		 arcgisKmUnit = com.esri.core.geometry.Unit.create(9036);
-		 //Point gepPt = spatial.createPoint(-10,10,4326);
-		 //gepWGS = gepPt.getSpatialReference();
 	}
 
 	
@@ -233,10 +226,6 @@ public class CAPInboundAdapter extends InboundAdapterBase
 
 		        //System.out.println("Processed " + procAlerts + " of " + alerts.getLength() + " alerts.");
 				
-				//GeoEvent result = parseEvent(data);
-				//if (result != null){
-				//	geoEventListener.receive( result );	
-				//}
 			} catch (Exception e) {
 				String msg = e.getMessage();				
             	System.out.println(msg);
@@ -254,9 +243,6 @@ public class CAPInboundAdapter extends InboundAdapterBase
 		{
 			msg = geoEventCreator.create(((AdapterDefinition)definition).getGeoEventDefinition("CAPAlert").getGuid()); 
 			
-            //NodeList nodeList = element.getElementsByTagName("identifier");
-            //Element line = (Element) nodeList.item(0);
-            //String strValue = getCharacterDataFromElement(line);
             try{msg.setField(0, identifier);}catch(Exception ex){LOG.debug("Failed to set 'identifier': " + identifier);}
             
             NodeList nodeList;
@@ -266,8 +252,7 @@ public class CAPInboundAdapter extends InboundAdapterBase
             try{nodeList = element.getElementsByTagName("sender");
             line = (Element) nodeList.item(0);
             strValue = getCharacterDataFromElement(line);
-            msg.setField(1, strValue);}catch(Exception ex){LOG.debug("Failed to set 'sender': " + strValue);}
-            
+            msg.setField(1, strValue);}catch(Exception ex){LOG.debug("Failed to set 'sender': " + strValue);}            
             
             try{nodeList = element.getElementsByTagName("sent");
             line = (Element) nodeList.item(0);
@@ -337,20 +322,15 @@ public class CAPInboundAdapter extends InboundAdapterBase
 		{
 			msg = geoEventCreator.create(((AdapterDefinition)definition).getGeoEventDefinition("CAPAlertCode").getGuid()); 
 			
-            //NodeList nodeList = element.getElementsByTagName("identifier");
-            //Element line = (Element) nodeList.item(0);
-            //String strValue = getCharacterDataFromElement(line);
             try{msg.setField(0, identifier);}catch(Exception ex){LOG.debug("Failed to set 'identifier': " + identifier);}
             
             NodeList nodeList;
             Element line;
             String strValue = "";
             
-            try{//nodeList = element.getElementsByTagName("code");
-            //line = (Element) nodeList.item(0);
+            try{
             strValue = getCharacterDataFromElement(element);
             msg.setField(1, strValue);}catch(Exception ex){LOG.debug("Failed to set 'code': " + strValue);}
-
 		}
 		catch (MessagingException e)
 		{
@@ -473,9 +453,7 @@ public class CAPInboundAdapter extends InboundAdapterBase
             nodeList = element.getElementsByTagName(tagName);
             line = (Element) nodeList.item(0);
             strValue = getCharacterDataFromElement(line);
-            msg.setField(16, strValue);}catch(Exception ex){LOG.debug("Failed to set '" + tagName + "': " + strValue);}
-            
-
+            msg.setField(16, strValue);}catch(Exception ex){LOG.debug("Failed to set '" + tagName + "': " + strValue);}            
 		}
 		catch (MessagingException e)
 		{
@@ -490,9 +468,6 @@ public class CAPInboundAdapter extends InboundAdapterBase
 		{
 			msg = geoEventCreator.create(((AdapterDefinition)definition).getGeoEventDefinition("CAPInfoCategory").getGuid()); 
 			
-            //NodeList nodeList = element.getElementsByTagName("identifier");
-            //Element line = (Element) nodeList.item(0);
-            //String strValue = getCharacterDataFromElement(line);
 			try{msg.setField(0, identifier);}catch(Exception ex){LOG.debug("Failed to set 'identifier': " + identifier);}
             try{msg.setField(1, infoID);}catch(Exception ex){LOG.debug("Failed to set 'infoID': " + infoID);}
             
@@ -502,8 +477,6 @@ public class CAPInboundAdapter extends InboundAdapterBase
             String tagName = "";
             
             try{tagName = "category";
-             //nodeList = element.getElementsByTagName(tagName);
-             //line = (Element) nodeList.item(0);
              strValue = getCharacterDataFromElement(element);
             msg.setField(2, strValue);}catch(Exception ex){LOG.debug("Failed to set '" + tagName + "': " + strValue);}
 
@@ -521,9 +494,6 @@ public class CAPInboundAdapter extends InboundAdapterBase
 		{
 			msg = geoEventCreator.create(((AdapterDefinition)definition).getGeoEventDefinition("CAPInfoEventCode").getGuid()); 
 			
-            //NodeList nodeList = element.getElementsByTagName("identifier");
-            //Element line = (Element) nodeList.item(0);
-            //String strValue = getCharacterDataFromElement(line);
 			try{msg.setField(0, identifier);}catch(Exception ex){LOG.debug("Failed to set 'identifier': " + identifier);}
             try{msg.setField(1, infoID);}catch(Exception ex){LOG.debug("Failed to set 'infoID': " + infoID);}
             
@@ -558,9 +528,6 @@ public class CAPInboundAdapter extends InboundAdapterBase
 		{
 			msg = geoEventCreator.create(((AdapterDefinition)definition).getGeoEventDefinition("CAPInfoResponseType").getGuid()); 
 			
-            //NodeList nodeList = element.getElementsByTagName("identifier");
-            //Element line = (Element) nodeList.item(0);
-            //String strValue = getCharacterDataFromElement(line);
 			try{msg.setField(0, identifier);}catch(Exception ex){LOG.debug("Failed to set 'identifier': " + identifier);}
             try{msg.setField(1, infoID);}catch(Exception ex){LOG.debug("Failed to set 'infoID': " + infoID);}
             
@@ -570,8 +537,6 @@ public class CAPInboundAdapter extends InboundAdapterBase
             String tagName = "";
             
             try{ tagName = "responseType";
-             //nodeList = element.getElementsByTagName(tagName);
-             //line = (Element) nodeList.item(0);
              strValue = getCharacterDataFromElement(element);
             msg.setField(2, strValue);}catch(Exception ex){LOG.debug("Failed to set '" + tagName + "': " + strValue);}
 
@@ -589,9 +554,6 @@ public class CAPInboundAdapter extends InboundAdapterBase
 		{
 			msg = geoEventCreator.create(((AdapterDefinition)definition).getGeoEventDefinition("CAPInfoParameter").getGuid()); 
 			
-            //NodeList nodeList = element.getElementsByTagName("identifier");
-            //Element line = (Element) nodeList.item(0);
-            //String strValue = getCharacterDataFromElement(line);
 			try{msg.setField(0, identifier);}catch(Exception ex){LOG.debug("Failed to set 'identifier': " + identifier);}
             try{msg.setField(1, infoID);}catch(Exception ex){LOG.debug("Failed to set 'infoID': " + infoID);}
             
@@ -626,9 +588,6 @@ public class CAPInboundAdapter extends InboundAdapterBase
 		{
 			msg = geoEventCreator.create(((AdapterDefinition)definition).getGeoEventDefinition("CAPInfoResource").getGuid()); 
 			
-            //NodeList nodeList = element.getElementsByTagName("identifier");
-            //Element line = (Element) nodeList.item(0);
-            //String strValue = getCharacterDataFromElement(line);
 			try{msg.setField(0, identifier);}catch(Exception ex){LOG.debug("Failed to set 'identifier': " + identifier);}
             try{msg.setField(1, infoID);}catch(Exception ex){LOG.debug("Failed to set 'infoID': " + infoID);}
             
@@ -732,13 +691,10 @@ public class CAPInboundAdapter extends InboundAdapterBase
             NodeList nodeList;
             Element line;
             String strValue = "";
-
-			
-            
+        
             if (polygon != null){
             	tagName = "polygon";
-            	//nodeList = element.getElementsByTagName(tagName);
-            	//line = (Element) polygon.item(0);
+            	
             	try{strValue = getCharacterDataFromElement(polygon);
             	msg.setField(3, strValue);}catch(Exception ex){
             		LOG.debug("Failed to set '" + tagName + "': " + strValue);
@@ -758,7 +714,6 @@ public class CAPInboundAdapter extends InboundAdapterBase
             			
             		try
             		{
-
             		    Point gepPt = spatial.createPoint(-10,10,4326);
             			gepWGS = gepPt.getSpatialReference();
             			com.esri.ges.spatial.Polygon polyG = spatial.createPolygon();
@@ -800,8 +755,6 @@ public class CAPInboundAdapter extends InboundAdapterBase
             if (circle != null)
             {
             	tagName = "circle";
-            	//nodeList = element.getElementsByTagName(tagName);
-            	//line = (Element) nodeList.item(0);
             	try
             	{
             		strValue = getCharacterDataFromElement(circle);
@@ -810,7 +763,6 @@ public class CAPInboundAdapter extends InboundAdapterBase
             	{
             		LOG.debug("Failed to set '" + tagName + "': " + strValue);
             	}
-            		//msg.setField(4, strValue);
 
             	String coordPair = "";
             	String radString = "";
@@ -821,7 +773,7 @@ public class CAPInboundAdapter extends InboundAdapterBase
             		String[] xAndY = coordPair.split(",");
             		Double y = Double.parseDouble(xAndY[0]);
             		Double x = Double.parseDouble(xAndY[1]);
-            		//Point point = spatial.createPoint(x, y, 0,4326);
+
             		radString= coords[1];
             		Double radius = Double.parseDouble(radString);
             		if (radius == null | radius <= 0) {
@@ -870,7 +822,6 @@ public class CAPInboundAdapter extends InboundAdapterBase
             	{
             		LOG.debug("Failed to set 'Geocode Value': " + strValue);
             	}
-            	//try{msg.setField(7, strValue);}catch(Exception ex){LOG.debug("Failed to set geometry");}
             }
 
 		}

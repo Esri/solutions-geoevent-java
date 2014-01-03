@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
-	<bean id="defenseInboundAdapterServiceBean" class="com.esri.geoevent.solutions.adapter.geomessage.DefenseInboundAdapterService" activation="eager">
+	<bean id="defenseInboundAdapterServiceBean" class="com.esri.ges.solutions.adapter.geomessage.DefenseInboundAdapterService" activation="eager">
 		<property name="bundleContext" ref="blueprintBundleContext"/>
 	</bean>
-	<bean id="defenseOutboundAdapterServiceBean" class="com.esri.geoevent.solutions.adapter.geomessage.DefenseOutboundAdapterService" activation="eager">
+	<bean id="defenseOutboundAdapterServiceBean" class="com.esri.ges.solutions.adapter.geomessage.DefenseOutboundAdapterService" activation="eager">
 		<property name="bundleContext" ref="blueprintBundleContext"/>
 	</bean>
 	<service id="defenseInboundAdapterService" ref="defenseInboundAdapterServiceBean" interface="com.esri.ges.adapter.AdapterService"/>

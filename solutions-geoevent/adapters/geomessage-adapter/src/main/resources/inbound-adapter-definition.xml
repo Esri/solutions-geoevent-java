@@ -1,4 +1,4 @@
-<adapter name="Geomessage" label="Geomessage Inbound Adapter" domain="com.esri.geoevent.solutions.adapter.geomessage.inbound" type="inbound">
+<adapter name="Geomessage" label="Geomessage Inbound Adapter" domain="com.esri.ges.solutions.adapter" type="inbound">
 	<description>This adapter is capable of handling Esri Geomessages from ArcGIS Runtime applications such as the Vehicle Commander or Squad Leader.</description>
 	<propertyDefinitions/>
 </adapter>

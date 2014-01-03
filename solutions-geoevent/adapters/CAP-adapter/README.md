@@ -1,66 +1,96 @@
 # CAP-Adapter
-====================
 
+The CAP adapter provides an example of how to ingest Common Alerting Protocol (CAP) XML messages as geoevents.
 
-![Image of geomessage-adapter](CAP_logo.JPG "solutions-geoevent-java")
+![Image of geomessage-adapter](CAP_logo.JPG)
 
-The CAP adapter provides an example of how to injest Common Alert Protocol (CAP) messages as geoevents.
+## Features
 
-# Prerequisites
-1. Install ArcGIS geoevent server
-2. download and install geoevent server sdk (sdk included with geoevent server instalation)
-3. follow sdk documentation to set up maven repository
-4. Install the ArcGIS Java Runtime 10.1.1 sdk
+* Receives XML messages conforming to the CAP message format
+* Converts message received using available GEP definitions
 
-## Instructions
+## Sections
 
-### General Help
+* [Requirements](#requirements)
+* [Building](#building)
+* [Installation](#installation)
+* [Testing](#testing)
+* [Licensing](#licensing)
 
-* [New to Github? Get started here.](http://htmlpreview.github.com/?https://github.com/Esri/esri.github.com/blob/master/help/esri-getting-to-know-github.html)
+## Requirements
 
-## Getting Started
+* See common [solutions-geoevent-java requirements](../../../README.md#requirements)
+* There are no additional requirements for this project
 
-1. The path to the repository in the module's pom.xml may need to be modified to point at Systems folder in the geoevent server install location.  In the example below the repo points to the default location of the systems folder.
+## Building 
+
+* See the [solutions-geoevent-java instructions](../../../README.md#instructions) for general instructions on 
+    * verifying your Maven installation
+    * setting the location of the GEP Server and GEP SDK repositories
+    * and any other common required steps
+ * Open a command prompt and navigate to `solutions-geoevent-java/solutions-geoevent/adapters/CAP-adapter`
+ * * Enter `mvn install` at the prompt
+
+## Installation
+
+* Install the adapter
+    * Browse to `solutions-geoevent-java/solutions-geoevent/adapters/CAP-adapter/target` (this directory is created when you execute mvn install).
+    * Copy the jar file and paste it into the deploy directory on your GeoEvent server (<GEP install location>\deploy\ -- default location is C:\Program Files\ArcGIS\Server\GeoEventProcessor\deploy)
+
+## Testing
+
+### Validating the Installation
  
- ```
-<repository> 
-  <id>GEP</id>
-  <name>GeoEvent Processor embedded repository</name>
-  <layout>default</layout>
-  <url>file:///Program Files/ArcGIS/Server/GeoEventProcessor/System</url> 
-</repository>
-```
+* See the [solutions-geoevent-java validation instructions](../../../README.md#validating-install).
 
-### Building just the CAP-Adapter 
+### Testing with Simulated Test Data
 
-See the [solutions/geoevent README.md](https://github.com/ArcGIS/solutions-geoevent-java/edit/master/README.md) for instructions on building all processors, adapters and transports
- 
-1. navigate to the ./solutions-geoevent-java/solutions-geoevent/adapters/CAP-adapter directory on the command prompt
-2. type mvn install at the prompt and hit return
-3. Browse to ./solutions-geoevent-java/solutions-geoevent/adapters/CAP-adapter/target (this directory is created when you execute mvn install).
-4. Copy the CAP-Adapter-10.2.0.jar file and paste it into the deploy directory on your GeoEvent server (<GeoEventServer install location>\deploy\ -- default location is C:\Program Files\ArcGIS\Server\GeoEventProcessor\deploy)
- 
-### Validating Install
- 
-1. Browse to the 'Site' tab in GeoEvent Service manager
-2. Click on the 'Adapters' tab and you should see the CAP-adapter as one of the available input adapters
+* In the following steps you will configure GEP to receive and process simulated CAP data
+* Open the GEP Manager web application
+* Create a connector to receive file data updated to a folder
+    * Navigate to ‘Site’ > ‘GeoEvent Processor’ > 'Connectors'
+    * Select Create Connector and configure as shown
+
+![Image of create connector](doc/create-connector.png)
+
+* Next use the GEP Manager and Service Designer to
+    * Create an Input to receive file data using the created connector 
+    * Create an Output to observe received data
+    * Create a simple service to direct the Input data to the Output
+
+* An example of a simple file/folder input is shown below 
+    * Choose the Input Connector "Watch a folder for new .json files"
+    * Note: this will work for any file type, just select a wildcard or other compatible file filter
+    * An example Input is shown below
+
+![Image of input settings](doc/input-settings.png)
+
+* An example of a simple service is shown below 
+
+![Image of service](doc/service.png)
+
+* Navigate to ‘Services’ > ‘Monitor’ and observe that you have a configuration similar to the following (note: your names/outputs may differ)
+
+![Image of monitor](doc/monitor.png)
+
+* One at a time, copy the "CAP-" XML files from solutions-geoevent-java\data\simulation_files into the input folder created during the Input step and observe that the values increase on the monitor and the selected outputs are updated. 
+    * Note: each CAP message may generate multiple geoevents
+
+### Testing with Live Data Feeds
+
+* Multiple government sites exist that publish CAP message data over HTTP and REST. See the resources sections for links to these sites and the GEP documentation for how to configure appropriate connectors.
 
 ## Resources
 
-* Learn more about Esri's [ArcGIS for the Military](http://solutions.arcgis.com/military/).
-* Learn more about Esri's [ArcGIS GeoEvent Processor for Server Resource Center](http://pro.arcgis.com/share/geoevent-processor/)
-
-## Issues
-
-Find a bug or want to request a new feature?  Please let us know by submitting an issue.
-
-## Contributing
-
-Esri welcomes contributions from anyone and everyone. Please see our [guidelines for contributing](https://github.com/esri/contributing).
+* Learn more about the Common Alerting Protocol
+    * [CAP on Wikipedia](http://en.wikipedia.org/wiki/Common_Alerting_Protocol)
+* Sample CAP feeds available at the following 
+    * [http://www.gdacs.org/](http://www.gdacs.org/)
+    * [http://wcatwc.arh.noaa.gov/](http://wcatwc.arh.noaa.gov/)
 
 ## Licensing
 
-Copyright 2012-2013 Esri
+Copyright 2013 Esri
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -75,4 +105,4 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 A copy of the license is available in the repository's
-[license.txt](license.txt) file.
+[license.txt](../../../license.txt) file.

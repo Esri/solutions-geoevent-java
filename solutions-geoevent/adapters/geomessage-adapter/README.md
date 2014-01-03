@@ -1,59 +1,105 @@
-# Geomessage Adapter
-====================
+# geomessage-adapter
 
-![Image of geomessage-adapter](2525C.PNG "solutions-geoevent-java")
+The geomessage-adapter provides an example of an adapter that can receive and send XML messages in a simple geomessage format.  This geomessage format is an XML format for use with [Esri military features](http://resources.arcgis.com/en/help/main/10.2/index.html#//000n0000000p000000)
+ and corresponds to the format used by the [ArcGIS Runtime Message Processor](https://developers.arcgis.com/en/java/api-reference/com/esri/core/symbol/advanced/MessageProcessor.html).
 
-The Geomessage Adapter provides an example of an adapter that injests and writes out messages in Esri's geomessage format.  Geomessage is an xml format used to transmit messages to esri's military features.
+![Image of geomessage-adapter](ScreenShot.png)
+
+## Features
+
+* Sends and receives XML messages in a geomessage format
+* Converts message types received using available GEP GeoEvent Processor definitions
+* The "_type" element of the message is used to look up an existing geoevent definition
+* Here are example of some of these definitions:
+
+Definition | Purpose 
+--- | ---
+trackrep | Track movement reports
+spotrep | To create SPOT reports
+eod | To create and update EOD reports
+medevac | To create Medevac reports
+sitrep | To create SITREPS
+slantrep | To create SLANTREPS
+bedavail | To update the status of the Bedavail in an area updated based on reporting unit
+chemlight | To create chemlights reports
 
 
-# Prerequisites
+## Sections
 
-1. Install ArcGIS geoevent server
-2. download and install geoevent server sdk (sdk included with geoevent server instalation)
-3. follow sdk documentation to set up maven repository
-4. Clone the solutions-geoevent-java repository
+* [Requirements](#requirements)
+* [Building](#building)
+* [Installation](#installation)
+* [Testing](#testing)
+* [Licensing](#licensing)
 
+## Requirements
 
-## Instructions
+* See common [solutions-geoevent-java requirements](../../../README.md#requirements)
+* There are no additional requirements for this project
 
-### General Help
+## Building 
 
-* [New to Github? Get started here.](http://htmlpreview.github.com/?https://github.com/Esri/esri.github.com/blob/master/help/esri-getting-to-know-github.html)
+* See the [solutions-geoevent-java instructions](../../../README.md#instructions) for general instructions on 
+    * verifying your Maven installation
+    * setting the location of the GEP Server and GEP SDK repositories
+    * and any other common required steps
+ * Open a command prompt and navigate to `solutions-geoevent-java/solutions-geoevent/adapters/geomessage-adapter`
+* Enter `mvn install` at the prompt
 
-## Getting Started
+## Installation
 
+* Install the adapter
+    * Browse to `solutions-geoevent-java/solutions-geoevent/adapters/geomessage-adapter/target` (this directory is created when you execute mvn install).
+    * Copy the geomessage-adapter-{version}.jar file and paste it into the deploy directory on your GeoEvent server (<GEP install location>\deploy\ -- default location is C:\Program Files\ArcGIS\Server\GeoEventProcessor\deploy)
+* Check the existing geoevent definitions
+    *  Open the GeoEvent Processor Manager web application.
+    *  Navigate to ‘Site’ > ‘GeoEvent Processor’ > ‘GeoEvent Definitions’ 
+    *  Confirm that the following GEP geoevent definitions are available
 
-### Building just the CAP-Adapter 
-see the [solutions/geoevent README.md](https://github.com/ArcGIS/solutions-geoevent-java/edit/master/README.md) for instructions on building all processors, adapters and transports
+![Image of geoeventdefinition](doc/geoeventdefinitions.png)
+
+* If these definitions are not available, do the following to install these definitions
+    *  Navigate to ‘Site’ > ‘GeoEvent Processor’ > ‘Configuration Store’ and click ‘Import Configuration’
+    *  Browse to `solutions-geoevent-java\data\configurations` and locate the `GeoEventDefinitions-GeoMessageAdapter.xml` configuration file. This file is located [here](../../../data/configurations/GeoEventDefinitions-GeoMessageAdapter.xml).
+    *  On the GeoEvent Processor’s Import Configuration panel, click Import.
+
+## Testing
+
+### Validating the Installation
  
-1. navigate to the ./solutions-geoevent-java/solutions-geoevent/adapters/geomessage-adapter directory on the command prompt
-2. type mvn install at the prompt and hit return
-3. Browse to ./solutions-geoevent-java/solutions-geoevent//adapters/geomessage-adapter/target (this directory is created when you execute mvn install).
-4. Copy the geomessage-adapter-10.2.0.jar file and paste it into the deploy directory on your GeoEvent server (<GeoEventServer install location>\deploy\ -- default location is C:\Program Files\ArcGIS\Server\GeoEventProcessor\deploy)
- 
-### Validating Install
- 
-1. Browse to the 'Site' tab in GeoEvent Service manager
-2. Click on the 'Adapters' tab and you should see both a Geomessage input adapter and Geomessage output adapter listed.
+* See the [solutions-geoevent-java validation instructions](../../../README.md#validating-install).
 
-## Resources
+### Testing with Live Data
 
-* Learn more about Esri's [ArcGIS for the Military](http://solutions.arcgis.com/military/).
-* Learn more about Esri's[ArcGIS GeoEvent Processor for Server Resource Center](http://pro.arcgis.com/share/geoevent-processor/)
-* Learn more about Esri's[ArcGIS Blog](http://blogs.esri.com/esri/arcgis/)
-* Learn more about [twitter@esri](http://twitter.com/esri)
+* Download and build an application that can send simulated geomessages over UDP
+    * A sample UDP geomessage simulation application is available with the [Vehicle Commander repository](https://github.com/Esri/vehicle-commander/tree/master/source/MessageSimulator)
+    * A pre-built version of this project is included [here](../../../data/utilities/UDPGeoMessageSimulator)
+    * A sample simulation file, SimpleGeoMessage.xml, is provided [here](../../../data/simulation_files)
+* In the following steps you will configure GEP to receive and process simulated geomessage data
+* Open the GEP Manager web application
+* Create a connector to receive UDP data
+    * Navigate to ‘Site’ > ‘GeoEvent Processor’ > 'Connectors'
+    * Select Create Connector and configure as shown
 
-## Issues
+![Image of create connector](doc/create-connector.png)
 
-Find a bug or want to request a new feature?  Please let us know by submitting an issue.
+* Next use the GEP Manager and Service Designer to
+    * Create an Input to receive geomessage data using the created connector 
+    * Create an Output to observe received data
+    * Create a simple service to direct the Input data to the Output
+    * An example of a simple service is shown below 
 
-## Contributing
+![Image of service](doc/service.png)
 
-Esri welcomes contributions from anyone and everyone. Please see our [guidelines for contributing](https://github.com/esri/contributing).
+* Navigate to ‘Services’ > ‘Monitor’ and observe that you have a configuration similar to the following (note: your names/outputs may differ)
+
+![Image of monitor](doc/monitor.png)
+
+* Start the UDP geomessage simulator and observe that the values increase on the monitor and the selected outputs are updated.
 
 ## Licensing
 
-Copyright 2012-2013 Esri
+Copyright 2013 Esri
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -68,6 +114,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 A copy of the license is available in the repository's
-[license.txt](license.txt) file.
+[license.txt](../../../license.txt) file.
 
 
