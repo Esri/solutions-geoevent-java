@@ -109,9 +109,14 @@ public class QueryReportProcessor extends GeoEventProcessorBase {
 		connectionManager = cm;
 		messaging = msg;
 		geoEventMutator= true;
-		
 	}
-
+	
+	//@Override
+	public void onServiceStop()
+	{
+		definition.getPropertyDefinitions().clear();
+		((QueryReportProcessorDefinition)definition).GenerateProperties();
+	}
 	@Override
 	public GeoEvent process(GeoEvent ge) throws Exception {
 		CreateQueryMap();

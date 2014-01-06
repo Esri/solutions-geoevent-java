@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: CoT_track.xsd,v 1.4 2005/12/16 14:11:36 mel Exp $ 
+- - - - - - - - - - - - -
+ Version History
+- - - - - - - - - - - - -
+  - 0.2: 15 Dec 2005
+    1. version attribute definition modified
+      a) Changed data type to xs:decimal
+      b) Deleted 'fixed' facet
+  - 0.1: Initial version
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd"
+   elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="track">
+		<xs:annotation>
+			<xs:documentation>This is a Cursor On Target detail sub-schema for track information.  The root element and associated attributes of this schema are intended to appear in the detail element of the Cursor On Target schema.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="course" use="required">
+				<xs:annotation>
+					<xs:documentation>Direction of motion with respect to true north. Measured in degrees.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:minInclusive value="0"/>
+						<xs:maxExclusive value="360"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="speed" use="required">
+				<xs:annotation>
+					<xs:documentation>Magnitude of motion measured in meters per second</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:minInclusive value="0.0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="slope" use="optional">
+				<xs:annotation>
+					<xs:documentation>Vertical component of motion vector. Measured in degrees. Negative indicates downward motion.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:minInclusive value="-90.0"/>
+						<xs:maxInclusive value="90.0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="eCourse" type="xs:decimal" use="optional">
+				<xs:annotation>
+					<xs:documentation>1-sigma error on a Gaussian distribution associated with the course attribute</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="eSpeed" type="xs:decimal" use="optional">
+				<xs:annotation>
+					<xs:documentation>1-sigma error on a Gaussian distribution associated with the speed attribute</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="eSlope" type="xs:decimal" use="optional">
+				<xs:annotation>
+					<xs:documentation>1-sigma error on a Gaussian distribution associated with the slope attribute</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="version" type="xs:decimal" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

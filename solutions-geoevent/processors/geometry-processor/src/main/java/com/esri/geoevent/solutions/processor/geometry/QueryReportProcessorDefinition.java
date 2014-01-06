@@ -123,7 +123,7 @@ public class QueryReportProcessorDefinition extends
 	 * } }
 	 */
 
-	private void GenerateProperties() {
+	protected void GenerateProperties() {
 		try {
 
 			PropertyDefinition procReportName = new PropertyDefinition(
