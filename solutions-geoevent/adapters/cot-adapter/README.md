@@ -1,8 +1,8 @@
-# CoT-Adapter
+﻿# CoT-Adapter
 
 The CoT adapter provides an example of how to ingest Cursor on Target (CoT) messages as geoevents.
 
-![Image of geomessage-adapter](CoT.JPG)
+![Image of geomessage-adapter](CursorOnTarget.JPG)
 
 ## Features
 
