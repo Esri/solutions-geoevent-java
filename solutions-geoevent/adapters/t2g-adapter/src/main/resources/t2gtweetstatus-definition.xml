@@ -4,8 +4,11 @@
 		<geoEventDefinition name="T2GTweetStatus">
 			<fieldDefinitions>
 				<fieldDefinition name="possibly_sensitive_editable" type="Boolean"/>
-				<fieldDefinition name="text" type="String"/>
-
+				<fieldDefinition name="text" type="String">
+					<fieldDefinitionTag>
+						<name>TWEETTEXT</name>
+					</fieldDefinitionTag>
+				</fieldDefinition>
 				<fieldDefinition name="created_at" type="Date">
 					<fieldDefinitionTag>
 						<name>TIME_START</name>
@@ -23,7 +26,7 @@
 
 				<fieldDefinition name="id_str" type="String">
 					<fieldDefinitionTag>
-						<name>TRACK_ID</name>
+						<name>TWEET_ID</name>
 					</fieldDefinitionTag>
 				</fieldDefinition>
 				<fieldDefinition name="in_reply_to_screen_name" type="String"/>
@@ -53,7 +56,17 @@
 
 				<fieldDefinition name="geolocated" type="Boolean"/>
 				<fieldDefinition name="rank" type="Integer"/>
-				<fieldDefinition name="loctype" type="String"/>
+				<fieldDefinition name="loctype" type="String">
+					<fieldDefinitionTag>
+						<name>LOCTYPE</name>
+					</fieldDefinitionTag>
+				</fieldDefinition>
+				<fieldDefinition name="geotype" type="String"/>
+				<fieldDefinition name="uid" type="String">
+					<fieldDefinitionTag>
+						<name>TRACK_ID</name>
+					</fieldDefinitionTag>
+				</fieldDefinition>
 			</fieldDefinitions>
 		</geoEventDefinition>
 		<geoEventDefinition name="T2GGeoTagStatus">
@@ -61,16 +74,67 @@
 				
 				<fieldDefinition name="id_str" type="String">
 					<fieldDefinitionTag>
-						<name>TRACK_ID</name>
+						<name>TWEET_ID</name>
 					</fieldDefinitionTag>
 				</fieldDefinition>
-				<fieldDefinition name="loctype" type="String"/>
+				<fieldDefinition name="loctype" type="String">
+					<fieldDefinitionTag>
+						<name>LOCTYPE</name>
+					</fieldDefinitionTag>
+				</fieldDefinition>
 				<fieldDefinition name="created_at" type="Date">
 					<fieldDefinitionTag>
 						<name>TIME_START</name>
 					</fieldDefinitionTag>
 				</fieldDefinition>
+				<fieldDefinition name="geotype" type="String"/>
+				<fieldDefinition name="text" type="String">
+					<fieldDefinitionTag>
+						<name>TWEETTEXT</name>
+					</fieldDefinitionTag>
+				</fieldDefinition>
+				<fieldDefinition name="uid" type="String">
+					<fieldDefinitionTag>
+						<name>TRACK_ID</name>
+					</fieldDefinitionTag>
+				</fieldDefinition>
 				<fieldDefinition name="coordinates" type="Geometry">
+					<fieldDefinitionTag>
+						<name>GEOMETRY</name>
+					</fieldDefinitionTag>
+				</fieldDefinition>
+			</fieldDefinitions>
+		</geoEventDefinition>
+		<geoEventDefinition name="T2GGeoRel">
+			<fieldDefinitions>
+				
+				<fieldDefinition name="id_str" type="String">
+					<fieldDefinitionTag>
+						<name>TWEET_ID</name>
+					</fieldDefinitionTag>
+				</fieldDefinition>
+				<fieldDefinition name="reltype" type="String">
+					<fieldDefinitionTag>
+						<name>RELTYPE</name>
+					</fieldDefinitionTag>
+				</fieldDefinition>
+				<fieldDefinition name="created_at" type="Date">
+					<fieldDefinitionTag>
+						<name>TIME_START</name>
+					</fieldDefinitionTag>
+				</fieldDefinition>
+				<fieldDefinition name="geotype" type="String"/>
+				<fieldDefinition name="text" type="String">
+					<fieldDefinitionTag>
+						<name>TWEETTEXT</name>
+					</fieldDefinitionTag>
+				</fieldDefinition>
+				<fieldDefinition name="uid" type="String">
+					<fieldDefinitionTag>
+						<name>TRACK_ID</name>
+					</fieldDefinitionTag>
+				</fieldDefinition>
+				<fieldDefinition name="shape" type="Geometry">
 					<fieldDefinitionTag>
 						<name>GEOMETRY</name>
 					</fieldDefinitionTag>

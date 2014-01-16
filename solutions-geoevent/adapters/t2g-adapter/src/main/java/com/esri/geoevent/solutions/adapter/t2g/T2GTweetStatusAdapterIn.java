@@ -13,6 +13,7 @@ import java.nio.charset.CharsetDecoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -39,7 +40,9 @@ import com.esri.ges.core.geoevent.FieldGroup;
 import com.esri.ges.core.geoevent.GeoEvent;
 import com.esri.ges.core.geoevent.GeoEventDefinition;
 import com.esri.ges.messaging.MessagingException;
+import com.esri.ges.spatial.Geometry;
 import com.esri.ges.spatial.Point;
+import com.esri.ges.spatial.Polyline;
 
 public class T2GTweetStatusAdapterIn extends InboundAdapterBase {
 	GeoParser parser;
@@ -49,13 +52,18 @@ public class T2GTweetStatusAdapterIn extends InboundAdapterBase {
 	private SimpleDateFormat sdf = new SimpleDateFormat(
 			"EEE MMM dd HH:mm:ss Z yyyy");
 	private Charset charset;
+	
 	private CharsetDecoder decoder;
 	//private AdapterDefinition t2gGeoParseDef;
-
-	public enum locType {
-		GEOLOC, TEXT, USERLOC
+	public enum relType {
+		USERTOTEXT, GEOTOTEXT, GEOTOUSER
 	};
-
+	public enum locType {
+		GEOLOC, TEXT, USERLOC, NONE
+	};
+	public enum geoType {
+		POINT, LINE, NONE
+	};
 	public T2GTweetStatusAdapterIn(AdapterDefinition definition) throws ComponentException {
 		super(definition);
 		LOG.debug("T2G Tweet Status Adapter created");
@@ -67,7 +75,12 @@ public class T2GTweetStatusAdapterIn extends InboundAdapterBase {
 
 	private class T2GTweetEventBuilder implements Runnable {
 		private StringBuilder sb;
-
+		private Boolean hasGeoLoc = false;
+		private Boolean hasUserLoc = false;
+		private Boolean hasTextLoc = false;
+		private List<GeoEvent> textLocations = null;
+		private GeoEvent userLoc = null;
+		private GeoEvent GeoLoc = null;
 		T2GTweetEventBuilder(String text) {
 			this.sb = new StringBuilder(text);
 		}
@@ -82,7 +95,8 @@ public class T2GTweetStatusAdapterIn extends InboundAdapterBase {
 			// atempt to parse string to Tweet
 			T2GTweet jsonTweet = mapper
 					.readValue(sb.toString(), T2GTweet.class);
-			// consoleDebugPrintLn(sb.toString());
+			//consoleDebugPrintLn(sb.toString());
+			
 			if (jsonTweet == null) {
 
 				consoleDebugPrintLn("jsonTweet is null");
@@ -130,6 +144,7 @@ public class T2GTweetStatusAdapterIn extends InboundAdapterBase {
 			Place place = jsonTweet.getPlace();
 			User user = jsonTweet.getUser();
 			if (coords != null) {
+				LOG.info(sb.toString());
 				x = coords.getCoordinates().get(0);
 				y = coords.getCoordinates().get(1);
 			}
@@ -162,10 +177,15 @@ public class T2GTweetStatusAdapterIn extends InboundAdapterBase {
 
 			// set geometry in message if an xy coordinate was found
 			// and set geolocated attribute to true or false
+			locType lt = locType.NONE;
+			geoType gt = geoType.NONE;
 			if (!Double.isNaN(x) && !Double.isNaN(y)) {
 				Point pt = spatial.createPoint(x, y, wkid);
 				msg.setField(5, pt);
 				msg.setField(15, true);
+				hasGeoLoc = true;
+				lt = locType.GEOLOC;
+				gt = geoType.POINT;
 				LOG.debug("Generated tweet with location");
 				// consoleDebugPrintLn("tweet with location");
 			} else {
@@ -175,7 +195,7 @@ public class T2GTweetStatusAdapterIn extends InboundAdapterBase {
 
 			// set rest of attributes in message
 			msg.setField(0, jsonTweet.getPossibly_sensitive_editable());
-			msg.setField(1, text);
+			msg.setField("TWEETTEXT", text);
 			String createdAt = jsonTweet.getCreated_at();
 			try {
 				if (createdAt != null)
@@ -187,7 +207,7 @@ public class T2GTweetStatusAdapterIn extends InboundAdapterBase {
 			}
 			msg.setField(3, jsonTweet.getRetweeted());
 			msg.setField(4, jsonTweet.getRetweet_count());
-			msg.setField(6, jsonTweet.getId_str());
+			msg.setField("TWEET_ID", jsonTweet.getId_str());
 			msg.setField(7, jsonTweet.getIn_reply_to_screen_name());
 			msg.setField(8, jsonTweet.getIn_reply_to_status_id_str());
 			msg.setField(9, jsonTweet.getFavorited());
@@ -204,21 +224,50 @@ public class T2GTweetStatusAdapterIn extends InboundAdapterBase {
 				msg.setField(14, userGrp);
 			}
 			msg.setField(16, 0);
-			msg.setField(17, "GeoLoc");
+			msg.setField(17, lt.toString());
+			msg.setField(18, gt.toString());
+			if(hasGeoLoc)
+			{
+				GeoLoc = msg;
+			}
+			UUID uid = UUID.randomUUID();
+			msg.setField("TRACK_ID", uid.toString());
 			messages.add(msg);
 			
-			GeoEvent evt =  parseLocations(text, jsonTweet, locType.TEXT );
+			List<GeoEvent> evt =  parseLocations(text, jsonTweet, locType.TEXT );
 			if(evt != null)
 			{
-				messages.add(evt);
+				hasTextLoc = true;
+				textLocations = evt;
+				messages.addAll(evt);
 			}
 			if (user != null) {
-				GeoEvent userLocEvt = parseLocations(user.getLocation(), jsonTweet, locType.USERLOC );
+				List<GeoEvent> userLocEvt = parseLocations(user.getLocation(), jsonTweet, locType.USERLOC );
 				if (userLocEvt != null)
 				{
-					messages.add(userLocEvt);
+					hasUserLoc = true;
+					userLoc = userLocEvt.get(0);
+					messages.addAll(userLocEvt);
 				}
 			}
+			if(hasGeoLoc && hasUserLoc)
+			{
+				List<GeoEvent> endList = new ArrayList<GeoEvent>();
+				endList.add(userLoc);
+				List<GeoEvent> relMsgs = parseRelationships(GeoLoc, endList, jsonTweet, wkid, relType.GEOTOUSER);
+				messages.addAll(relMsgs);
+			}
+			if(hasUserLoc && hasTextLoc)
+			{
+				List<GeoEvent> relMsgs = parseRelationships(userLoc, textLocations, jsonTweet, wkid, relType.USERTOTEXT);
+				messages.addAll(relMsgs);
+			}
+			if(hasGeoLoc && hasTextLoc)
+			{
+				List<GeoEvent> relMsgs = parseRelationships(GeoLoc, textLocations, jsonTweet, wkid, relType.GEOTOTEXT);
+				messages.addAll(relMsgs);
+			}
+			
 			return messages;
 		}
 
@@ -289,17 +338,85 @@ public class T2GTweetStatusAdapterIn extends InboundAdapterBase {
 		}
 	}
 
-	
-	private GeoEvent parseLocations(String text, T2GTweet jsonTweet, locType lt)
+	private List<GeoEvent> parseRelationships(GeoEvent startEvent,
+			List<GeoEvent> endEvents, T2GTweet jsonTweet, Integer wkid,
+			relType rt) throws Throwable {
+		try {
+
+			List<GeoEvent> t2gMsgs = new ArrayList<GeoEvent>();
+			spatial.setWkid(wkid);
+
+			Geometry startGeo = startEvent.getGeometry();
+			Double sx = ((Point) startGeo).getX();
+			Double sy = ((Point) startGeo).getY();
+			Double sz = ((Point) startGeo).getZ();
+			if (sz == null) {
+				sz = 0.0;
+			}
+			for (GeoEvent evt : endEvents) {
+
+				Polyline line = spatial.createPolyline();
+				line.setSpatialReference(spatial.getSpatialReference());
+				line.startPath(sx, sy, sz);
+				Geometry endGeo = evt.getGeometry();
+				Double ex = ((Point) endGeo).getX();
+				Double ey = ((Point) endGeo).getY();
+				Double ez = ((Point) endGeo).getZ();
+				if (ez == null) {
+					ez = 0.0;
+				}
+				line.lineTo(ex, ey, ez);
+				AdapterDefinition def = (AdapterDefinition) definition;
+				GeoEventDefinition t2ggeoDef = def
+						.getGeoEventDefinition("T2GGeoRel");
+				if (geoEventCreator.getGeoEventDefinitionManager()
+						.searchGeoEventDefinition(t2ggeoDef.getName(),
+								t2ggeoDef.getOwner()) == null) {
+					geoEventCreator.getGeoEventDefinitionManager()
+							.addGeoEventDefinition(t2ggeoDef);
+				}
+				GeoEvent t2gmsg = geoEventCreator.create(t2ggeoDef.getName(),
+						t2ggeoDef.getOwner());
+				LOG.debug("Created new TweetStatusMessage");
+				t2gmsg.setField("TWEET_ID", jsonTweet.getId_str());
+				t2gmsg.setField("RELTYPE", rt.toString());
+				String createdAt = jsonTweet.getCreated_at();
+				try {
+					if (createdAt != null)
+						t2gmsg.setField(2, sdf.parse(jsonTweet.getCreated_at()));
+				} catch (Exception e) {
+					LOG.warn("Parse date exception in TweetStatusAdapter: "
+							+ e.getMessage());
+					LOG.debug(e.getMessage(), e);
+				}
+				UUID uid = UUID.randomUUID();
+				t2gmsg.setField("TRACK_ID", uid.toString());
+				t2gmsg.setField(3, geoType.LINE.toString());
+				t2gmsg.setField("TWEETTEXT", jsonTweet.getText());
+				t2gmsg.setField("GEOMETRY", line);
+				t2gMsgs.add(t2gmsg);
+			}
+
+			return t2gMsgs;
+		} catch (Throwable t) {
+			LOG.error("Unexpected error", t);
+			throw (t);
+		}
+	}
+	private List<GeoEvent> parseLocations(String text, T2GTweet jsonTweet, locType lt)
 			throws Throwable {
 		try {
 			// GeoParser parser =
 			// GeoParserFactory.getDefault("C:/Dev/github/CLAVIN/IndexDirectory");
 			List<ResolvedLocation> resolvedLocations = parser.parse(text);
 			GeoEvent t2gmsg = null;
+			List<GeoEvent>	t2gMsgs = null;
 			for (ResolvedLocation rl : resolvedLocations)
-
 			{
+				if(t2gMsgs == null)
+				{
+					t2gMsgs = new ArrayList<GeoEvent>();
+				}
 				AdapterDefinition def = (AdapterDefinition) definition;
 				GeoEventDefinition t2ggeoDef = def
 						.getGeoEventDefinition("T2GGeoTagStatus");
@@ -312,8 +429,8 @@ public class T2GTweetStatusAdapterIn extends InboundAdapterBase {
 				t2gmsg = geoEventCreator.create(t2ggeoDef.getName(),
 						t2ggeoDef.getOwner());
 				LOG.debug("Created new TweetStatusMessage");
-				t2gmsg.setField(0, jsonTweet.getId_str());
-				t2gmsg.setField(1, lt.toString());
+				t2gmsg.setField("TWEET_ID", jsonTweet.getId_str());
+				t2gmsg.setField("LOCTYPE", lt.toString());
 				String createdAt = jsonTweet.getCreated_at();
 				try {
 					if (createdAt != null)
@@ -323,14 +440,19 @@ public class T2GTweetStatusAdapterIn extends InboundAdapterBase {
 							+ e.getMessage());
 					LOG.debug(e.getMessage(), e);
 				}
+				UUID uid = UUID.randomUUID();
+				t2gmsg.setField("TRACK_ID", uid.toString());
+				t2gmsg.setField(3, "POINT");
+				t2gmsg.setField("TWEETTEXT", jsonTweet.getText());
 				GeoName geoname = rl.geoname;
 				Double x = (Double) geoname.longitude;
 				Double y = (Double) geoname.latitude;
 				int wkid = 4326;
 				Point pt = spatial.createPoint(x, y, wkid);
-				t2gmsg.setField(3, pt);
+				t2gmsg.setField("GEOMETRY", pt);
+				t2gMsgs.add(t2gmsg);
 			}
-			return t2gmsg;
+			return t2gMsgs;
 		} catch (Throwable t) {
 			LOG.error("Unexpected error", t);
 			throw(t);

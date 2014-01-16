@@ -28,27 +28,29 @@ public class UnitConversionProcessorDefinition extends GeoEventProcessorDefiniti
 	public void setManager(GeoEventDefinitionManager m, TagManager tm) {
 		tagManager = tm;
 		manager = m;
+		
 		try {
 			
-			PropertyDefinition pdInputType = new PropertyDefinition("input", PropertyType.String, "TAG", "Input Type", "Input Type", true, false);
-			pdInputType.addAllowedValue("TAG");
-			pdInputType.addAllowedValue("MANUAL");
-			propertyDefinitions.put(pdInputType.getPropertyName(), pdInputType);
+			PropertyDefinition pdVInputType = new PropertyDefinition("input-v", PropertyType.String, "TAG", "Velocity Input Type", "Velocity Input Type", true, false);
+			pdVInputType.addAllowedValue("TAG");
+			pdVInputType.addAllowedValue("MANUAL");
+			pdVInputType.addAllowedValue("N/A");
+			propertyDefinitions.put(pdVInputType.getPropertyName(), pdVInputType);
 			
 			PropertyDefinition pdVDef = new PropertyDefinition("velocity-tag",
 					PropertyType.String, null, "Velocity Tag",
 					"Tag defining velocity values", false, false);
-			pdVDef.setDependsOn("input=TAG");
+			pdVDef.setDependsOn("input-v=TAG");
 			SetTagAllowedFields(pdVDef);
 			propertyDefinitions.put(pdVDef.getPropertyName(), pdVDef);
 			
 			PropertyDefinition pdVMan = new PropertyDefinition("velocity-manual",
 					PropertyType.String, null, "Velocity field",
 					"Field defining velocity values", false, false);
-			pdVMan.setDependsOn("input=MANUAL");
+			pdVMan.setDependsOn("input-v=MANUAL");
 			propertyDefinitions.put(pdVMan.getPropertyName(), pdVMan);
 			
-			PropertyDefinition pdVIn = new PropertyDefinition("vin", PropertyType.String, "Miles/Hour", "Default Velocity Input Unit", "Default Velocity Input Unit", true, false);
+			PropertyDefinition pdVIn = new PropertyDefinition("vin", PropertyType.String, "Miles/Hour", "Default Velocity Input Unit", "Default Velocity Input Unit", false, false);
 			pdVIn.addAllowedValue("Miles/Hour");
 			pdVIn.addAllowedValue("Meters/Hour");
 			pdVIn.addAllowedValue("Kilometers/Hour");
@@ -69,7 +71,7 @@ public class UnitConversionProcessorDefinition extends GeoEventProcessorDefiniti
 			pdVIn.addAllowedValue("Feet/Second");
 			propertyDefinitions.put(pdVIn.getPropertyName(), pdVIn);
 			
-			PropertyDefinition pdVOut = new PropertyDefinition("vout", PropertyType.String, "Miles/Hour", "Velocity Output Unit", "Velocity Output Unit", true, false);
+			PropertyDefinition pdVOut = new PropertyDefinition("vout", PropertyType.String, "Miles/Hour", "Velocity Output Unit", "Velocity Output Unit", false, false);
 			pdVOut.addAllowedValue("Miles/Hour");
 			pdVOut.addAllowedValue("Meters/Hour");
 			pdVOut.addAllowedValue("Kilometers/Hour");
@@ -89,22 +91,28 @@ public class UnitConversionProcessorDefinition extends GeoEventProcessorDefiniti
 			pdVOut.addAllowedValue("Nautical Miles/Second");
 			pdVOut.addAllowedValue("Feet/Second");
 			propertyDefinitions.put(pdVOut.getPropertyName(), pdVOut);
-
+			
+			PropertyDefinition pdAInputType = new PropertyDefinition("input-a", PropertyType.String, "TAG", "Input Type Altitude", "Input Type Altitude", false, false);
+			pdAInputType.addAllowedValue("TAG");
+			pdAInputType.addAllowedValue("MANUAL");
+			pdAInputType.addAllowedValue("N/A");
+			propertyDefinitions.put(pdAInputType.getPropertyName(), pdAInputType);
+			
 			PropertyDefinition pdAltDef = new PropertyDefinition(
 					"altitude-tag", PropertyType.String, null,
 					"Altitude Tag",
 					"Tag describing the altitude value", false, false);
-			pdAltDef.setDependsOn("input=TAG");
+			pdAltDef.setDependsOn("input-a=TAG");
 			SetTagAllowedFields(pdAltDef);
 			propertyDefinitions.put(pdAltDef.getPropertyName(), pdAltDef);
 			
 			PropertyDefinition pdAMan = new PropertyDefinition("alt-manual",
 					PropertyType.String, null, "Altitude field",
 					"Field defining altitude values", false, false);
-			pdAMan.setDependsOn("input=MANUAL");
+			pdAMan.setDependsOn("input-a=MANUAL");
 			propertyDefinitions.put(pdAMan.getPropertyName(), pdAMan);
 			
-			PropertyDefinition pdAltIn = new PropertyDefinition("altin", PropertyType.String, "Meters", "Default Altitude Input Unit", "Default Altitude Input Unit", true, false);
+			PropertyDefinition pdAltIn = new PropertyDefinition("altin", PropertyType.String, "Meters", "Default Altitude Input Unit", "Default Altitude Input Unit", false, false);
 			pdAltIn.addAllowedValue("Miles");
 			pdAltIn.addAllowedValue("Feet");
 			pdAltIn.addAllowedValue("Meters");
@@ -113,7 +121,7 @@ public class UnitConversionProcessorDefinition extends GeoEventProcessorDefiniti
 			pdAltIn.addAllowedValue("Nautical Miles");
 			propertyDefinitions.put(pdAltIn.getPropertyName(), pdAltIn);
 			
-			PropertyDefinition pdAltOut = new PropertyDefinition("altout", PropertyType.String, "Meters", "Altitude Output Unit", "Altitude Output Unit", true, false);
+			PropertyDefinition pdAltOut = new PropertyDefinition("altout", PropertyType.String, "Meters", "Altitude Output Unit", "Altitude Output Unit", false, false);
 			pdAltOut.addAllowedValue("Miles");
 			pdAltOut.addAllowedValue("Feet");
 			pdAltOut.addAllowedValue("Meters");
@@ -122,28 +130,33 @@ public class UnitConversionProcessorDefinition extends GeoEventProcessorDefiniti
 			pdAltOut.addAllowedValue("Nautical Miles");
 			propertyDefinitions.put(pdAltOut.getPropertyName(), pdAltOut);
 			
+			PropertyDefinition pdFInputType = new PropertyDefinition("input-f", PropertyType.String, "TAG", "Input Type", "Input Type", true, false);
+			pdFInputType.addAllowedValue("TAG");
+			pdFInputType.addAllowedValue("MANUAL");
+			pdFInputType.addAllowedValue("N/A");
+			propertyDefinitions.put(pdFInputType.getPropertyName(), pdFInputType);
 			PropertyDefinition pdFreqDef = new PropertyDefinition(
 					"frequency-tag", PropertyType.String, null,
 					"Frequency Tag",
 					"Tag describing frequency value", false, false);
 			SetTagAllowedFields(pdFreqDef);
-			pdFreqDef.setDependsOn("input=TAG");
+			pdFreqDef.setDependsOn("input-f=TAG");
 			propertyDefinitions.put(pdFreqDef.getPropertyName(), pdFreqDef);
 			
 			PropertyDefinition pdFMan = new PropertyDefinition("freq-manual",
 					PropertyType.String, null, "Frequency field",
 					"Field defining frequency values", false, false);
-			pdFMan.setDependsOn("input=MANUAL");
+			pdFMan.setDependsOn("input-f=MANUAL");
 			propertyDefinitions.put(pdFMan.getPropertyName(), pdFMan);
 			
-			PropertyDefinition pdFIn = new PropertyDefinition("freqin", PropertyType.String, "Hz", "Default Frequency Input Unit", "Default Frequency Input Unit", true, false);
+			PropertyDefinition pdFIn = new PropertyDefinition("freqin", PropertyType.String, "Hz", "Default Frequency Input Unit", "Default Frequency Input Unit", false, false);
 			pdFIn.addAllowedValue("Hz");
 			pdFIn.addAllowedValue("KHz");
 			pdFIn.addAllowedValue("MHz");
 			pdFIn.addAllowedValue("GHz");
 			propertyDefinitions.put(pdFIn.getPropertyName(), pdFIn);
 			
-			PropertyDefinition pdFOut = new PropertyDefinition("freqout", PropertyType.String, "Hz", "Frequency Output Unit", "Frequency Output Unit", true, false);
+			PropertyDefinition pdFOut = new PropertyDefinition("freqout", PropertyType.String, "Hz", "Frequency Output Unit", "Frequency Output Unit", false, false);
 			pdFOut.addAllowedValue("Hz");
 			pdFOut.addAllowedValue("KHz");
 			pdFOut.addAllowedValue("MHz");

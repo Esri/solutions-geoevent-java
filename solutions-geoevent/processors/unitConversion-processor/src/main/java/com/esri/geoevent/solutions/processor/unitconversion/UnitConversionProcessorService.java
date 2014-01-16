@@ -19,7 +19,7 @@ public class UnitConversionProcessorService extends
 	
 	@Override
 	public GeoEventProcessor create() throws ComponentException {
-		return new UnitConversionProcessor(definition, manager, messaging);
+		return new UnitConversionProcessor(definition, manager, messaging, tagManager);
 	}
 	
 	public void setMessaging(Messaging m)

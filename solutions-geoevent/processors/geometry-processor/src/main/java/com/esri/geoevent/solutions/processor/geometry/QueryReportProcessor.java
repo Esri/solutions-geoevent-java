@@ -119,7 +119,8 @@ public class QueryReportProcessor extends GeoEventProcessorBase {
 	}
 	@Override
 	public GeoEvent process(GeoEvent ge) throws Exception {
-		CreateQueryMap();
+		//CreateQueryMap();
+		CreateQueries();
 		double radius = (Double)properties.get("radius").getValue();
 		String units = properties.get("units").getValue().toString();
 		int inwkid = (Integer) properties.get("wkidin").getValue();
@@ -174,16 +175,26 @@ public class QueryReportProcessor extends GeoEventProcessorBase {
 			host.replace("http://", "");
 		}
 		String url = "http://" + host + ":6180/geoevent/assets/reports/" + file;
-		GeoEventDefinition geoDef = ge.getGeoEventDefinition();	
-		List<FieldDefinition>fds = Arrays.asList(((FieldDefinition)new DefaultFieldDefinition("url", FieldType.String)));
-		GeoEventDefinition edOut = geoDef.augment(fds);
-		edOut.setOwner(getId());
-		manager.addTemporaryGeoEventDefinition(edOut, true);
+		GeoEventDefinition geoDef = ge.getGeoEventDefinition();
+		String outDefName = geoDef.getName() + "_out";
+		GeoEventDefinition edOut;
+		if((edOut=manager.searchGeoEventDefinition(outDefName, getId()))==null)
+		{
+			List<FieldDefinition> fds = Arrays
+					.asList(((FieldDefinition) new DefaultFieldDefinition(
+							"url", FieldType.String)));
+			edOut = geoDef.augment(fds);
+			edOut.setOwner(getId());
+			edOut.setName(outDefName);
+			manager.addGeoEventDefinition(edOut);
+		}
 		GeoEventCreator geoEventCreator = messaging.createGeoEventCreator();
-		GeoEvent geOut = geoEventCreator.create(edOut.getGuid(), new Object[] { ge.getAllFields(), url }); 
+		GeoEvent geOut = geoEventCreator.create(edOut.getGuid(), new Object[] {
+				ge.getAllFields(), url });
 		geOut.setProperty(GeoEventPropertyName.TYPE, "message");
 		geOut.setProperty(GeoEventPropertyName.OWNER_ID, getId());
 		geOut.setProperty(GeoEventPropertyName.OWNER_ID, definition.getUri());
+
 		for (Map.Entry<GeoEventPropertyName, Object> property : ge.getProperties())
 	        if (!geOut.hasProperty(property.getKey()))
 	          geOut.setProperty(property.getKey(), property.getValue());
@@ -244,6 +255,64 @@ public class QueryReportProcessor extends GeoEventProcessorBase {
 		String json = GeometryEngine.geometryToJson(srOut, bufferout);
 		return spatial.fromJson(json);
 		
+	}
+	
+	public void CreateQueries()
+	{
+		String connName = properties.get("connection").getValueAsString();
+		ArcGISServerConnection conn = connectionManager.getArcGISServerConnection(connName);
+		URL url = conn.getUrl();
+		String folder = properties.get("folder").getValueAsString();
+		
+		String service = properties.get("service").getValueAsString();
+		String lyrName = properties.get("layer").getValueAsString();
+		Layer layer =conn.getLayer(folder, service, lyrName, ArcGISServerType.FeatureServer);
+		String layerId = ((Integer)layer.getId()).toString();
+		String field = properties.get("field").getValueAsString();
+		
+		String baseUrl = url.getProtocol() +"://"+ url.getHost() + ":" + url.getPort()
+				+ url.getPath() + "rest/services/";
+		String curPath = baseUrl + "/" + folder + "/" + service + "/FeatureServer/" + layerId;
+		String restpath = curPath + "/query?";
+		HashMap<String, Object> query = new HashMap<String, Object>();
+		HashMap<String, String> fieldMap = new HashMap<String, String>();
+		String fldsString = field;
+		Field[] fields = conn.getFields(folder, service, layer.getId(), ArcGISServerType.FeatureServer);
+
+		Boolean usingDist=false;
+		String lyrHeaderCfg = "";
+		String distToken="";
+		String distUnits="";
+		String wc="";
+		String itemConfig = "";
+		wc = properties.get("wc")
+				.getValueAsString();
+		lyrHeaderCfg = properties.get("lyrheader").getValueAsString();
+		usingDist = (Boolean)properties.get("calcDistance").getValue();
+		if(usingDist)
+		{
+			distToken=properties.get("dist_token").getValueAsString();
+			distUnits=properties.get("dist_units").getValueAsString();
+		}
+		String token = properties.get("field-token")
+				.getValueAsString();
+		fieldMap.put(field, token);
+		itemConfig = properties.get("item-config").getValueAsString();
+		query.put("restpath", restpath);
+		query.put("path", curPath);
+		query.put("whereclause", wc);
+		query.put("fields", fldsString );
+		query.put("outfields", fields);
+		query.put("tokenMap", fieldMap);
+		query.put("headerconfig", lyrHeaderCfg);
+		query.put("usingdist", usingDist);
+		query.put("distunits", distUnits);
+		query.put("disttoken", distToken);
+		query.put("itemconfig", itemConfig);
+		query.put("layer", layer.getName());
+		UUID uid = UUID.randomUUID();
+		query.put("id", uid);
+		queries.add(query);
 	}
 	public void CreateQueryMap()
 	{
@@ -582,9 +651,16 @@ public class QueryReportProcessor extends GeoEventProcessorBase {
 		       content = content.replace("[$TITLE]", "<h1>" +title+"</h1>");
 		       content = content.replace("[$HEADING]", "<h2>" +header+"</h2>");
 		       content = content.replace("[$BODY]", body);
-		       br.close();   
+		       br.close();
+		       File dir = new File("assets/reports");
+		       if(!dir.exists())
+		       {
+		    	   dir.mkdir();
+		       }
 		       String filename = "assets/reports/" + file;
+		      
 		       File outfile = new File(filename);
+		       
 		       FileOutputStream fos = new FileOutputStream(outfile);
 		       OutputStreamWriter osw = new OutputStreamWriter(fos);    
 		       Writer w = new BufferedWriter(osw);
