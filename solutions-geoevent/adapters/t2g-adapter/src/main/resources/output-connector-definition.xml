@@ -1,0 +1,27 @@
+<connectorDefinition label="Twitter Output Connector"
+	name="twitter-out" type="outbound">
+	<adapter uri="com.esri.ges.adapter.outbound/MessageFormatter/10.2.0" />
+	<transport uri="com.esri.geoevent.transport.outbound/Twitter/10.2.0" />
+	<defaultName>twitter-out</defaultName>
+	<description>Send Tweet status updates to Twitter</description>
+	<properties>
+		<advanced>
+			<property label="URL" name="clientURL" default="https://api.twitter.com/1.1/statuses/update.json" source="transport" />
+		</advanced>
+		<hidden>
+			<property default="false" label="Use URL Proxy" name="useClientURLProxy" source="transport"/>
+			<property label="URL Proxy" name="clientURLProxy" source="transport"/>
+			<property label="Parameters" name="clientParameters" source="transport"/>
+			<property default="POST" label="HTTP Method" name="httpMethod" source="transport"/>
+			<property default="application/x-www-form-urlencoded" label="Acceptable MIME Types" name="acceptableMimeTypesClientMode" source="transport"/>
+			<property default="application/x-www-form-urlencoded" label="Post body MIME Type" name="postContentType" source="transport"/>
+		</hidden>
+		<shown>
+			<property label="ConsumerKey" name="consumerKey" source="transport"/>
+			<property label="ConsumerSecret" name="consumerSecret" source="transport"/>
+			<property label="AccessToken" name="accessToken" source="transport"/>
+			<property label="AccessTokenSecret" name="accessTokenSecret" source="transport"/>
+			<property default="status=My Tweet ${TRACK_ID} ${START_TIME}" label="Message" name="textMessage" source="adapter"/>
+		</shown>
+	</properties>
+</connectorDefinition>

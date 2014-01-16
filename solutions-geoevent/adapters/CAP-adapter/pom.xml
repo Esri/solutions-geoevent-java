@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.esri.ges.solutions.adapter</groupId>
+	<groupId>com.esri.geoevent.solutions.adapter.cap</groupId>
 	<version>10.2.0</version>
 	<packaging>bundle</packaging>
 	<artifactId>cap-adapter</artifactId>
@@ -61,9 +61,9 @@
 						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
 						<Bundle-ContactAddress>geoeventprocessor@esri.com</Bundle-ContactAddress>
 						<Bundle-Version>${project.version}</Bundle-Version>
-						<AGES-Domain>com.esri.ges.solutions.adapter</AGES-Domain>
+						<AGES-Domain>com.esri.geoevent.solutions.adapter</AGES-Domain>
 						<Export-Package/>
-						<Private-Package>com.esri.ges.solutions.adapter.cap</Private-Package>
+						<Private-Package>com.esri.geoevent.solutions.adapter.cap</Private-Package>
 					</instructions>
 				</configuration>
 			</plugin>

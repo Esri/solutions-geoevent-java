@@ -1,0 +1,26 @@
+<adapter name="T2GTag" label="Twitter Inbound With Geotagger Adapter" domain="com.esri.geoevent.solutions.adapter.t2g.inbound" type="inbound">
+	<description>This adapter is capable of parsing tweets and determining a geolocation from text along with receiving/parsing Twitter data in the JSON format.</description>
+	<geoEventDefinitions>
+		<geoEventDefinition name="T2GGeoTagStatus">
+			<fieldDefinitions>
+				
+				<fieldDefinition name="id_str" type="String">
+					<fieldDefinitionTag>
+						<name>TRACK_ID</name>
+					</fieldDefinitionTag>
+				</fieldDefinition>
+				<fieldDefinition name="loctype" type="String"/>
+				<fieldDefinition name="created_at" type="Date">
+					<fieldDefinitionTag>
+						<name>TIME_START</name>
+					</fieldDefinitionTag>
+				</fieldDefinition>
+				<fieldDefinition name="coordinates" type="Geometry">
+					<fieldDefinitionTag>
+						<name>GEOMETRY</name>
+					</fieldDefinitionTag>
+				</fieldDefinition>
+			</fieldDefinitions>
+		</geoEventDefinition>
+	</geoEventDefinitions>
+</adapter>	

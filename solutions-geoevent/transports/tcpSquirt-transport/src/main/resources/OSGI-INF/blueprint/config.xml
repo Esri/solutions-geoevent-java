@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" >
+	<bean id="tcpSquirtOutboundTransportServiceBean" class="com.esri.geoevent.solutions.transport.tcpsquirt.TcpSquirtOutboundTransportService" activation="eager">
+		<property name="bundleContext" ref="blueprintBundleContext"/>
+	</bean>
+	<service id="tcpSquirtOutboundTransportService" ref="tcpSquirtOutboundTransportServiceBean" interface="com.esri.ges.transport.TransportService"/>
+</blueprint>

@@ -1,0 +1,27 @@
+<transport name="TCPSquirt" label="TCP Squirt Outbound Transport" domain="com.esri.geoevent.solutions.transport.tcpsquirt.outbound" type="outbound">
+	<description>Esri TCP Squirt Transport for outbound streams.</description>
+	<propertyDefinitions>
+		<propertyDefinition propertyName="port" label="Server Port"
+			description="In TCP Server Mode, this is the local port number that GeoEvent Server is accepting client connections on. In TCP Client Mode, this is the remote port number that GeoEvent Server will establish a connection to."
+			propertyType="Integer" defaultValue="5570" mandatory="true" readOnly="false" />
+		<propertyDefinition propertyName="mode" label="Mode"
+            description="This parameter should be set to SERVER for GeoEvent Server to run in TCP Server Mode (accepts socket connections) and CLIENT for TCP Client Mode (initiates socket connections)."
+            propertyType="String" defaultValue="SERVER" mandatory="true"
+            readOnly="false">
+            <allowedValues>
+                <value>SERVER</value>
+                <value>CLIENT</value>
+            </allowedValues>
+        </propertyDefinition>
+		<propertyDefinition propertyName="host"
+			label="Host (Client Mode)"
+			description="In TCP Client Mode, this is the name or IP address of the host server that GeoEvent Server will connect to. In TCP Server Mode, this parameter should be left blank."
+			propertyType="String" defaultValue="localhost" mandatory="false"
+			readOnly="false" dependsOn="mode=CLIENT" />
+		<propertyDefinition propertyName="clientConnectionTimeout"
+			label="Connection Timeout (Client Mode)"
+			description="In TCP Client Mode, this is the length of time (in seconds) that the connector will try to connect to the remote server.  If a connection cannot be established in this amount of time, the connector will report an Error. In TCP Server Mode, this parameter should be left blank."
+			propertyType="Integer" defaultValue="60" mandatory="false"
+			readOnly="false" dependsOn="mode=CLIENT" />		
+	</propertyDefinitions>
+</transport>
