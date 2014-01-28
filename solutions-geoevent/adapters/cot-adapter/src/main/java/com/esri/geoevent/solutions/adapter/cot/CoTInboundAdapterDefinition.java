@@ -103,34 +103,7 @@ public class CoTInboundAdapterDefinition extends AdapterDefinitionBase {
 			fieldDefinitions.add(new DefaultFieldDefinition("point",
 					FieldType.Geometry, "GEOMETRY"));
 			fieldDefinitions.add( detailField );
-			//fieldDefinitions.add(new DefaultFieldDefinition("detail",
-			//		FieldType.String));
-
 			
-			// for each definitionObject, dynamically add to the
-			// MessageDeffinition.
-			/*
-			 * 
-			 * 
-			 * for (CoTDetailsDeff def: dynamicMessageAttributes) { //each
-			 * CoTDetailsDef represents a single XSD, and contains a sub
-			 * collection of new names. for(String newNameAndType:
-			 * def.getNewAttribs()) { fieldDefinitions.add(new
-			 * DefaultFieldDefinition(extractName(newNameAndType)
-			 * ,extractType(newNameAndType))); } }
-			 */
-
-			// output for testing - show to Ryan/////////////
-			/*
-			 * System.out.println("Message Definition:"); for
-			 * (FieldDefinition item:fieldDefinitions) {
-			 * System.out.println("Attribute: "+ item.getName() + "  Type:"
-			 * +item.getType());
-			 * 
-			 * 
-			 * }
-			 */
-			// //////////////////////////////
 
 			geoEventDefinition.setFieldDefinitions(fieldDefinitions);
 			geoEventDefinitions.put(geoEventDefinition.getName(),
@@ -299,14 +272,6 @@ public class CoTInboundAdapterDefinition extends AdapterDefinitionBase {
 			// get a list of all xsd files in a directory.
 
 			ArrayList<String> fileList = getXSDFiles(directory);
-			// attempt to load each of them in an array of strings. 1 xsd file =
-			// 1 string
-
-			// System.out.println(System.getProperty("user.dir"));
-			// EDIT: select a folder dialog box?
-			// include these xsd anyway?
-			// String
-			// sampleTagsFile=readXSD("src/main/resources/XSD Add-on/CoT_spatial.xsd");
 
 
 			for (String fileName : fileList)
@@ -318,11 +283,6 @@ public class CoTInboundAdapterDefinition extends AdapterDefinitionBase {
 				CoTDetailsDeff.parseXSD( source, detailsDef);
 			}
 
-
-			// for each string, create an object that we can work with. add
-			// these to an array of objects
-			// CoTDetailsDef sampleDefObj= new CoTDetailsDef(sampleTagsFile);
-			// myCollection.add(sampleDefObj);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -354,16 +314,7 @@ public class CoTInboundAdapterDefinition extends AdapterDefinitionBase {
 	}
 
 	
-	//public Adapter createAdapter() throws ComponentException
-	//{
-		//try
-		//{
-			//return new CoTAdapterInbound(this, guid);
-		//} catch (ConfigurationException e)
-		//{
-			//throw new ComponentException(e.getMessage());
-		//}
-	//}
+	
 
 	private static void report( int indent, FieldDefinition def )
 	{
@@ -375,23 +326,5 @@ public class CoTInboundAdapterDefinition extends AdapterDefinitionBase {
 			for( FieldDefinition child : def.getChildren() )
 				report( indent + 4, child);
 		}
-	}
-
-	/*public static void main( String[] args )
-	{
-		try
-		{
-			GeoEventDefinition cotDef = new DefaultGeoEventDefinition();
-			FieldDefinition detailsField = new DefaultFieldDefinition("detail", FieldType.Group);
-			CoTAdapterServiceInbound service = new CoTAdapterServiceInbound();
-			service.getAdditionalSchemasFromXSDFolder(detailsField);
-			report(0,detailsField);
-		} catch (ConfigurationException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}*/
-	
-
+	}	
 }

@@ -142,9 +142,6 @@ public class CoTUtilities {
 		StringBuffer strContent = new StringBuffer("");
 
 		try {
-			// FileInputStream fis= new FileInputStream(fileName);
-			// File f= new File(fileName);
-			// FileInputStream fis2= is;
 			int ch;
 
 			while ((ch = is.read()) != -1)
@@ -347,12 +344,10 @@ public class CoTUtilities {
 
 				if (!hasValidChildren
 						&& ((textContent = n.getTextContent()) != null)) {
-					// this should not happen in the CoT Types file except for
-					// comments
-					// sb.append(textContent);
+					
 				}
 
-				// sb.append("</").append(name).append('>');
+				
 			}
 
 			return hash;

@@ -105,30 +105,7 @@ public class CoTAdapterService extends AdapterDefinitionBase implements AdapterS
 					FieldType.Geometry, "GEOMETRY"));
 			fieldDefinitions.add( detailField );
 
-			// for each definitionObject, dynamically add to the
-			// MessageDeffinition.
-			/*
-			 * 
-			 * 
-			 * for (CoTDetailsDeff def: dynamicMessageAttributes) { //each
-			 * CoTDetailsDef represents a single XSD, and contains a sub
-			 * collection of new names. for(String newNameAndType:
-			 * def.getNewAttribs()) { fieldDefinitions.add(new
-			 * DefaultFieldDefinition(extractName(newNameAndType)
-			 * ,extractType(newNameAndType))); } }
-			 */
-
-			// output for testing - show to Ryan/////////////
-			/*
-			 * System.out.println("Message Definition:"); for
-			 * (FieldDefinition item:fieldDefinitions) {
-			 * System.out.println("Attribute: "+ item.getName() + "  Type:"
-			 * +item.getType());
-			 * 
-			 * 
-			 * }
-			 */
-			// //////////////////////////////
+			
 
 			geoEventDefinition.setFieldDefinitions(fieldDefinitions);
 			geoEventDefinitions.put(geoEventDefinition.getName(),
@@ -312,11 +289,6 @@ public class CoTAdapterService extends AdapterDefinitionBase implements AdapterS
 				CoTDetailsDeff.parseXSD( source, detailsDef);
 			}
 
-
-			// for each string, create an object that we can work with. add
-			// these to an array of objects
-			// CoTDetailsDef sampleDefObj= new CoTDetailsDef(sampleTagsFile);
-			// myCollection.add(sampleDefObj);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

@@ -3,9 +3,7 @@
  */
 package com.esri.geoevent.solutions.adapter.cot;
 
-//import CoTUtilities;
-//import Event;
-//import Point;
+
 
 import com.esri.ges.adapter.AdapterDefinition;
 import com.esri.ges.adapter.OutboundAdapterBase;
@@ -19,9 +17,7 @@ import com.esri.ges.core.geoevent.GeoEventDefinition;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.nio.BufferOverflowException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
@@ -29,12 +25,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
 
 import org.codehaus.jackson.*;
 
@@ -111,8 +104,7 @@ public class CoTAdapterOutbound extends OutboundAdapterBase {
 				}
 
 			}catch(Exception e){
-				//e.printStackTrace();
-				//Skip this element.  It was null so we will not fill it in.
+			
 			}
 
 		}
@@ -132,12 +124,6 @@ public class CoTAdapterOutbound extends OutboundAdapterBase {
 			JAXBContext contextObj = JAXBContext.newInstance(Event.class);
 			Marshaller marshallerObj=contextObj.createMarshaller();
 			marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,true);
-
-			//			SchemaFactory sf =javax.xml.validation.SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI); 
-			//			File f=new File("schema1.xsd");
-			//			Schema theSchema=sf.newSchema(f);
-			//			marshallerObj.setSchema(theSchema);
-
 			ByteArrayOutputStream os=new ByteArrayOutputStream();
 
 			marshallerObj.marshal(event,os);

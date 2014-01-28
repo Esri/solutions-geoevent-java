@@ -82,12 +82,6 @@ public class CoTAdapterInbound extends InboundAdapterBase {
 		super(adapterDefinition);
 
 		this.guid = guid;
-		// CoTAdapterServiceInbound cotas = (CoTAdapterServiceInbound)
-		// adapterDefinition;
-
-		// this.coTTypeMap =
-		// CoTUtilities.getCoTTypeMap(this.getClass().getResourceAsStream(
-		// cotas.getPropertyDefinitions().get("CoT Types Path").getDefaultValue().toString()));
 
 		messageParser = new MessageParser(this);
 		saxFactory = SAXParserFactory.newInstance();
@@ -170,14 +164,6 @@ public class CoTAdapterInbound extends InboundAdapterBase {
 			int size = buf.remaining();
 			if (size < 1)
 				return;
-			// byte[] data = new byte[size];
-			// buf.get(data, 0, size);
-
-			// System.out.println(" \n");
-			// System.out.println("Read " + size + " bytes");
-
-			// String xml = new String(data);
-			// parseUsingDocument(xml,channelId);
 
 			parseUsingStream(buf);
 		} catch (Exception e) {
@@ -246,15 +232,9 @@ public class CoTAdapterInbound extends InboundAdapterBase {
 
 					msg.setField(2, type);
 					msg.setField(3, CoTUtilities.getSymbolFromCot(type));
-					// System.out.println("2525b from type: "+
-					// CoTUtilities.getSymbolFromCot(type));
-
-					// System.out.println("type: " + e.getAttribute("type")
-					// " -> " + convertType(e.getAttribute("type")));
+					
 					msg.setField(4, convertType(e.getAttribute("type")));
 
-					// System.out.println("how: " + e.getAttribute("how") +
-					// " -> "+ convertHow(e.getAttribute("how")));
 					msg.setField(5, e.getAttribute("how"));
 					msg.setField(6, convertHow(e.getAttribute("how")));
 
@@ -268,13 +248,10 @@ public class CoTAdapterInbound extends InboundAdapterBase {
 					msg.setField(10, e.getAttribute("access"));
 					msg.setField(11, e.getAttribute("opex"));
 					msg.setField(12, convertOpex(e.getAttribute("opex")));
-					// System.out.println("opex: " + e.getAttribute("opex" +
-					// " is a:  " + convertOpex(e.getAttribute("opex")));
+
 
 					msg.setField(13, e.getAttribute("qos"));
 					msg.setField(14, convertQos(e.getAttribute("qos")));
-					// System.out.println("qos: " + e.getAttribute("qos") +
-					// " -> " convertQos(e.getAttribute("qos")));
 
 					NodeList points = e.getElementsByTagName("point");
 					if (points.getLength() > 0) {
@@ -455,10 +432,7 @@ public class CoTAdapterInbound extends InboundAdapterBase {
 					} else
 						traverseBranch(node, childFieldGroup,
 								childFieldDefinition);
-					// List<Node> textNode = findChildNodes( node, "#text");
-					// String value = textNode.get(0).getNodeValue();
-					// if (value != null)
-					// fieldGroup.setField(fieldDefinition.getName(), value);
+					
 				}
 				break;
 			case String:
@@ -981,14 +955,7 @@ public class CoTAdapterInbound extends InboundAdapterBase {
 
 	@Override
 	protected GeoEvent adapt(ByteBuffer buffer, String channelId) {
-		// Do nothing, this will not be called since we have overloaded the
-		// receive() function.
-		// return null;
-		// buffer.mark();
-		// int size = buffer.remaining();
-		//
-		//
-		// parseUsingStream(buffer);
+		
 
 		return null;
 	}
