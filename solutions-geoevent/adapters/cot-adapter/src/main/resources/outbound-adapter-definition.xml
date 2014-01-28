@@ -1,4 +1,4 @@
-<adapter name="cot-out" label="CoT Outbound Adapter" domain="com.esri.geoevent.solutions.adapter.cot.outbound" type="outbound">
+<adapter name="CursorOnTargetOut" label="CoT Outbound Adapter" domain="com.esri.geoevent.solutions.adapter.cot.outbound" type="outbound">
 	<description>CoT outbound adapter prototype</description>
 	<propertyDefinitions/>
 </adapter>

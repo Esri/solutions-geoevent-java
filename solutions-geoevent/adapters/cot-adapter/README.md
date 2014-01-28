@@ -45,34 +45,34 @@ The CoT adapter provides an example of how to ingest Cursor on Target (CoT) mess
 
 ### Testing with Simulated Test Data
 
-* In the following steps you will configure GEP to receive and process simulated CAP data
-* Open the GEP Manager web application
-* Create a connector to receive file data updated to a folder
+* In the following steps you will configure GEP to receive and process simulated CoT data
+    * Navigate to ‘Site’ > ‘GeoEvent Processor’ > 'GeoEvent Definitions'
+    * Note that a GeoEvent Definition named CoT was created for you when you deployed the CoT Adapter'
+![Image of create connector](doc/cot-geoeventdef.png)
     * Navigate to ‘Site’ > ‘GeoEvent Processor’ > 'Connectors'
-    * Select Create Connector and configure as shown
-
-![Image of create connector](doc/create-connector.png)
-
+    * Note an inbound connector to receive CoT over http has been created when you deployed the CoT Adaptor. 
+![Image of create connector](doc/cot-inbound-connector.png)
+    * Note an  outbound connector to send CoT over a TCP channel that opens on demand has been created when you deployed the CoT Adaptor. 
+![Image of create connector](doc/cot-outbound-connector.png)
 * Next use the GEP Manager and Service Designer to
-    * Create an Input to receive file data using the created connector 
-    * Create an Output to observe received data
-    * Create a simple service to direct the Input data to the Output
-
-* An example of a simple file/folder input is shown below 
-    * Choose the Input Connector "Watch a folder for new .json files"
-    * Note: this will work for any file type, just select a wildcard or other compatible file filter
-    * An example Input is shown below
-
-![Image of input settings](doc/input-settings.png)
-
-* An example of a simple service is shown below 
-
-![Image of service](doc/service.png)
-
-* Navigate to ‘Services’ > ‘Monitor’ and observe that you have a configuration similar to the following (note: your names/outputs may differ)
-
-![Image of monitor](doc/monitor.png)
-
+    * Create an Input Service to receive CoT messages using the inbound connector created for you.
+	* For the XSDPath_Path  property use the location of the CoTtypes.xml downloaded from github (<download location>/solutions-geoevent-java/solutions-geoevent/adapters/cot-adapter/src/main/resources/CoTTypes/CoTtypes.xml)
+	* For the CoTTypes_Path property use the location of the CoTtypes.xml downloaded from github (<download location>/solutions-geoevent-java/solutions-geoevent/adapters/cot-adapter/src/main/resources/XSD-Add-on)
+![Image of create connector](doc/cot-inbound-service.png)
+    * Create an Output service to write output to json file (Note: this is not the outbound CoT connector created when you deployed)
+![Image of create connector](doc/cot-outbound-service.png)
+    * Create a simple service to direct the Input CoT over Http to an output json file
+![Image of create connector](doc/cot-geoevent-service.png)
+    * Use an html poster application such as Firefox Poster to send messages to the CoT service
+![Image of create connector](doc/cot-poster.png)
+	* In the URL textbox put the receiver endpoint of your CoT inbound service in the form of: 'https://<host machine of geoevent server>:6143/geoevent/rest/receiver/<name of inbound service>'        
+	* Browse to the simulation_files folder downloaded from github (<install location>/solutions-geoevent-java\data\simulation_files)
+	* Open one of the CoT simulation files (Named CoT1.xml - CoT4.xml)
+	* Copy and paste the contents into the content window of FireFox Poster
+	* Click on the POST button in FireFox Poster
+* Navigate to ‘Services’ > ‘Monitor’. The your CoT service should register 1 input and 1 output (note: your names/outputs may differ)
+![Image of monitor](doc/cot-monitor.png)
+* Repeat with the other simulation files if desired
 ## Resources
 
 * Learn more about the Common Alerting Protocol

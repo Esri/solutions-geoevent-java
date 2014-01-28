@@ -541,15 +541,15 @@ public class CoTAdapterTest {
 
 		String guid = "...";
 		CoTAdapterServiceInbound srvc = new CoTAdapterServiceInbound();
-		Map<String,GeoEventDefinition> defs = srvc.getGeoEventDefinitions();
-		if( ! defs.isEmpty() )
-		{
-			geoEventDefinition = defs.values().iterator().next();
-			guid = geoEventDefinition.getGuid();
-		}
-		adapter = new CoTAdapterInbound(srvc, guid);
-		adapter.setSpatial(spatial);
-		adapter.setGeoEventCreator(geoEventCreator);
+		//Map<String,GeoEventDefinition> defs = srvc.getGeoEventDefinitions();
+		//if( ! defs.isEmpty() )
+		//{
+			//geoEventDefinition = defs.values().iterator().next();
+			//guid = geoEventDefinition.getGuid();
+		//}
+		//adapter = new CoTAdapterInbound(srvc, guid);
+		//adapter.setSpatial(spatial);
+		//adapter.setGeoEventCreator(geoEventCreator);
 	}
 
 	@After

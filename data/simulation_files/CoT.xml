@@ -1,0 +1,16 @@
+<?xml version='1.0' standalone='yes'?>
+<event
+    version = "2.0"
+    uid = "J-01334"
+    type = "a-h-A-M-F-U-M"
+    time = "2005-04-05T11:43:38.07Z"
+    start = "2005-04-05T11:43:38.07Z"
+    stale = "2005-04-05T11:45:38.07Z">
+    <detail></detail>
+    <point
+        lat = "30.0090027"
+        lon = "-85.9578735"
+        ce = "45.3"
+        hae = "-42.6"
+        le = "99.5"/>
+</event>

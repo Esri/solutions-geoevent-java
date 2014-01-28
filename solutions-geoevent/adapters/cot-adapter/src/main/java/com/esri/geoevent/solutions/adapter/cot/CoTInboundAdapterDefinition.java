@@ -10,17 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.bind.JAXBException;
-
 import org.xml.sax.InputSource;
 
 import com.esri.ges.adapter.Adapter;
-import com.esri.ges.adapter.AdapterServiceBase;
 import com.esri.ges.adapter.AdapterDefinition;
 import com.esri.ges.adapter.AdapterDefinitionBase;
-import com.esri.ges.adapter.AdapterService;
 import com.esri.ges.adapter.AdapterType;
-import com.esri.ges.adapter.util.XmlAdapterDefinition;
 import com.esri.ges.core.ConfigurationException;
 import com.esri.ges.core.component.ComponentException;
 import com.esri.ges.core.geoevent.DefaultFieldDefinition;
@@ -35,8 +30,7 @@ import com.esri.ges.manager.geoeventdefinition.GeoEventDefinitionManager;
 import com.esri.ges.manager.geoeventdefinition.GeoEventDefinitionManagerException;
 import com.esri.ges.spatial.Spatial;
 
-public class CoTAdapterServiceInbound extends AdapterServiceBase
-{
+public class CoTInboundAdapterDefinition extends AdapterDefinitionBase {
 	Spatial spatial;
 	String guid;
 	GeoEventDefinitionManager geoEventDefManager;
@@ -46,31 +40,8 @@ public class CoTAdapterServiceInbound extends AdapterServiceBase
 	public static final String COT_TYPES_PATH_LABEL = "CoT_Types_Path";
 	public static final String XSD_PATH_LABEL = "XSD_Path";
 	public static final String MAXIMUM_BUFFER_SIZE_LABEL = "Max_Buffer_Size";
-
-	// public ArrayList<CoTTypeDef>coTHash;
-	public CoTAdapterServiceInbound()
-	{
-		//definition = new CoTInboundAdapterDefinition(AdapterType.INBOUND);
-		//InputStream is = getResourceAsStream("input-connector-definition");
-		
-		XmlAdapterDefinition xmlAdapterDef = new XmlAdapterDefinition(getResourceAsStream("input-adapter-definition.xml"));
-		try {
-			//AdapterDefinition adapterDef = (AdapterDefinition)definition;
-			
-			//((XmlAdapterDefinition)adapterDef).loadConnector(is);
-			
-			
-			xmlAdapterDef.loadConnector(getResourceAsStream("input-connector-definition.xml"));
-			definition = xmlAdapterDef;
-		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		/*super(AdapterType.INBOUND);
+	public CoTInboundAdapterDefinition(AdapterType type) {
+		super(AdapterType.INBOUND);
 		try {
 			try
 			{
@@ -161,17 +132,13 @@ public class CoTAdapterServiceInbound extends AdapterServiceBase
 			 */
 			// //////////////////////////////
 
-			/*geoEventDefinition.setFieldDefinitions(fieldDefinitions);
-			geoEventDefManager.addGeoEventDefinition(geoEventDefinition);
-			//geoEventDefinitions.put(geoEventDefinition.getName(),
-					//geoEventDefinition);
+			geoEventDefinition.setFieldDefinitions(fieldDefinitions);
+			geoEventDefinitions.put(geoEventDefinition.getName(),
+					geoEventDefinition);
 			guid = geoEventDefinition.getGuid();
 		} catch (ConfigurationException ex) {
 
-		} catch (GeoEventDefinitionManagerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+		} 
 	}
 	public void setGeoEventDefManager(GeoEventDefinitionManager g)
 	{
@@ -213,18 +180,8 @@ public class CoTAdapterServiceInbound extends AdapterServiceBase
 		}
 
 	}
-	@Override
-	public Adapter createAdapter() throws ComponentException{
-		try {
-			return new CoTAdapterInbound(definition, guid);
-		} catch (ConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-	}
 
-	/*@Override
+	@Override
 	public String getName()
 	{
 		return "CursorOnTarget";
@@ -274,10 +231,10 @@ public class CoTAdapterServiceInbound extends AdapterServiceBase
 		return sb.toString();
 	}
 
-	@Override
-	public AdapterDefinition getAdapterDefinition() {
-		return this;
-	}
+	
+	//public AdapterDefinition getAdapterDefinition() {
+		//return this;
+	//}
 
 	private String readXSD(String fileName) {
 		StringBuffer strContent = new StringBuffer("");
@@ -396,17 +353,17 @@ public class CoTAdapterServiceInbound extends AdapterServiceBase
 
 	}
 
-	@Override
-	public Adapter createAdapter() throws ComponentException
-	{
-		try
-		{
-			return new CoTAdapterInbound(this, guid);
-		} catch (ConfigurationException e)
-		{
-			throw new ComponentException(e.getMessage());
-		}
-	}
+	
+	//public Adapter createAdapter() throws ComponentException
+	//{
+		//try
+		//{
+			//return new CoTAdapterInbound(this, guid);
+		//} catch (ConfigurationException e)
+		//{
+			//throw new ComponentException(e.getMessage());
+		//}
+	//}
 
 	private static void report( int indent, FieldDefinition def )
 	{
@@ -420,8 +377,7 @@ public class CoTAdapterServiceInbound extends AdapterServiceBase
 		}
 	}
 
-
-	public static void main( String[] args )
+	/*public static void main( String[] args )
 	{
 		try
 		{
@@ -436,6 +392,6 @@ public class CoTAdapterServiceInbound extends AdapterServiceBase
 			e.printStackTrace();
 		}
 	}*/
-
+	
 
 }

@@ -1,0 +1,144 @@
+<adapter name="CursorOnTargetIn" label="CoT Inbound Adapter"
+	domain="com.esri.geoevent.solutions.adapter.cot.inbound" type="inbound">
+	<description>CoT inbound adaptor</description>
+	<geoEventDefinitions>
+		<geoEventDefinition name="CoT">
+			<fieldDefinitions>
+				<fieldDefinition name="version" type="Double" />
+				<fieldDefinition name="uid" type="String">
+					<fieldDefinitionTag>
+						<name>TRACK_ID</name>
+					</fieldDefinitionTag>
+				</fieldDefinition>
+				<fieldDefinition name="type" type="String" />
+				<fieldDefinition name="2525b" type="String" />
+				<fieldDefinition name="typeDescription" type="String" />
+				<fieldDefinition name="how" type="String" />
+				<fieldDefinition name="parsedhow" type="String" />
+				<fieldDefinition name="time" type="Date" />
+				<fieldDefinition name="start" type="Date">
+					<fieldDefinitionTag>
+						<name>TIME_START</name>
+					</fieldDefinitionTag>
+				</fieldDefinition>
+				<fieldDefinition name="stale" type="Date" />
+				<fieldDefinition name="access" type="String" />
+				<fieldDefinition name="opex" type="String" />
+				<fieldDefinition name="opexDescription" type="String" />
+				<fieldDefinition name="qos" type="String" />
+				<fieldDefinition name="qosDescription" type="String" />
+				<fieldDefinition name="point" type="Geometry">
+					<fieldDefinitionTag>
+						<name>GEOMETRY</name>
+					</fieldDefinitionTag>
+				</fieldDefinition>
+				<fieldDefinition name="detail" type="Group">
+					<fieldDefinitions>
+						<fieldDefinition name="_flow-tags" type="Group">
+							<fieldDefinitions>
+								<fieldDefinition name="#text" type="String" />
+								<fieldDefinition name="version" type="Double" />
+							</fieldDefinitions>
+						</fieldDefinition>
+						<fieldDefinition name="remarks" type="Group">
+							<fieldDefinitions>
+								<fieldDefinition name="#text" type="String" />
+								<fieldDefinition name="source" type="String" />
+								<fieldDefinition name="time" type="Date" />
+								<fieldDefinition name="to" type="String" />
+								<fieldDefinition name="keywords" type="String" />
+								<fieldDefinition name="version" type="Double" />
+							</fieldDefinitions>
+						</fieldDefinition>
+						<fieldDefinition name="request" type="Group">
+							<fieldDefinitions>
+								<fieldDefinition name="#text" type="String" />
+								<fieldDefinition name="notify" type="String" />
+								<fieldDefinition name="wilcoby" type="Date" />
+								<fieldDefinition name="priority" type="String" />
+								<fieldDefinition name="version" type="Double" />
+								<fieldDefinition name="to" type="String" />
+								<fieldDefinition name="authority" type="String" />
+								<fieldDefinition name="streamto" type="String" />
+							</fieldDefinitions>
+						</fieldDefinition>
+						<fieldDefinition name="sensor" type="Group">
+							<fieldDefinitions>
+								<fieldDefinition name="#text" type="String" />
+								<fieldDefinition name="azimuth" type="String" />
+								<fieldDefinition name="elevation" type="Date" />
+								<fieldDefinition name="roll" type="String" />
+								<fieldDefinition name="fov" type="Double" />
+								<fieldDefinition name="vfov" type="String" />
+								<fieldDefinition name="north" type="String" />
+								<fieldDefinition name="version" type="Double" />
+								<fieldDefinition name="type" type="String" />
+								<fieldDefinition name="model" type="String" />
+								<fieldDefinition name="range" type="String" />
+							</fieldDefinitions>
+						</fieldDefinition>
+						<fieldDefinition name="shape" type="Geometry" />
+						<fieldDefinition name="spatial" type="Group">
+							<fieldDefinitions>
+								<fieldDefinition name="#text" type="String" />
+								<fieldDefinition name="attitude" type="Group">
+									<fieldDefinitions>
+										<fieldDefinition name="#text" type="String" />
+										<fieldDefinition name="roll" type="String" />
+										<fieldDefinition name="pitch" type="String" />
+										<fieldDefinition name="yaw" type="String" />
+										<fieldDefinition name="eRoll" type="String" />
+										<fieldDefinition name="ePitch" type="String" />
+										<fieldDefinition name="eYaw" type="String" />
+									</fieldDefinitions>
+								</fieldDefinition>
+								<fieldDefinition name="spin" type="Group">
+									<fieldDefinitions>
+										<fieldDefinition name="#text" type="String" />
+										<fieldDefinition name="roll" type="String" />
+										<fieldDefinition name="pitch" type="String" />
+										<fieldDefinition name="yaw" type="String" />
+										<fieldDefinition name="eRoll" type="String" />
+										<fieldDefinition name="ePitch" type="String" />
+										<fieldDefinition name="eYaw" type="String" />
+									</fieldDefinitions>
+								</fieldDefinition>
+								<fieldDefinition name="version" type="Double" />
+							</fieldDefinitions>
+						</fieldDefinition>
+						<fieldDefinition name="track" type="Group">
+							<fieldDefinitions>
+								<fieldDefinition name="#text" type="String" />
+								<fieldDefinition name="course" type="String" />
+								<fieldDefinition name="speed" type="String" />
+								<fieldDefinition name="slope" type="String" />
+								<fieldDefinition name="eCourse" type="Double" />
+								<fieldDefinition name="eSpeed" type="Double" />
+								<fieldDefinition name="eSlope" type="Double" />
+								<fieldDefinition name="version" type="Double" />
+							</fieldDefinitions>
+						</fieldDefinition>
+						<fieldDefinition name="uid" type="Group">
+							<fieldDefinitions>
+								<fieldDefinition name="#text" type="String" />
+								<fieldDefinition name="version" type="Double" />
+							</fieldDefinitions>
+						</fieldDefinition>
+					</fieldDefinitions>
+				</fieldDefinition>
+			</fieldDefinitions>
+		</geoEventDefinition>
+	</geoEventDefinitions>
+	<propertyDefinitions>
+		<propertyDefinition propertyName="CoT_Types_Path"
+			label="Cot Types Path" description="Complete path for the cot types file"
+			propertyType="String" mandatory="true" readOnly="false" />
+		<propertyDefinition propertyName="XSD_Path" label="XSD Path"
+			description="This directory is where additional xsd files can be installed.  When the Adapter is installed, any xsd files found in this folder are used to add schema elements to the CoT GeoEvent Definition."
+			propertyType="String" mandatory="true" readOnly="false" />
+		<propertyDefinition propertyName="Max_Buffer_Size"
+			label="Maximum Buffer Size"
+			description="This is the maximum number of XML characters that will be stored in memory while looking for a complete Cursor on Target message.  If the adapter receives more than this amount of text, it will assume that it has somehow missed the end of the message, and it will scan for something that looks like the beginning of a new message."
+			propertyType="Integer" mandatory="true" readOnly="false" />
+	</propertyDefinitions>
+</adapter>

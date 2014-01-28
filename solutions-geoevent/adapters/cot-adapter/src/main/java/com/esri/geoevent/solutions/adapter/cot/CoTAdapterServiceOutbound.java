@@ -3,6 +3,8 @@
  */
 package com.esri.geoevent.solutions.adapter.cot;
 
+import javax.xml.bind.JAXBException;
+
 import com.esri.ges.adapter.Adapter;
 import com.esri.ges.adapter.AdapterServiceBase;
 import com.esri.ges.adapter.util.XmlAdapterDefinition;
@@ -18,8 +20,17 @@ public class CoTAdapterServiceOutbound extends AdapterServiceBase {
 	 * 
 	 */
 	public CoTAdapterServiceOutbound() {
-		definition = new XmlAdapterDefinition(getResourceAsStream("outbound-adapter-definition.xml"));
+		XmlAdapterDefinition xmlAdapterDef = new XmlAdapterDefinition(getResourceAsStream("outbound-adapter-definition.xml"));
 		
+		try
+		{
+			xmlAdapterDef.loadConnector(getResourceAsStream("output-connector-definition.xml"));
+		}
+		catch (JAXBException e)
+	    {
+			throw new RuntimeException(e);
+	    }
+		definition =xmlAdapterDef;
 	}
 
 	/* (non-Javadoc)

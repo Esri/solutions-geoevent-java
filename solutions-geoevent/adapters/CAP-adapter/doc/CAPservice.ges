@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<template>
+  <geoEventServices>
+    <geoEventService name="CAP" runningState="STARTED">
+      <inputs>
+        <input ref="CAP-FEMA-http" left="42" top="0" width="83.2" height="70.2" />
+      </inputs>
+      <outputs>
+        <output ref="CAPInfoResource-fs-out" left="774.4" top="645.46" width="169.20000000000019" height="71.2" />
+        <output ref="CAPAlert-fs-out" left="773.4" top="72.94" width="170.20000000000013" height="66.2" />
+        <output ref="CAPInfoParameter-fs-out" left="688.4" top="427.64" width="156.20000000000016" height="70.2" />
+        <output ref="CAPInfo-fs-out" left="773.4" top="210.82" width="172.20000000000013" height="70.2" />
+        <output ref="CAPInfoCategory-fs-out" left="688.4" top="283.76" width="157.20000000000016" height="70.2" />
+        <output ref="CAPInfoEventCode-fs-out" left="773.4" top="356.7" width="172.19999999999996" height="68.2" />
+        <output ref="CAPInfoResponseType-fs-out" left="773.4" top="500.58" width="171.2" height="70.199999999999989" />
+        <output ref="CAP-json-out" left="686.4" top="0" width="83.2" height="70.2" />
+        <output ref="CAPInfoAreaGeom-fs-out" left="688.4" top="719.40000000000009" width="156.20000000000019" height="69.2" />
+        <output ref="CAPInfoArea-fs-out" left="694.4" top="573.52" width="151.20000000000007" height="69.2" />
+        <output ref="CAPAlertCode-fs-out" left="688.4" top="141.88" width="156.1999999999999" height="66.2" />
+      </outputs>
+      <nodes>
+        <node name="AlertCode" left="502.4" top="139.88" width="83.2" height="70.2">
+          <filter>
+            <attributeCondition operand="$DEFINITION_NAME" operator="=" value="CAPAlertCode" />
+          </filter>
+        </node>
+        <node name="Pass to filters" left="209.40000000000003" top="0" width="83.2" height="70.2">
+          <processor uri="com.esri.ges.processor/NoOperation/10.2.0">
+            <properties />
+          </processor>
+        </node>
+        <node name="Alert" left="587.4" top="70.94" width="83.2" height="70.2">
+          <filter>
+            <attributeCondition operand="$DEFINITION_NAME" operator="=" value="CAPAlert" />
+          </filter>
+        </node>
+        <node name="InfoResource" left="587.4" top="645.96" width="83.2" height="70.2">
+          <filter>
+            <attributeCondition operand="$DEFINITION_NAME" operator="=" value="CAPInfoResource" />
+          </filter>
+        </node>
+        <node name="InfoEventCode" left="587.4" top="355.7" width="83.2" height="70.2">
+          <filter>
+            <attributeCondition operand="$DEFINITION_NAME" operator="=" value="CAPInfoEventCode" />
+          </filter>
+        </node>
+        <node name="InfoArea" left="503.4" top="573.02" width="83.2" height="70.2">
+          <filter>
+            <attributeCondition operand="$DEFINITION_NAME" operator="=" value="CAPInfoArea" />
+          </filter>
+        </node>
+        <node name="Info" left="587.4" top="210.82" width="83.2" height="70.2">
+          <filter>
+            <attributeCondition operand="$DEFINITION_NAME" operator="=" value="CAPInfo" />
+          </filter>
+        </node>
+        <node name="InfoParameter" left="502.4" top="427.64" width="83.2" height="70.2">
+          <filter>
+            <attributeCondition operand="$DEFINITION_NAME" operator="=" value="CAPInfoParameter" />
+          </filter>
+        </node>
+        <node name="InfoResponseType" left="587.4" top="500.57999999999993" width="83.2" height="70.2">
+          <filter>
+            <attributeCondition operand="$DEFINITION_NAME" operator="=" value="CAPInfoResponseType" />
+          </filter>
+        </node>
+        <node name="InfoAreaGeom" left="502.4" top="718.90000000000009" width="83.2" height="70.2">
+          <filter>
+            <attributeCondition operand="$DEFINITION_NAME" operator="=" value="CAPInfoAreaGeom" />
+          </filter>
+        </node>
+        <node name="InfoCategory" left="502.4" top="283.76" width="83.2" height="70.2">
+          <filter>
+            <attributeCondition operand="$DEFINITION_NAME" operator="=" value="CAPInfoCategory" />
+          </filter>
+        </node>
+      </nodes>
+      <flow>
+        <from ref="Alert">
+          <to ref="CAPAlert-fs-out" path="672.6,106.04 685.6,106.04 758.4,106.04 766.4,106.04" custom="false" />
+        </from>
+        <from ref="AlertCode">
+          <to ref="CAPAlertCode-fs-out" path="587.6,174.98 600.6,174.98 673.4,174.98 681.4,174.98" custom="false" />
+        </from>
+        <from ref="CAP-FEMA-http">
+          <to ref="Pass to filters" path="127.2,35.1 140.2,35.1 194.4,35.1 202.4,35.1" custom="false" />
+        </from>
+        <from ref="Info">
+          <to ref="CAPInfo-fs-out" path="672.6,245.92 685.6,245.92 758.4,245.92 766.4,245.92" custom="false" />
+        </from>
+        <from ref="InfoArea">
+          <to ref="CAPInfoArea-fs-out" path="588.6,608.12 601.6,608.12 679.4,608.12 687.4,608.12" custom="false" />
+        </from>
+        <from ref="InfoAreaGeom">
+          <to ref="CAPInfoAreaGeom-fs-out" path="587.6,754 600.6,754 673.4,754 681.4,754" custom="false" />
+        </from>
+        <from ref="InfoCategory">
+          <to ref="CAPInfoCategory-fs-out" path="587.6,318.86 600.6,318.86 673.4,318.86 681.4,318.86" custom="false" />
+        </from>
+        <from ref="InfoEventCode">
+          <to ref="CAPInfoEventCode-fs-out" path="672.6,390.8 685.6,390.8 758.4,390.8 766.4,390.8" custom="false" />
+        </from>
+        <from ref="InfoParameter">
+          <to ref="CAPInfoParameter-fs-out" path="587.6,462.74 600.6,462.74 673.4,462.74 681.4,462.74" custom="false" />
+        </from>
+        <from ref="InfoResource">
+          <to ref="CAPInfoResource-fs-out" path="672.6,681.06 685.6,681.06 759.4,681.06 767.4,681.06" custom="false" />
+        </from>
+        <from ref="InfoResponseType">
+          <to ref="CAPInfoResponseType-fs-out" path="672.6,535.68 685.6,535.68 758.4,535.68 766.4,535.68" custom="false" />
+        </from>
+        <from ref="Pass to filters">
+          <to ref="Alert" path="294.6,35.1 307.6,35.1 440,35.1 440,106.04 572.4,106.04 580.4,106.04" custom="false" />
+          <to ref="CAP-json-out" path="294.6,35.1 307.6,35.1 671.4,35.1 679.4,35.1" custom="false" />
+          <to ref="AlertCode" path="294.6,35.1 307.6,35.1 397.5,35.1 397.5,174.98 487.4,174.98 495.4,174.98" custom="false" />
+          <to ref="Info" path="294.6,35.1 307.6,35.1 440,35.1 440,245.92 572.4,245.92 580.4,245.92" custom="false" />
+          <to ref="InfoCategory" path="294.6,35.1 307.6,35.1 397.5,35.1 397.5,318.86 487.4,318.86 495.4,318.86" custom="false" />
+          <to ref="InfoEventCode" path="294.6,35.1 307.6,35.1 440,35.1 440,390.8 572.4,390.8 580.4,390.8" custom="false" />
+          <to ref="InfoParameter" path="294.6,35.1 307.6,35.1 397.5,35.1 397.5,462.74 487.4,462.74 495.4,462.74" custom="false" />
+          <to ref="InfoResponseType" path="294.6,35.1 307.6,35.1 440,35.1 440,535.68 572.4,535.68 580.4,535.68" custom="false" />
+          <to ref="InfoArea" path="294.6,35.1 307.6,35.1 398,35.1 398,608.12 488.4,608.12 496.4,608.12" custom="false" />
+          <to ref="InfoResource" path="294.6,35.1 307.6,35.1 440,35.1 440,681.06 572.4,681.06 580.4,681.06" custom="false" />
+          <to ref="InfoAreaGeom" path="294.6,35.1 307.6,35.1 397.5,35.1 397.5,754 487.4,754 495.4,754" custom="false" />
+        </from>
+      </flow>
+    </geoEventService>
+  </geoEventServices>
+</template>
