@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+	<reference id="geoDefManagerService" interface="com.esri.ges.manager.geoeventdefinition.GeoEventDefinitionManager"/>
+
+	<bean id="symbolIdToNameProcessorServiceBean" class="com.esri.geoevent.solutions.processor.symbollookup.SymbolIdToNameProcessorService" 
+	      init-method="start" activation="eager">
+		<property name="bundleContext" ref="blueprintBundleContext" />
+		<property name="manager" ref="geoDefManagerService"/>		
+	</bean>
+
+	<bean id="symbolNameToIdProcessorServiceBean" class="com.esri.geoevent.solutions.processor.symbollookup.SymbolNameToIdProcessorService" 
+	      init-method="start" activation="eager">
+		<property name="bundleContext" ref="blueprintBundleContext" />
+		<property name="manager" ref="geoDefManagerService"/>			
+	</bean>	
+			
+	<service id="symbolNameToIdProcessorService" ref="symbolNameToIdProcessorServiceBean" interface="com.esri.ges.processor.GeoEventProcessorService"/>
+	
+	<service id="symbolIdToNameProcessorService" ref="symbolIdToNameProcessorServiceBean" interface="com.esri.ges.processor.GeoEventProcessorService"/>		
+	
+</blueprint>

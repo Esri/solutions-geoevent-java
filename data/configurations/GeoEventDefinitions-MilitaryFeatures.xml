@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<template>
+  <geoEventServices />
+  <inputs />
+  <outputs />
+  <geoEventDefinitions>
+    <geoEventDefinition guid="af5dba90-b6d1-4299-9757-4278b785e08e" name="MilitaryFeaturesLookup" owner="arcgis">
+      <fieldDefinitions>
+        <fieldDefinition name="Identifier" type="String" cardinality="One">
+          <fieldDefinitionTag>
+            <name>TRACK_ID</name>
+          </fieldDefinitionTag>
+          <fieldDefinitions/>
+        </fieldDefinition>
+        <fieldDefinition name="Echelon" type="String" cardinality="One">
+          <fieldDefinitions/>
+        </fieldDefinition>
+        <fieldDefinition name="HigherFormation" type="String" cardinality="One">
+          <fieldDefinitions/>
+        </fieldDefinition>
+        <fieldDefinition name="CountryCode" type="String" cardinality="One">
+          <fieldDefinitions/>
+        </fieldDefinition>
+        <fieldDefinition name="UniqueDesignation" type="String" cardinality="One">
+          <fieldDefinitions/>
+        </fieldDefinition>
+        <fieldDefinition name="Location" type="Geometry" cardinality="One">
+          <fieldDefinitionTag>
+            <name>GEOMETRY</name>
+          </fieldDefinitionTag>
+          <fieldDefinitions/>
+        </fieldDefinition>
+        <fieldDefinition name="CreatedTime" type="Date" cardinality="One">
+          <fieldDefinitionTag>
+            <name>TIME_START</name>
+          </fieldDefinitionTag>
+          <fieldDefinitions/>
+        </fieldDefinition>
+        <fieldDefinition name="SymbolName" type="String" cardinality="One">
+          <fieldDefinitions/>
+        </fieldDefinition>
+        <fieldDefinition name="SymbolId" type="String" cardinality="One">
+          <fieldDefinitions/>
+        </fieldDefinition>
+      </fieldDefinitions>
+    </geoEventDefinition>    
+  </geoEventDefinitions>
+</template>
