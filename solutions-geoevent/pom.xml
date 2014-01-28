@@ -18,6 +18,7 @@
 		<module>adapters/CAP-adapter</module>
 		<module>processors/symbol-lookup-processor</module>
 		<module>processors/geometry-processor</module>
+		<module>adapters/cot-adapter</module>
 	</modules>
 	<repositories>
 		<repository>

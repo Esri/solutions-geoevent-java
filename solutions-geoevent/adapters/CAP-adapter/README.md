@@ -1,4 +1,4 @@
-# CAP-Adapter
+﻿# CAP-Adapter
 
 The CAP adapter provides an example of how to ingest Common Alerting Protocol (CAP) XML messages as geoevents.
 

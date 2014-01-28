@@ -1,0 +1,43 @@
+<connectorDefinition label="Receive Cursor on Target" name="cot-in"
+	type="inbound">
+	<description>Receive Cursor on Target messages</description>
+	<defaultName>cot-in</defaultName>
+	<transport uri="com.esri.ges.transport.inbound/HTTP/10.2.0" />
+	<adapter
+		uri="com.esri.geoevent.solutions.adapter.cot.inbound/CursorOnTargetIn/10.2.0" />
+	<properties>
+		<shown>
+			<property name="XSD_Path" label="XSD_Path" source="adapter"
+				default="" />
+			<property name="CoT_Types_Path" label="CoT_Types_Path"
+				source="adapter" default="" />
+		</shown>
+		<advanced />
+		<hidden>
+			<property name="Max_Buffer_Size" label="Maximum Buffer Size"
+				source="adapter" default="1048576" />
+			<property name="mode" label="Mode" source="transport"
+				default="SERVER" />
+			<property name="honorLastModified" label="Receive New Data Only"
+				source="transport" default="true" />
+			<property name="acceptableMimeTypesClientMode" label="Acceptable MIME Types (Client Mode)"
+				source="transport" />
+			<property name="clientURL" label="URL" source="transport" />
+			<property name="useClientURLProxy" label="Use URL Proxy"
+				source="transport" default="false" />
+			<property name="clientURLProxy" label="URL Proxy" source="transport" />
+			<property name="clientParameters" label="Parameters" source="transport" />
+			<property name="clientPostBody" label="Content Body" source="transport" />
+			<property name="httpMethod" label="HTTP Method" source="transport"
+				default="POST" />
+			<property name="postContentType" label="Post body MIME Type" default="text/xml"
+				source="transport" />
+			<property name="useLongPolling" label="Use Long Polling"
+				source="transport" default="false" />
+			<property name="frequency" label="Frequency (in seconds)"
+				source="transport" default="5" />
+			<property name="acceptableMimeTypesServerMode" label="Acceptable MIME Types (Server Mode)"
+				default="text/xml" source="transport" />
+		</hidden>
+	</properties>
+</connectorDefinition>

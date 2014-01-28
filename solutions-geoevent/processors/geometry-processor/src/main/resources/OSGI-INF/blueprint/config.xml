@@ -6,38 +6,38 @@
     <reference id="agsConnectionsManagerService" interface="com.esri.ges.manager.datastore.agsconnection.ArcGISServerConnectionManager"/>
     <reference id="messagingService" interface="com.esri.ges.messaging.Messaging"/>
     
-    <bean id="rangeFanProcessorServiceBean" class="com.esri.ges.solutions.processor.geometry.RangeFanProcessorService" init-method="start">
+    <bean id="rangeFanProcessorServiceBean" class="com.esri.geoevent.solutions.processor.geometry.RangeFanProcessorService" init-method="start">
     	<property name="bundleContext" ref="blueprintBundleContext" />
 		<property name="spatial" ref="spatialService"/>
 		<property name="manager" ref="geoDefManagerService"/>
 		
     </bean>
     
-    <bean id="ellipseProcessorServiceBean" class="com.esri.ges.solutions.processor.geometry.EllipseProcessorService" init-method="start">
+    <bean id="ellipseProcessorServiceBean" class="com.esri.geoevent.solutions.processor.geometry.EllipseProcessorService" init-method="start">
     	<property name="bundleContext" ref="blueprintBundleContext" />
 		<property name="spatial" ref="spatialService"/>
 		<property name="manager" ref="geoDefManagerService"/>
     </bean>
     
-    <bean id="bufferProcessorServiceBean" class="com.esri.ges.solutions.processor.geometry.BufferProcessorService">
+    <bean id="bufferProcessorServiceBean" class="com.esri.geoevent.solutions.processor.geometry.BufferProcessorService">
     	<property name="bundleContext" ref="blueprintBundleContext" />
 		<property name="spatial" ref="spatialService"/>
     </bean>
     
-    <bean id="polygonProcessorServiceBean" class="com.esri.ges.solutions.processor.geometry.PolygonProcessorService" init-method="start">
+    <bean id="polygonProcessorServiceBean" class="com.esri.geoevent.solutions.processor.geometry.PolygonProcessorService" init-method="start">
     	<property name="bundleContext" ref="blueprintBundleContext" />
 		<property name="spatial" ref="spatialService"/>
 		<property name="manager" ref="geoDefManagerService"/>
     </bean>
     
-    <bean id="visibilityProcessorServiceBean" class="com.esri.ges.solutions.processor.geometry.VisibilityProcessorService" init-method="start">
+    <bean id="visibilityProcessorServiceBean" class="com.esri.geoevent.solutions.processor.geometry.VisibilityProcessorService" init-method="start">
     	<property name="bundleContext" ref="blueprintBundleContext" />
 		<property name="spatial" ref="spatialService"/>
 		<property name="manager" ref="geoDefManagerService"/>
 		
     </bean>
     
-    <bean id="queryReportProcessorServiceBean" class="com.esri.ges.solutions.processor.geometry.QueryReportProcessorService" init-method="start">
+    <bean id="queryReportProcessorServiceBean" class="com.esri.geoevent.solutions.processor.geometry.QueryReportProcessorService" init-method="start">
     	<property name="bundleContext" ref="blueprintBundleContext" />
 		<property name="spatial" ref="spatialService"/>
 		<property name="manager" ref="geoDefManagerService"/>

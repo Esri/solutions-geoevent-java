@@ -1,0 +1,83 @@
+<?xml version='1.0' standalone='yes'?>
+<event
+    version = "2.0"
+    uid = "J-01334"
+    type = "a-h-A-M-F-U-M"
+    time = "2005-04-05T11:43:38.07Z"
+    start = "2005-04-05T11:43:38.07Z"
+    stale = "2005-04-05T11:45:38.07Z">
+    <detail>
+        <_flow-tags_ version = "2.0"></_flow-tags_>
+        <remarks
+            keywords = "tasking"
+            source = "sourceofcomment"
+            time = "2005-04-05T11:43:38.07Z"
+            to = "1,2,3,4"
+            version = "2.0">Comment</remarks>
+        <request
+            authority = "uid0000"
+            priority = "high"
+            streamto = "11111"
+            to = "111111"
+            version = "2.0"
+            wilcoby = "wil">This is the rquest</request>
+        <sensor
+            azimuth = "90"
+            elevation = "10000"
+            fov = "45"
+            model = "TARPS"
+            north = "90"
+            range = "100"
+            roll = "90"
+            type = "thetype"
+            version = "2.0"
+            vfov = "36">vw2</sensor>
+        <spatial>
+            <attitude>10000</attitude>
+            <spin>60</spin>
+        </spatial>
+        <track>11</track>
+        <uid>11111</uid>
+    </detail>
+    <point
+        lat = "30.0090027"
+        lon = "-85.9578735"
+        ce = "45.3"
+        hae = "-42.6"
+        le = "99.5"/>
+</event>
+<event
+    version = "2.0"
+    uid = "J-01334"
+    type = "a-h-A-M-F-U-M"
+    time = "2005-04-05T11:43:38.07Z"
+    start = "2005-04-05T11:43:38.07Z"
+    stale = "2005-04-05T11:45:38.07Z">
+    <detail></detail>
+    <point
+        lat = "30.0090027"
+        lon = "-85.9578735"
+        ce = "45.3"
+        hae = "-42.6"
+        le = "99.5"/>
+</event>
+<event
+    how = "m-r-t-j"
+    opex = "e-JEFX06"
+    qos = "3-i-d"
+    stale = "2011-02-01T10:23:50.92Z"
+    start = "2011-02-01T10:21:50.92Z"
+    time = "2011-02-01T10:21:50.92Z"
+    type = "a-f-A-M-F-O"
+    uid = "Debug.001"
+    version = "2.0">
+    <detail>
+        <_flow-tags_ debug = "2011-02-01T10:21:53.00Z"/>
+    </detail>
+    <point
+        ce = "122.5"
+        hae = "887.1"
+        lat = "42.5812511"
+        le = "433."
+        lon = "-71.1735919"/>
+</event>

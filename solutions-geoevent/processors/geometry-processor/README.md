@@ -1,4 +1,4 @@
-# geometry-processor
+﻿# geometry-processor
 
 The geometry processor demonstrates how to extend GEP Server to build processors that perform custom actions and processing on geometries of a geoevent service.  
 

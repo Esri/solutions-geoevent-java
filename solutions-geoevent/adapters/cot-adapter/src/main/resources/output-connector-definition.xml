@@ -1,0 +1,20 @@
+<connectorDefinition label="Send Cursor on Target message"
+	name="cot-out" type="outbound">
+	<adapter uri="com.esri.geoevent.solutions.adapter.cot.outbound/CursorOnTargetOut/10.2.0" />
+	<transport uri="com.esri.geoevent.solutions.transport.tcpsquirt.outbound/TCPSquirt/10.2.0" />
+	<defaultName>CoT-out</defaultName>
+	<description>Send a Cursor on Target message out over tcp socket that opens on demand</description>
+	<properties>
+		<advanced>
+			<property label="Host (Client Mode)" name="host" source="transport" />
+			<property label="Connection Timeout (Client Mode)" name="clientConnectionTimeout" source="transport" />
+			<property label="Mode" name="mode" source="transport" />
+		</advanced>
+		<hidden>
+			
+		</hidden>
+		<shown>
+			<property label="Server Port" name="port" default="5565" source="transport" />
+		</shown>
+	</properties>
+</connectorDefinition>
