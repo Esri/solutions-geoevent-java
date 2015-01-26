@@ -1,6 +1,6 @@
 ﻿# Geometry Processors
 
-The Geometry Processors demonstrate how to extend GeoEvent Processor to build custom processors that perform actions and processing on the geometries of a GeoEvent Service.  
+The Geometry Processors demonstrate how to extend GeoEvent Extension to build custom processors that perform actions and processing on the geometries of a GeoEvent Service.  
 
 ![Image of geomessage-adapter](Buffer.PNG)
 
@@ -40,16 +40,16 @@ Multiple processors are included with the Geometry Processors:
 
 * Install the Geometry Processors.
     * Browse to `solutions-geoevent-java/solutions-processors/geometry-processor/target` (this directory is created when you execute mvn install).
-    * Copy the .jar file and paste it into the deploy folder in the GeoEvent Processor install directory ([GeoEvent Processor install location]\deploy\ -- default location is C:\Program Files\ArcGIS\Server\GeoEventProcessor\deploy).
+    * Copy the .jar file and paste it into the deploy folder in the GeoEvent Processor install directory ([GeoEvent Extension install location]\deploy\ -- default location is C:\Program Files\ArcGIS\Server\GeoEventExtension\deploy).
 * Check for existing GeoEvent Definitions.
-    *  Open GeoEvent Processor Manager.
-    *  Navigate to ‘Site’ > ‘GeoEvent Processor’ > ‘GeoEvent Definitions’.
+    *  Open GeoEvent Manager.
+    *  Navigate to ‘Site’ > ‘GeoEvent’ > ‘GeoEvent Definitions’.
     *  Confirm GeoEvent Definition(s) exist for the processor(s) you want to run (e.g. if you are going to run the Buffer Processor, confirm a GeoEvent Definition is available as illustrated below).
 
 ![Image of geoeventdefinition](doc/geoeventdefinition.png)
 
 * If these GeoEvent Definitions are not available, do the following to create these GeoEvent Definitions.
-    *  Navigate to ‘Site’ > ‘GeoEvent Processor’ > ‘Configuration Store’ and click ‘Import Configuration’.
+    *  Navigate to ‘Site’ > ‘GeoEvent’ > ‘Configuration Store’ and click ‘Import Configuration’.
     *  Browse to `solutions-geoevent-java\data\configurations` and locate the `GeoEventDefinitions-GeometryProcessors.xml` configuration file. This file is located [here](../../../data/configurations/GeoEventDefinitions-GeometryProcessors.xml).
     *  On the Import Configuration dialog, click Import.
 
@@ -65,7 +65,7 @@ Multiple processors are included with the Geometry Processors:
 * In the following steps you will configure GeoEvent Processor to receive and process simulated data.
 * The following example configures the Ran Fan Processor, the other processors can be configured in a similar manner.
 
-* Open GeoEvent Processor Manager.
+* Open GeoEvent Manager.
 * Create an Input Connector to receive simulated data over TCP.
     * Navigate to ‘Site’ > ‘Services’ > 'Inputs'.
     * Click Add Input and select 'Receive text from a TCP Socket' and configure as illustrated below.
@@ -81,12 +81,12 @@ Multiple processors are included with the Geometry Processors:
 ![Image of service](doc/geometry-simple-service.png)
 ![Image of processor](doc/geometry-range-fan-service-design.png)
 
-* In GeoEvent Processor Manager, navigate to ‘Services’ > ‘Monitor’ and observe the GeoEvent Processor components, they should be similar to the illustration below (note: your names/outputs may differ).
+* In GeoEvent Manager, navigate to ‘Services’ > ‘Monitor’ and observe the GeoEvent Extension components, they should be similar to the illustration below (note: your names/outputs may differ).
 
 ![Image of monitor](doc/monitor.png)
 
 * Using the GeoEvent Simulator, load the simulation file located at  solutions-geoevent-java\data\simulation_files\Geometry-RangeFans.csv
-* In GeoEvent Processor Manager, navigate to 'Services' > 'Monitor' to observe that the values are increasing and the selected outputs are updated. 
+* In GeoEvent Manager, navigate to 'Services' > 'Monitor' to observe that the values are increasing and the selected outputs are updated. 
 * You can now test the processors with additional outputs such as published feature services.
 
 ## Licensing
