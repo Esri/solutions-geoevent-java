@@ -23,7 +23,6 @@
 		<module>processors/buffer-processor</module>
 		<module>processors/ellipse-processor</module>
 		<module>processors/eventVolumeControl-processor</module>
-		<module>processors/fieldgrouper-processor</module>
 		<module>processors/query-report-processor</module>
 		<module>processors/rangefan-processor</module>
 		<module>processors/symbol-lookup-processor</module>
